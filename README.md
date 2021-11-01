@@ -1,29 +1,115 @@
-# Next.js + Tailwind CSS Example
+# Nextup
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v2.2)](https://blog.tailwindcss.com/tailwindcss-2-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+---
 
-It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
+### Table of Contents
 
-## Preview
+- [Description](#description)
+- [How To Use](#how-to-use)
+- [References](#references)
+- [License](#license)
+- [Author Info](#author-info)
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+---
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+## Description
 
-## Deploy your own
+Full-stack application that allows the user to create an
+event. The event has an image, title, description, location, start
+date and time, and the maximum number of users allowed. Registered
+users can sign up for the event and receive an email reminder 1
+day before the event.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+#### Technologies
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+- HTML
+- CSS
+- Figma
+- JavaScript
+- Typescript
+- Node
+- NestJS
+- Fastify
+- NextJs
+- Docker
+- Amazon AWS
+- Amazon S3
+- Git
+- GitHub
+- Jest
+- MongoDB
+- TypeORM
+- JWT
+- Swagger
+- Trello
+- SendGrid
 
-## How to use
+[Back To The Top](#Nextup)
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+---
+
+## How To Use
+
+### Pre-requirements:
+
+- AWS account
+- Figma account
+- Trello account
+- Google account (for firebase)
+- SendGrig account
+
+Clone repository and run:
 
 ```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+$ yarn install
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+In the project directory, you can run:
+
+```bash
+$ yarn run dev
+```
+
+```bash
+$ yarn test
+```
+
+```bash
+$ yarn build
+```
+
+## References
+
+- SkillUp Mentor - [skillupmentor](https://skillupmentor.com/)
+
+- LinkedIn - [@nejcrogelsek](https://www.linkedin.com/in/nejcrogelsek/)
+- Github - [@nejcrogelsek](https://github.com/nejcrogelsek)
+- Website - [Nejc Rogelšek](https://nejcrogelsek.si)
+
+[Back To The Top](#Nextup)
+
+---
+
+## License
+
+MIT License
+
+Copyright (c) 2021 [skillupmentor](https://skillupmentor.com/)
+
+This assignment is protected with XYZ copyright. The Candidate may
+upload the assignment on his closed profile on GitHub (or other
+platform), but any other reproduction and distribution of the
+assignment itself or the assignment’s solutions without written
+permission of XYZ is prohibited.
+
+[Back To The Top](#Nextup)
+
+---
+
+## Author Info
+
+- LinkedIn - [@nejcrogelsek](https://www.linkedin.com/in/nejcrogelsek/)
+- Github - [@nejcrogelsek](https://github.com/nejcrogelsek)
+- Website - [Nejc Rogelšek](https://nejcrogelsek.si)
+
+[Back To The Top](#Nextup)
