@@ -5,23 +5,23 @@ import router from 'next/router'
 import { FC } from 'react'
 
 const NavDesktop: FC = () => {
-	const user = false
+	const user = true
 	const signout = () => {
 		console.log('logout')
 		router.push('/')
 	}
 
 	return (
-		<nav>
+		<nav className='flex-grow flex justify-center items-center relative h-12'>
 			{user ? (
 				<>
-					<ul>
-						<li>
+					<ul className='flex justify-center items-center h-6'>
+						<li className='mr-12'>
 							<Link href='/'>
 								<a>Home</a>
 							</Link>
 						</li>
-						<li>
+						<li className='mr-12'>
 							<Link href='/search'>
 								<a>Search</a>
 							</Link>
@@ -32,8 +32,8 @@ const NavDesktop: FC = () => {
 							</Link>
 						</li>
 					</ul>
-					<ul>
-						<li>
+					<ul className='absolute right-0 top-0 flex justify-center items-center h-12'>
+						<li className='mr-4'>
 							<button onClick={() => signout()}>Logout</button>
 						</li>
 						<li>
@@ -47,20 +47,20 @@ const NavDesktop: FC = () => {
 				</>
 			) : (
 				<>
-					<ul>
-						<li>
+					<ul className='flex justify-center items-center h-12'>
+						<li className='mr-12'>
 							<Link href='/'><a>Home</a></Link>
 						</li>
-						<li>
+						<li className='mr-12'>
 							<Link href='/search'><a>Search</a></Link>
 						</li>
 					</ul>
-					<ul>
-						<li>
+					<ul className='absolute right-0 top-0 flex justify-center items-center h-12'>
+						<li className='mr-10'>
 							<Link href='/login'><a>Login</a></Link>
 						</li>
 						<li>
-							<Link href='/signup'><a>Sign up</a></Link>
+							<Link href='/signup'><a className='bg-primary w-28 text-white px-4 py-2 rounded-3xl flex justify-center items-center transition hover:bg-black'>Sign up</a></Link>
 						</li>
 					</ul>
 				</>

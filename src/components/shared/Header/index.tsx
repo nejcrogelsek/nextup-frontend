@@ -13,6 +13,7 @@ const Header: FC = () => {
 			setIsMobile(true)
 		} else {
 			setIsMobile(false)
+			setToggle(false)
 		}
 	}
 
@@ -30,7 +31,7 @@ const Header: FC = () => {
 	return (
 		<>
 			<header className='absolute top-0 left-0 right-0 h-24 px-8 md:flex md:items-center'>
-				<div className="flex justify-between items-center w-full h-24">
+				<div className="flex justify-between items-center w-full h-24 lg:w-max">
 					<Logo />
 					<div className="cursor-pointer lg:hidden" onClick={() => toggleNav()}>
 						<MenuIcon />
