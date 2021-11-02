@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 const Home: FC = () => {
 	return (
-		<div>
+		<div className='h-96 pt-24'>
 			HOMEPAGE
 		</div>
 	)
