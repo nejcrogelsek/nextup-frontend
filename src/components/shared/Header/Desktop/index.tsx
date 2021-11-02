@@ -12,7 +12,7 @@ const NavDesktop: FC = () => {
 	}
 
 	return (
-		<nav className='flex justify-center items-center relative h-12'>
+		<nav className='flex-grow flex justify-center items-center relative h-12'>
 			{user ? (
 				<>
 					<ul className='flex justify-center items-center h-6'>
