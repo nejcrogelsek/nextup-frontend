@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 const Home: FC = () => {
 	return (
-		<div className='main-container'>
+		<div className='home-container'>
 			HOMEPAGE
 		</div>
 	)
