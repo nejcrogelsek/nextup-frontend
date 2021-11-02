@@ -5,14 +5,16 @@ import { FC } from 'react'
 
 const Home: FC = () => {
 	return (
-		<div>
+		<div className='relative'>
 			<Head>
 				<title>Nextup</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<Header />
 			<Homepage />
-			<Footer />
+			<div className="lg:w-2/4" >
+				<Footer />
+			</div>
 		</div>
 	)
 }
