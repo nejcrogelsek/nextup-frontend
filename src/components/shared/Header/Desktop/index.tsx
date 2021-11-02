@@ -5,14 +5,14 @@ import router from 'next/router'
 import { FC } from 'react'
 
 const NavDesktop: FC = () => {
-	const user = true
+	const user = false
 	const signout = () => {
 		console.log('logout')
 		router.push('/')
 	}
 
 	return (
-		<nav className='flex-grow flex justify-center items-center relative h-12'>
+		<nav className='flex justify-center items-center relative h-12'>
 			{user ? (
 				<>
 					<ul className='flex justify-center items-center h-6'>
