@@ -19,11 +19,11 @@
   [multiple],
   textarea,
   select {
-    @apply w-full mb-4 border-gray-300 rounded-lg shadow-sm focus:border-blue-400 focus:ring-blue-400;
+    @apply w-full mb-4 border-gray-300 rounded-lg shadow-sm focus:border-primary focus:ring-primary;
   }
   [type="checkbox"],
   [type="radio"] {
-    @apply rounded border-gray-300 text-blue-400 transition focus:ring-blue-500;
+    @apply rounded border-gray-300 text-primary transition focus:ring-blue-500;
   }
   *{
 	  @apply m-0 p-0 box-border;
@@ -34,16 +34,30 @@
 }
 
 @layer components {
-  .button {
-    @apply px-4 py-2 border hover:shadow-lg rounded-full cursor-pointer active:scale-95 active:bg-gray-100 transition transform duration-100 ease-out;
-  }
-  .link {
-	@apply bg-white px-4 py-2 rounded text-black font-semibold uppercase transition hover:bg-blue-300 hover:text-white;
-  }
   .container {
 	@apply max-w-screen-xl mx-auto px-4;
   }
   .myshadow{
 	box-shadow: 0px 0px 8px rgba(0,0,0,0.15);
   }
+  .main-container {
+	height: 100vh;
+	padding: 0 2rem;
+  }
+  @media (min-width: 640px) { .main-container { height: calc(100vh - theme(spacing.24)); } }
+
+  .form { @apply text-left max-w-lg my-auto mt-4; }
+  .form-element { @apply mb-4; }
+  .form-label { @apply text-sm font-semibold block; }
+  .form-control { @apply w-full h-10 mt-2 py-2 pr-8 pl-6 border-2 border-transparent rounded-2xl mb-0; } 
+  .form-control-is-invalid { @apply border-red-400; }
+  .form-buttons { @apply mb-4; }
+  .form-button { @apply bg-primary w-full text-white px-4 py-2 rounded-full h-10 cursor-pointer text-center flex justify-center items-center transition hover:bg-black; }
+  .form-goto { @apply flex items-center justify-between; }
+  .form-goto-p { @apply m-0 text-sm; }
+  .form-goto-a { @apply w-28 text-sm ml-2 text-right text-black transition hover:text-primary; }
+  .form-error-text { @apply my-2 text-xs font-semibold text-red-400 block; }
+  .form-validation-error { @apply text-white relative py-4 pl-4 pr-1 bg-red-400 rounded-2xl mb-4; }
+  .form-validation-close-icon { @apply cursor-pointer absolute right-4 top-2/4 transform -translate-x-2/4 translate-y-0 scale-y-150;}
+  .form-validation-success { @apply text-white relative py-4 pl-4 pr-1 bg-green-400 rounded-2xl mb-4; }
 }

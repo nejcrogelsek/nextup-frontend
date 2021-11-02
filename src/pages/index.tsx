@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import { Footer, Header } from '../components/shared'
 import Homepage from '../components/home/Home'
+import { FC } from 'react'
 
-export default function Home() {
+const Home: FC = () => {
 	return (
 		<div>
 			<Head>
@@ -10,9 +11,10 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<Header />
-
 			<Homepage />
 			<Footer />
 		</div>
 	)
 }
+
+export default Home
