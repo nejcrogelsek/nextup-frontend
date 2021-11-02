@@ -12,7 +12,7 @@ interface Props {
 }
 
 const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
-	const user = true
+	const user = false
 	const signout = () => {
 		toggleNav()
 		router.push('/')
@@ -75,7 +75,7 @@ const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 						<>
 							<li className='mb-4'>
 								<Link href='/'>
-									<a>
+									<a className='flex justify-between items-center'>
 										<span className='text-2xl text-primary'>Home</span>
 										<ArrowRightIcon fill='#2f3c7e' />
 									</a>
@@ -83,15 +83,15 @@ const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 							</li>
 							<li className='mb-4'>
 								<Link href='/search'>
-									<a>
+									<a className='flex justify-between items-center'>
 										<span className='text-2xl text-primary'>Search</span>
 										<ArrowRightIcon fill='#2f3c7e' />
 									</a>
 								</Link>
 							</li>
-							<li className='bg-primary'>
+							<li>
 								<Link href='/login'>
-									<a>Login</a>
+									<a className='bg-primary w-full text-white px-4 py-2 rounded-3xl flex justify-center items-center'>Login</a>
 								</Link>
 							</li>
 						</>
