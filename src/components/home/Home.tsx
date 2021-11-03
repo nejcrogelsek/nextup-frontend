@@ -18,10 +18,10 @@ const Home: FC = () => {
 				<div className='bg-white px-8 pt-8 pb-20 lg:bg-transparent'>
 					<h2 className='uppercase mb-4 font-semibold'>Find your next event</h2>
 					<p className='mb-12 lg:w-custom2'>Sollicitudin id dignissim tincidunt ipsum vel morbi diam  ultricies fermentum.</p>
-					<div className='myshadow rounded-2xl lg:flex lg:items-center lg:shadow-none lg:w-custom lg:bg-white'>
+					<div className='myshadow rounded-2xl lg:flex lg:items-center lg:justify-between lg:shadow-none lg:w-custom lg:bg-white'>
 						<div className='flex px-4 pt-4 lg:p-0'>
 							<LocationIcon width='40' height='40' fill='#2f3c7e' className='ml-2' />
-							<input type='text' className='border-0 focus:border-0 focus:ring-0 lg:m-0' />
+							<input type='text' placeholder='Search by location' className='border-0 focus:border-0 focus:ring-0 lg:m-0' />
 							<DateIcon width='40' height='40' fill='#2f3c7e' />
 							<input type='date' className='border-0 focus:border-0 focus:ring-0 lg:m-0' />
 						</div>
