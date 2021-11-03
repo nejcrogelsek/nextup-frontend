@@ -23,6 +23,11 @@ module.exports = {
 			},
 			margin: {
 				'mt-18': '-4.6rem 0 0 0',
+			},
+			width: {
+				'custom': '900px',
+				'custom2': '500px',
+				'custom3': '470px'
 			}
 		},
 	},

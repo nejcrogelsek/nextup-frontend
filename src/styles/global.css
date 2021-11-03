@@ -52,7 +52,8 @@
 	@apply !h-full;
   }
   @media (min-width: 640px) { .login-container { height: calc(100vh - theme(spacing.24)); } }
-  @media (min-width: 1024px) { .home-container { height: calc(100vh - theme(spacing.24)); } }
+  @media (min-width: 1024px) { .home-container { height: auto } .myswiper-wrap{ width: 50%; } .swiper-slide{width: fit-content !important;} }
+  @media (min-width: 1624px) { .home-container { height: calc(100vh - theme(spacing.24)); } }
 
   .form { @apply text-left max-w-lg my-auto mt-4; }
   .form-element { @apply mb-4; }
