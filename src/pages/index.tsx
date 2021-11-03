@@ -5,7 +5,7 @@ import { FC } from 'react'
 
 const Home: FC = () => {
 	return (
-		<div className='relative'>
+		<div className='relative bg-background-pattern'>
 			<Head>
 				<title>Nextup</title>
 				<link rel='icon' href='/favicon.ico' />

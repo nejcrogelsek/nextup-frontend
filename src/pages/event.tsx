@@ -4,7 +4,7 @@ import { FC } from 'react'
 
 const Event: FC = () => {
 	return (
-		<div className='relative'>
+		<div className='relative bg-background-pattern'>
 			<Header />
 			<EventPage />
 			<div className="lg:w-2/4" >

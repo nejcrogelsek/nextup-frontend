@@ -28,6 +28,9 @@ module.exports = {
 				'custom': '900px',
 				'custom2': '500px',
 				'custom3': '470px'
+			},
+			backgroundImage: {
+				'background-pattern': "url('/background.png')",
 			}
 		},
 	},
