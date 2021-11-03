@@ -52,7 +52,7 @@
 	@apply !h-full;
   }
   .event-image-wrap > span{
-	  @apply !w-full;
+	  @apply !w-full !h-full;
   }
   @media (min-width: 640px) { .login-container { height: calc(100vh - theme(spacing.24)); } }
   @media (min-width: 1024px) { .home-container { height: auto } .swiper-event-image-wrap{ width: 50%; } .swiper-slide{width: fit-content !important;} }
