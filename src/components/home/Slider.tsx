@@ -2,8 +2,6 @@ import { FC, useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-// import 'swiper/swiper-bundle.min.css'
-// import 'swiper/swiper.min.css'
 import SliderItem from './SliderItem'
 
 const defaultData = [{ image: '/event1.png' }, { image: '/event2.png' }, { image: '/event3.png' }, { image: '/event4.png' },]
@@ -31,9 +29,9 @@ const Slider: FC = () => {
 					},
 				}}
 				onSlideChange={() => console.log('slide change')}
-				onSwiper={(swiper: any) => console.log(swiper)}>
+				onSwiper={(swiper: any) => console.log(swiper)} className='h-custom'>
 				{sliders.map((item) => (
-					<SwiperSlide key={item.image}>
+					<SwiperSlide key={item.image} className='h-full'>
 						<SliderItem image={item.image} />
 					</SwiperSlide>
 				))}

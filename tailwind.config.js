@@ -13,6 +13,17 @@ module.exports = {
 			fontFamily: {
 				primary: ["Poppins"],
 			},
+			lineHeight: {
+				11: '3rem',
+				12: '3.5rem',
+				13: '4rem'
+			},
+			height: {
+				custom: '43.75rem',
+			},
+			margin: {
+				'mt-18': '-4.6rem 0 0 0',
+			}
 		},
 	},
 	variants: {

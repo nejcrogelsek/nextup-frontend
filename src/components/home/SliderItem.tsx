@@ -7,13 +7,13 @@ interface Props {
 
 const SliderItem: FC<Props> = ({ image }: Props) => {
 	return (
-		<div>
+		<div className='swiper-item-wrap h-full'>
 			<Image
 				src={image}
 				alt="Picture of the event"
 				width={500}
 				height={500}
-				className='!w-auto !h-auto'
+				className='!w-auto !h-full object-cover'
 				priority // preload image
 			/>
 		</div>
