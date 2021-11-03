@@ -28,7 +28,7 @@ const Slider: FC = () => {
 						slidesPerView: 1.2,
 					},
 				}}
-				onSlideChange={() => console.log('slide change')}
+				onSlideChange={() => console.log('Home slide CHANGED')}
 				onSwiper={(swiper: any) => console.log(swiper)} className='h-custom'>
 				{sliders.map((item) => (
 					<SwiperSlide key={item.image} className='h-full'>

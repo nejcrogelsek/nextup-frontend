@@ -11,12 +11,12 @@ const Home: FC = () => {
 			</div>
 			<div className='m-mt-18 relative z-10 lg:-mt-0 lg:pt-32 lg:z-0'>
 				<div className='px-8'>
-					<p className='uppercase font-semibold text-white lg:text-black'>Find the best events</p>
-					<h1 className='font-semibold mb-8 mt-4 text-5xl text-primary leading-12 lg:leading-13 lg:text-6xl lg:w-custom2'>Are you looking for your next event?</h1>
+					<p className='uppercase font-medium text-white lg:text-black'>Find the best events</p>
+					<h1 className='font-medium mb-8 mt-4 text-5xl text-primary leading-12 lg:leading-13 lg:text-6xl lg:w-custom2'>Are you looking for your next event?</h1>
 					<p className='pb-10 lg:w-custom3 xl:w-custom2'>Aliquet sed iaculis posuere egestas integer. Lectus morbi lectus consequat, massa etiam a sed in. Sollicitudin id dignissim tincidunt ipsum vel morbi diam  ultricies fermentum.</p>
 				</div>
 				<div className='bg-white px-8 pt-8 pb-20 lg:bg-transparent'>
-					<h2 className='uppercase mb-4 font-semibold'>Find your next event</h2>
+					<h2 className='uppercase mb-4 font-medium'>Find your next event</h2>
 					<p className='mb-12 lg:w-custom2'>Sollicitudin id dignissim tincidunt ipsum vel morbi diam  ultricies fermentum.</p>
 					<div className='myshadow rounded-2xl lg:flex lg:items-center lg:justify-between lg:shadow-none lg:w-custom lg:bg-white'>
 						<div className='flex px-4 pt-4 lg:p-0'>

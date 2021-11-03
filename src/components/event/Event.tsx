@@ -26,20 +26,20 @@ const Event: FC = () => {
 						<span>1.2.2020</span>
 						<span>20:00</span>
 					</p>
-					<h1 className='font-semibold mb-8 mt-4 text-5xl text-primary leading-12 lg:leading-13 lg:text-6xl'>Party with Eminem</h1>
+					<h1 className='font-medium mb-8 mt-4 text-5xl text-primary leading-12 lg:leading-13 lg:text-6xl'>Party with Eminem</h1>
 					<p className='pb-10 flex justify-between items-center'>
-						<span className='flex items-center font-semibold pr-4'>
+						<span className='flex items-center font-medium pr-4'>
 							<LocationIcon className='mr-2' fill='#2f3c7e' width='22' height='20' />
 							6391 Elgin St. Celina, Delaware
 						</span>
-						<span className='flex items-center font-semibold'>
+						<span className='flex items-center font-medium'>
 							<PersonFillIcon className='mr-2' fill='#2f3c7e' width='21.5' height='21.5' />
 							100
 						</span>
 					</p>
 				</div>
 				<div className='bg-white px-8 pt-8 pb-20 lg:bg-transparent'>
-					<h2 className='uppercase mb-4 font-semibold'>Event description:</h2>
+					<h2 className='uppercase mb-4 font-medium'>Event description:</h2>
 					<p className='mb-20 lg:w-custom2'>Aliquet sed iaculis posuere egestas integer. Lectus morbi lectus consequat, massa etiam a sed in. Sollicitudin id dignissim tincidunt ipsum vel morbi diam  ultricies fermentum. Aliquet sed iaculis posuere egestas integer. Lectus morbi lectus consequat, massa etiam a sed in. Sollicitudin id dignissim tincidunt ipsum vel morbi diam  ultricies fermentum.</p>
 					<div className='flex flex-col items-end'>
 						{user ? <button type='button' className='bg-primary text-white w-max px-8 py-4 rounded-2xl flex justify-center items-center transition hover:bg-black'>Book</button> :
