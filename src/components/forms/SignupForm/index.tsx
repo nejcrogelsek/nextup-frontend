@@ -2,13 +2,14 @@ import { FC, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { SignUpData } from '../../../interfaces/auth.interface'
 import Link from 'next/link'
-import { observer } from 'mobx-react-lite'
+import { observer } from 'mobx-react'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { generateUploadUrl, uploadImage, createUser } from '../../../api/auth.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
 import { Avatar } from '@material-ui/core'
+import userStore, { initialUser } from '../../../stores/user.store'
 
 const SignupForm: FC = () => {
 	const validationSchema = Yup.object().shape({
@@ -46,23 +47,8 @@ const SignupForm: FC = () => {
 	})
 
 	const signup = async (createUserDto: SignUpData) => {
-		if (file !== null) {
-			const { data } = await generateUploadUrl()
-			uploadImage(data.url, file)
-			const imageUrl = data.url.split('?')
-
-			const res = await createUser(createUserDto, imageUrl[0])
-			if (res.request) {
-				setSuccess('Check your inbox and verify your email.')
-				setPreview(null)
-				setFile(null)
-				reset()
-			} else {
-				setError(res)
-			}
-		} else {
-			setError('You need to upload a profile image.')
-		}
+		userStore.login(initialUser)
+		reset()
 	}
 
 	const fileSelected = async (e: any) => {

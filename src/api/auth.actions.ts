@@ -6,7 +6,7 @@ import {
 	SignUpData,
 } from '../interfaces/auth.interface'
 import { AxiosError, AxiosResponse } from 'axios'
-import { IUser, UpdateUserDto } from '../interfaces/user.interface'
+import { IUser } from '../interfaces/user.interface'
 
 export const login = async (
 	data: SignInData
@@ -48,20 +48,6 @@ export const createUser = async (
 	return axios.post('/auth/register', finalData).catch((err) => {
 		return err.response.data
 	})
-}
-
-export const update = async (
-	updateUserDto: UpdateUserDto,
-	user_id: number,
-	token: string
-): Promise<AxiosResponse<IUser>> => {
-	return axios.patch(
-		'/users/me/update',
-		{ ...updateUserDto, id: user_id },
-		{
-			headers: { Authorization: `Bearer ${token}` },
-		}
-	)
 }
 
 export const refreshTokenFC = async (

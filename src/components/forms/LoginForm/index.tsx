@@ -2,12 +2,13 @@ import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { SignInData } from '../../../interfaces/auth.interface'
 import Link from 'next/link'
-import { observer } from 'mobx-react-lite'
+import { observer } from 'mobx-react'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { login } from '../../../api/auth.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
+import userStore, { initialUser } from '../../../stores/user.store'
 
 const LoginForm: FC = () => {
 	const [success, setSuccess] = useState<string | null>(null)
@@ -32,15 +33,8 @@ const LoginForm: FC = () => {
 	})
 
 	const signin = async (dataset: SignInData) => {
-		const res = await login(dataset)
-		if (res.request) {
-			const data = JSON.parse(res.request.response)
-			localStorage.setItem('user', data.access_token)
-			reset()
-		} else {
-			setError(res)
-			setOnErrorEmail(dataset.email)
-		}
+		userStore.login(initialUser)
+		reset()
 	}
 
 	return (

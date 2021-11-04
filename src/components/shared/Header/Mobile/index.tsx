@@ -5,6 +5,7 @@ import ArrowRightIcon from '../../../icons/ArrowRight'
 import CloseIcon from '../../../icons/CloseIcon'
 import Link from 'next/link'
 import router from 'next/router'
+import userStore from '../../../../stores/user.store'
 
 interface Props {
 	toggleNav: () => void
@@ -12,9 +13,9 @@ interface Props {
 }
 
 const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
-	const user = true
 	const signout = () => {
 		toggleNav()
+		userStore.logout()
 		router.push('/')
 	}
 
@@ -30,7 +31,7 @@ const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 					<CloseIcon width='28' height='28' fill='#2f3c7e' />
 				</div>
 				<ul>
-					{user ? (
+					{userStore.user ? (
 						<>
 							<li className='mt-6 mb-12'>
 								<button className='flex justify-start items-center text-2xl' onClick={() => navigateTo('/profile')}>

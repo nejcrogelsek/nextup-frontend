@@ -6,10 +6,3 @@ export type IUser = {
 	profile_image: string
 	confirmed: boolean
 }
-
-export type UpdateUserDto = {
-	first_name: string
-	last_name: string
-	profile_image?: string
-	password: string
-}

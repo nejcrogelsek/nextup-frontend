@@ -3,17 +3,17 @@ import Link from 'next/link'
 import { observer } from 'mobx-react'
 import router from 'next/router'
 import { FC } from 'react'
+import userStore from '../../../../stores/user.store'
 
 const NavDesktop: FC = () => {
-	const user = true
 	const signout = () => {
-		console.log('logout')
+		userStore.logout()
 		router.push('/')
 	}
 
 	return (
 		<nav className='flex-grow flex justify-center items-center relative h-12'>
-			{user ? (
+			{userStore.user ? (
 				<>
 					<ul className='flex justify-center items-center h-6'>
 						<li className='mr-12'>
