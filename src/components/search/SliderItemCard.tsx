@@ -6,7 +6,7 @@ import PersonFillIcon from '../icons/PersonFillIcon'
 interface Props {
 	image: string
 	title: string
-	date_start: string
+	date_start: Date
 	time_start: string
 	location: string
 	max_visitors: number
@@ -27,7 +27,7 @@ const SliderItemCard: FC<Props> = ({ image, title, date_start, time_start, locat
 			<div className='px-4 pb-4'>
 				<h3 className='text-2xl text-primary font-medium mt-4 mb-2'>{title}</h3>
 				<div className='flex text-sm'>
-					<span>{date_start}</span>
+					<span>1.1.2020</span>
 					<span>{time_start}</span>
 				</div>
 				<p className='flex justify-between items-center mt-8'>

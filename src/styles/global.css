@@ -36,6 +36,9 @@
 }
 
 @layer components {
+#__next-build-watcher{
+		right: -9999% !important;
+	}
   .container {
 	@apply max-w-screen-xl mx-auto px-4;
   }
@@ -62,6 +65,9 @@
   }
   .swiper-pagination-bullets > .bullet-active{
 	  @apply bg-primary opacity-100;
+  }
+  .myheight{
+	  height: calc(100vh - 8rem);
   }
   .eventbox-column{
 	@apply flex flex-col justify-center mx-2;

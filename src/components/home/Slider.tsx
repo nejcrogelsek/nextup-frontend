@@ -29,7 +29,7 @@ const Slider: FC = () => {
 					},
 				}}
 				onSlideChange={() => console.log('Home slide CHANGED')}
-				onSwiper={(swiper: any) => console.log(swiper)} className='h-custom'>
+				onSwiper={(swiper: any) => console.log(swiper)} className='h-[47rem]'>
 				{sliders.map((item) => (
 					<SwiperSlide key={item.image} className='h-full'>
 						<SliderItem image={item.image} />

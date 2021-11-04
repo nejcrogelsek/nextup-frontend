@@ -10,7 +10,7 @@ const Event: FC = () => {
 		<div className='max-w-screen-xl mx-auto'>
 			<div className='absolute w-3/6 h-full -z-10 bg-alternative left-0 top-0'></div>
 			<div className='event-container w-full bg-alternative lg:w-9/12'>
-				<div className='swiper-event-image-wrap pt-24 lg:pt-0 lg:absolute lg:bottom-0 lg:right-0 lg:h-custom lg:overflow-hidden'>
+				<div className='swiper-event-image-wrap pt-24 lg:pt-0 lg:absolute lg:bottom-0 lg:right-0 lg:h-[51rem] lg:overflow-hidden'>
 					<div className='event-image-wrap h-full w-full'>
 						<Image
 							src='/event5.png'
