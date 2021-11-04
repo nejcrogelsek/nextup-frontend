@@ -12,7 +12,7 @@ interface Props {
 }
 
 const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
-	const user = false
+	const user = true
 	const signout = () => {
 		toggleNav()
 		router.push('/')

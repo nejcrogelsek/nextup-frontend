@@ -11,7 +11,7 @@ interface Props {
 	location: string
 	max_visitors: number
 	description: string,
-	type: string
+	type?: string
 }
 
 const EventBox: FC<Props> = ({ className, type, title, location, date_start, time_start }: Props) => {
@@ -41,7 +41,8 @@ const EventBox: FC<Props> = ({ className, type, title, location, date_start, tim
 			<div>
 				{type === 'search' ? <button className='bg-primary mx-auto text-sm md:w-44 text-white px-2 py-2 min:px-4 rounded-xl flex justify-center items-center transition hover:bg-black' onClick={checkEvent}>Check</button>
 					: type === 'gear' ? <button className='bg-primary mx-auto text-sm text-white px-5 py-5 rounded-xl flex justify-center items-center transition hover:bg-black' onClick={updateEvent}><SettingsIcon /></button>
-						: <button className='bg-primary mx-auto text-sm text-white px-5 py-5 rounded-xl flex justify-center items-center transition hover:bg-black' onClick={tickEvent}><TickIcon /></button>
+						: type === 'tick' ? <button className='bg-primary mx-auto text-sm text-white px-5 py-5 rounded-xl flex justify-center items-center transition hover:bg-black' onClick={tickEvent}><TickIcon /></button>
+							: null
 				}
 			</div>
 		</div>
