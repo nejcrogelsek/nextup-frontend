@@ -96,6 +96,7 @@
   .form-control-is-invalid { @apply border-red-400; }
   .form-buttons { @apply mb-4; }
   .form-button { @apply bg-primary w-full text-white px-4 py-2 rounded-full h-10 cursor-pointer text-center flex justify-center items-center transition hover:bg-black; }
+  .form-button-revert { @apply bg-black w-full text-white px-4 py-2 rounded-full h-10 cursor-pointer text-center flex justify-center items-center transition hover:bg-primary; }
   .form-goto { @apply flex items-center justify-between; }
   .form-goto-p { @apply m-0 text-sm; }
   .form-goto-a { @apply w-28 text-sm ml-2 text-right text-black transition hover:text-primary; }

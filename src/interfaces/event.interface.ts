@@ -5,4 +5,5 @@ export interface IEvent {
 	time_start: string
 	location: string
 	max_visitors: number
+	description: string
 }

@@ -6,10 +6,10 @@ import { IEvent } from '../../interfaces/event.interface'
 import { Pagination } from 'swiper'
 
 const defaultData: IEvent[] = [
-	{ image: '/event5.png', title: 'Party with Eminem', date_start: '1.2.2020', time_start: '20:00', location: '6391 Elgin St. Celina, Delaware', max_visitors: 100 },
-	{ image: '/event2.png', title: 'Ultra Split privat party', date_start: '1.2.2020', time_start: '22:00', location: '4140 Parker Rd. Allentown, 31134', max_visitors: 300 },
-	{ image: '/event3.png', title: 'Party with 2Pac & Biggie Smalls', date_start: '1.2.2020', time_start: '19:00', location: '8 Mediteranskih Igara 2, 21000', max_visitors: 200 },
-	{ image: '/event4.png', title: 'Party with 50 Cent', date_start: '1.2.2020', time_start: '20:00', location: '6391 Elgin St. Celina, Delaware', max_visitors: 400 },
+	{ description: '', image: '/event5.png', title: 'Party with Eminem', date_start: '1.2.2020', time_start: '20:00', location: '6391 Elgin St. Celina, Delaware', max_visitors: 100 },
+	{ description: '', image: '/event2.png', title: 'Ultra Split privat party', date_start: '1.2.2020', time_start: '22:00', location: '4140 Parker Rd. Allentown, 31134', max_visitors: 300 },
+	{ description: '', image: '/event3.png', title: 'Party with 2Pac & Biggie Smalls', date_start: '1.2.2020', time_start: '19:00', location: '8 Mediteranskih Igara 2, 21000', max_visitors: 200 },
+	{ description: '', image: '/event4.png', title: 'Party with 50 Cent', date_start: '1.2.2020', time_start: '20:00', location: '6391 Elgin St. Celina, Delaware', max_visitors: 400 },
 ]
 
 const SliderCard: FC = () => {

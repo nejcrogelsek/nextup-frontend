@@ -5,7 +5,7 @@ interface Props {
 	image: string
 }
 
-const SliderItemEvent: FC<Props> = ({ image }: Props) => {
+const SliderVerticalItem: FC<Props> = ({ image }: Props) => {
 	return (
 		<div className='swiper-item-wrap h-full'>
 			<Image
@@ -20,4 +20,4 @@ const SliderItemEvent: FC<Props> = ({ image }: Props) => {
 	)
 }
 
-export default SliderItemEvent
+export default SliderVerticalItem

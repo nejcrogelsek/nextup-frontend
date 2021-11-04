@@ -5,7 +5,7 @@ import router from 'next/router'
 import { FC } from 'react'
 
 const NavDesktop: FC = () => {
-	const user = false
+	const user = true
 	const signout = () => {
 		console.log('logout')
 		router.push('/')

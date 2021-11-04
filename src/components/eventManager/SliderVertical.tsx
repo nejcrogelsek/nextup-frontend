@@ -2,11 +2,11 @@ import { FC, useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import SliderItemEvent from './SliderItemEvent'
+import SliderVerticalItem from './SliderVerticalItem'
 
 const defaultData = [{ image: '/event1.png' }, { image: '/event2.png' }, { image: '/event3.png' }, { image: '/event4.png' },]
 
-const SliderEvent: FC = () => {
+const SliderVertical: FC = () => {
 	const [sliders, setSliders] = useState<{ image: string }[] | []>([])
 
 	useEffect(() => {
@@ -32,7 +32,7 @@ const SliderEvent: FC = () => {
 				onSwiper={(swiper: any) => console.log(swiper)} className='h-custom'>
 				{sliders.map((item) => (
 					<SwiperSlide key={item.image} className='h-full'>
-						<SliderItemEvent image={item.image} />
+						<SliderVerticalItem image={item.image} />
 					</SwiperSlide>
 				))}
 			</Swiper>
@@ -40,4 +40,4 @@ const SliderEvent: FC = () => {
 	)
 }
 
-export default observer(SliderEvent)
+export default observer(SliderVertical)
