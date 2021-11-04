@@ -28,11 +28,13 @@ module.exports = {
 			},
 			margin: {
 				'mt-18': '-4.6rem 0 0 0',
+				'mb-18': '0 0 3.875rem 0'
 			},
 			width: {
 				'custom': '900px',
 				'custom2': '500px',
-				'custom3': '470px'
+				'custom3': '470px',
+				'2/4/2': '48%'
 			},
 			backgroundImage: {
 				'background-pattern': "url('/background.png')",

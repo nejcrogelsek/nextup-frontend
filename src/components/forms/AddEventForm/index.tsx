@@ -42,7 +42,7 @@ const AddEventForm: FC = () => {
 	}
 
 	return (
-		<form className='form' onSubmit={onSubmit}>
+		<form className='form max-w-full' onSubmit={onSubmit}>
 			{error && (
 				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 					<div className='form-validation-error'>

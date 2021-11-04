@@ -1,10 +1,9 @@
 import { FC } from 'react'
 import EventBox from '../shared/eventBox/EventBox'
 
-const UpcomingEvents: FC = () => {
+const AddedEvents: FC = () => {
 	return (
 		<div>
-			<EventBox />
 			<EventBox />
 			<EventBox />
 			<EventBox />
@@ -12,4 +11,4 @@ const UpcomingEvents: FC = () => {
 	)
 }
 
-export default UpcomingEvents
+export default AddedEvents
