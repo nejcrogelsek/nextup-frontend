@@ -22,7 +22,7 @@ const EventManagerPage: FC = () => {
 		}
 	}, [])
 	return (
-		<div className='flex flex-col lg:flex-row justify-center items-center lg:justify-between lg:items-start pt-24 bg-alternative app-padding'>
+		<div className='event-manager-container flex flex-col lg:flex-row justify-center items-center lg:justify-between lg:items-start pt-44 bg-alternative app-padding'>
 			<div className='w-full lg:w-2/4/2 mb-12 lg:mb-0'>
 				<h2 className='capitalize font-medium text-2xl mb-8'>Add event</h2>
 				<AddEventForm />

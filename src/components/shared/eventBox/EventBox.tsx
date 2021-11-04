@@ -1,8 +1,18 @@
 import { FC } from 'react'
 
-const EventBox: FC = () => {
+interface Props {
+	className?: string
+	title: string
+	date_start: string
+	time_start: string
+	location: string
+	max_visitors: number
+	description: string
+}
+
+const EventBox: FC<Props> = ({ className }: Props) => {
 	return (
-		<div className='flex justify-between items-center p-2 min:p-4 myshadow rounded-2xl mb-4 bg-white'>
+		<div className={`flex justify-between items-center p-2 min:p-4 myshadow rounded-2xl mb-4 bg-white ${className}`}>
 			<div className='flex justify-start items-center'>
 				<div className='eventbox-column'>
 					<span className='block w-12 min:w-16'>1. Aug</span>
