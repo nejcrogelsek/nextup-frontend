@@ -39,15 +39,14 @@
   .container {
 	@apply max-w-screen-xl mx-auto px-4;
   }
+  .app-padding{
+	  @apply px-4 min:px-8;
+  }
   .myshadow{
 	box-shadow: 0px 0px 8px rgba(0,0,0,0.15);
   }
   .login-container {
 	height: 100vh;
-	padding: 0 2rem;
-  }
-  .signup-container {
-	padding: 0 2rem;
   }
   .swiper-item-wrap > span{
 	@apply !h-full;
@@ -59,10 +58,22 @@
 	  @apply !w-full !h-full rounded-2xl;
   }
   .swiper-slide-card{
-	@apply shadow-lg rounded-2xl;
+	@apply shadow-md rounded-2xl;
   }
   .swiper-pagination-bullets > .bullet-active{
 	  @apply bg-primary opacity-100;
+  }
+  .eventbox-column{
+	@apply flex flex-col justify-center mx-2;
+  }
+  .eventbox-column:first-child{
+	@apply mx-0;
+  }
+  .eventbox-column > span{
+	@apply text-xs min:text-sm font-light;
+  }
+  .eventbox-column > span:first-child{
+	@apply text-sm min:text-xl font-medium mx-0;
   }
   @media (min-width: 640px) { .login-container { height: calc(100vh - theme(spacing.24)); } }
   @media (min-width: 1024px) { .home-container { height: auto } .swiper-event-image-wrap{ width: 50%; } .swiper-slide{width: fit-content !important;} }

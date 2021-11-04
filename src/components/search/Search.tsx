@@ -8,7 +8,7 @@ const Search: FC = () => {
 	return (
 		<div className='search-container'>
 			<div className='bg-background-search h-500 lg:h-650 bg-no-repeat bg-cover flex justify-center items-center'>
-				<div className='max-w-6xl w-full px-8'>
+				<div className='max-w-7xl w-full app-padding mx-auto'>
 					<p className='uppercase font-medium my-6'>Featured events</p>
 					<h1 className='font-medium mt-4 text-5xl text-primary leading-12 lg:leading-13 lg:text-6xl lg:w-custom2 mb-12 lg:mb-28'>What is next?</h1>
 					<div className='bg-white myshadow rounded-3xl lg:flex lg:items-center lg:justify-between lg:shadow-none lg:w-full'>
@@ -22,7 +22,7 @@ const Search: FC = () => {
 					</div>
 				</div>
 			</div>
-			<div className='w-full px-8'>
+			<div className='max-w-7xl w-full app-padding mx-auto'>
 				<h2 className='font-normal text-2xl my-6 lg:hidden'>Featured events</h2>
 				<SliderCard />
 				<h2 className='font-normal mt-12 mb-4 text-2xl'>Events</h2>

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Footer: FC = () => {
 	return (
-		<footer className='flex items-center justify-between w-full h-24 pl-4 pr-8 md:pl-8 myshadow mt-px lg:mt-0 bg-white'>
+		<footer className='flex items-center justify-between w-full h-24 app-padding pl-4 md:pl-8 myshadow mt-px lg:mt-0 bg-white'>
 			<Link href='/'>
 				<a className='transform scale-50 md:scale-100'>
 					<img src='/logo.svg' alt='Nextup' className='md:hidden' />
