@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form'
 import Link from 'next/link'
 import { observer } from 'mobx-react-lite'
 import * as Yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import { login } from '../../../api/auth.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
 import { IEvent } from '../../../interfaces/event.interface'
+import eventStore, { initialEvent } from '../../../stores/event.store'
 
 const AddEventForm: FC = () => {
 	const [success, setSuccess] = useState<string | null>(null)
@@ -39,6 +40,8 @@ const AddEventForm: FC = () => {
 	const signin = async (dataset: IEvent) => {
 		console.log('Event ADDED')
 		console.log(dataset)
+		eventStore.newEvent = initialEvent
+		eventStore.addEvent()
 	}
 
 	return (
@@ -135,7 +138,7 @@ const AddEventForm: FC = () => {
 					Add image
 				</button>
 				<button className='form-button' type='submit'>
-					Sign in
+					Submit
 				</button>
 			</div>
 		</form>
