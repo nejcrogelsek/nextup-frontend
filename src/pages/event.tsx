@@ -4,11 +4,15 @@ import { FC } from 'react'
 
 const Event: FC = () => {
 	return (
-		<div className='relative bg-background-pattern'>
+		<div className='relative'>
 			<Header />
 			<EventPage />
-			<div className="lg:w-2/4" >
-				<Footer />
+			<div className='bg-white myshadow'>
+				<div className='max-w-screen-xl bg-white mx-auto'>
+					<div className="lg:w-2/4" >
+						<Footer className='!text-sm' />
+					</div>
+				</div>
 			</div>
 		</div>
 	)

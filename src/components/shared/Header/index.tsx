@@ -30,7 +30,7 @@ const Header: FC = () => {
 	}
 	return (
 		<>
-			<header className='absolute top-0 left-0 right-0 h-24 app-padding md:flex md:items-center z-50'>
+			<header className='absolute top-0 left-0 right-0 h-24 max-w-screen-xl mx-auto app-padding md:flex md:items-center z-50'>
 				<div className="flex justify-between items-center w-full h-24 lg:w-max">
 					<Logo />
 					<div className="cursor-pointer lg:hidden" onClick={() => toggleNav()}>

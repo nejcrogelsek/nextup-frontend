@@ -22,15 +22,15 @@ const Search: FC = () => {
 	}, [])
 	return (
 		<div className='profile-container'>
-			<div className='bg-alternative lg:h-[500px] bg-no-repeat bg-cover flex justify-center items-center'>
-				<div className='w-full app-padding mx-auto pt-32 lg:pt-0 text-center'>
+			<div className='bg-alternative lg:h-[500px] bg-no-repeat bg-cover flex justify-center items-center lg:items-start'>
+				<div className='w-full app-padding mx-auto pt-32 lg:pt-36 text-center'>
 					<h1 className='font-semibold text-5xl text-primary leading-12 lg:leading-13 lg:text-65xl'>Floyd Miles</h1>
 				</div>
 			</div>
-			<div className='bg-alternative lg:bg-white lg:flex justify-between max-w-7xl app-padding mx-auto pt-6 pb-12'>
+			<div className='bg-alternative lg:bg-transparent lg:flex justify-between max-w-screen-xl app-padding mx-auto pt-6 pb-12 lg:-mt-60'>
 				<div className='w-full lg:w-2/4/2 mb-12 lg:mb-0'>
 					<h2 className='capitalize font-medium text-2xl mb-6 text-center lg:text-left'>All upcoming events</h2>
-					{isMobile ? <Events type='tick' /> : <SliderVertical />}
+					{isMobile ? <Events type='tick' /> : <SliderVertical type='tick' />}
 					<button type='button' className='bg-primary mx-auto text-white w-max px-8 py-2 mt-5 mb-12 rounded-3xl flex justify-center items-center transition hover:bg-black lg:hidden'>Load more</button>
 				</div>
 				<div className='w-full lg:w-2/4/2'>

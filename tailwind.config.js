@@ -5,7 +5,8 @@ module.exports = {
 	theme: {
 		extend: {
 			screens: {
-				'min': '416px'
+				'min': '416px',
+				'1xl': '1380px'
 			},
 			colors: {
 				primary: "#2f3c7e",
@@ -48,6 +49,11 @@ module.exports = {
 			},
 			fontSize: {
 				'65xl': '4rem'
+			},
+			zIndex: {
+				'-10': '-10',
+				'-20': '-20',
+				'-30': '-30',
 			}
 		},
 	},

@@ -22,15 +22,17 @@ const EventManagerPage: FC = () => {
 		}
 	}, [])
 	return (
-		<div className='event-manager-container flex flex-col lg:flex-row justify-center items-center lg:justify-between lg:items-start pt-44 bg-alternative app-padding'>
-			<div className='w-full lg:w-2/4/2 mb-12 lg:mb-0'>
-				<h2 className='capitalize font-medium text-2xl mb-8'>Add event</h2>
-				<AddEventForm />
-			</div>
-			<div className='w-full lg:w-2/4/2'>
-				<h2 className='capitalize font-medium text-2xl m-mb-18'>Added events</h2>
-				{isMobile ? <AddedEvents /> : <SliderVertical />}
-				<button type='button' className='bg-primary mx-auto text-white w-max px-8 py-2 my-5 rounded-3xl flex justify-center items-center transition hover:bg-black lg:hidden'>Load more</button>
+		<div className='bg-alternative'>
+			<div className='event-manager-container pb-20 max-w-screen-xl mx-auto flex flex-col lg:flex-row justify-center items-center lg:justify-between lg:items-start pt-44 bg-alternative app-padding'>
+				<div className='w-full lg:w-2/4/2 mb-12 lg:mb-0'>
+					<h2 className='capitalize font-medium text-2xl mb-8'>Add event</h2>
+					<AddEventForm />
+				</div>
+				<div className='w-full lg:w-2/4/2'>
+					<h2 className='capitalize font-medium text-2xl m-mb-18'>Added events</h2>
+					{isMobile ? <AddedEvents /> : <SliderVertical />}
+					<button type='button' className='bg-primary mx-auto text-white w-max px-8 py-2 my-5 rounded-3xl flex justify-center items-center transition hover:bg-black lg:hidden'>Load more</button>
+				</div>
 			</div>
 		</div>
 	)
