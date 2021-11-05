@@ -10,7 +10,7 @@ const Event: FC = () => {
 		<div className='max-w-screen-xl mx-auto'>
 			<div className='absolute w-3/6 h-full -z-10 bg-alternative left-0 top-0'></div>
 			<div className='event-container w-full bg-alternative lg:w-9/12'>
-				<div className='swiper-event-image-wrap pt-24 lg:pt-0 lg:absolute lg:bottom-0 lg:right-0 lg:h-[51rem] lg:overflow-hidden'>
+				<div className='swiper-event-image-wrap pt-24 lg:pt-0 lg:absolute lg:bottom-0 lg:right-0 lg:h-[49em] lg:overflow-hidden'>
 					<div className='event-image-wrap h-full w-full'>
 						<Image
 							src='/event5.png'
@@ -23,7 +23,7 @@ const Event: FC = () => {
 					</div>
 				</div>
 				<div className='-mt-8 relative z-10 lg:-mt-0 lg:pt-32 lg:z-0 lg:w-3/5'>
-					<div className='px-8'>
+					<div className='px-8 lg:w-[500px] xl:w-[600px]'>
 						<p className='flex justify-between items-center text-white lg:text-black'>
 							<span>1.2.2020</span>
 							<span>20:00</span>
@@ -40,14 +40,14 @@ const Event: FC = () => {
 							</span>
 						</p>
 					</div>
-					<div className='bg-white px-8 pt-8 pb-20 lg:bg-transparent'>
+					<div className='bg-white px-8 pt-8 pb-20 lg:bg-transparent lg:w-[500px] xl:w-[600px]'>
 						<h2 className='uppercase mb-4 font-medium'>Event description:</h2>
-						<p className='mb-20 lg:w-custom2'>Aliquet sed iaculis posuere egestas integer. Lectus morbi lectus consequat, massa etiam a sed in. Sollicitudin id dignissim tincidunt ipsum vel morbi diam  ultricies fermentum. Aliquet sed iaculis posuere egestas integer. Lectus morbi lectus consequat, massa etiam a sed in. Sollicitudin id dignissim tincidunt ipsum vel morbi diam  ultricies fermentum.</p>
+						<p className='mb-[2.875rem]'>Aliquet sed iaculis posuere egestas integer. Lectus morbi lectus consequat, massa etiam a sed in. Sollicitudin id dignissim tincidunt ipsum vel morbi diam  ultricies fermentum. Aliquet sed iaculis posuere egestas integer. Lectus morbi lectus consequat, massa etiam a sed in. Sollicitudin id dignissim tincidunt ipsum vel morbi diam  ultricies fermentum.</p>
 						<div className='flex flex-col items-end'>
 							{user ? <button type='button' className='bg-primary text-white w-max px-8 py-4 rounded-2xl flex justify-center items-center transition hover:bg-black'>Book</button> :
 								<>
 									<Link href='/login'><a className='bg-primary text-white w-max px-8 py-3 mb-4 rounded-3xl flex justify-center items-center transition hover:bg-black'>Login</a></Link>
-									<p>To attend event you need to login.</p>
+									<p className='text-right'>To attend event you need to login.</p>
 								</>}
 						</div>
 					</div>
