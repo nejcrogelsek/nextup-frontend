@@ -35,8 +35,7 @@ const SliderCard: FC = () => {
 				breakpoints={{
 					1024: {
 						width: 1024,
-						slidesPerView: 3,
-						centeredSlides: true
+						slidesPerView: 3
 					},
 					600: {
 						width: 600,
