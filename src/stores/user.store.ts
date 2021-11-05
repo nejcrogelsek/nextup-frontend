@@ -1,6 +1,7 @@
 import { configure, makeAutoObservable } from 'mobx'
 import { IUser } from '../interfaces/user.interface'
 
+// just for development
 export const initialUser = {
 	id: 1,
 	email: 'nejc@gmail.com',

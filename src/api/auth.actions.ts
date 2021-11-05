@@ -9,13 +9,13 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { IUser } from '../interfaces/user.interface'
 
 export const login = async (
-	data: SignInData
+	dataset: SignInData
 ): Promise<AxiosResponse<SignInData> | AxiosError> => {
-	const finalData = {
-		username: data.email,
-		password: data.password,
+	const data = {
+		username: dataset.email,
+		password: dataset.password,
 	}
-	return axios.post('/auth/login', finalData).catch((err) => {
+	return axios.post('/auth/login', data).catch((err) => {
 		return err.response.data
 	})
 }
@@ -37,7 +37,7 @@ export const createUser = async (
 	createUserDto: SignUpData,
 	image_url: string
 ): Promise<AxiosResponse<AuthReturnData> | AxiosError> => {
-	const finalData = {
+	const data = {
 		profile_image: image_url,
 		email: createUserDto.email,
 		first_name: createUserDto.first_name,
@@ -45,7 +45,7 @@ export const createUser = async (
 		password: createUserDto.password,
 		confirm_password: createUserDto.confirm_password,
 	}
-	return axios.post('/auth/register', finalData).catch((err) => {
+	return axios.post('/auth/register', data).catch((err) => {
 		return err.response.data
 	})
 }

@@ -2,6 +2,7 @@ import axios from '../api/axios'
 import { configure, makeAutoObservable } from 'mobx'
 import { AddEventDto, IEvent } from '../interfaces/event.interface'
 
+// just for development
 export const initialEvent = {
 	image: 'undefined',
 	title: 'Party weed us',

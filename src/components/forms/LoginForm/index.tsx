@@ -33,8 +33,18 @@ const LoginForm: FC = () => {
 	})
 
 	const signin = async (dataset: SignInData) => {
+		const res = await login(dataset)
+		if (res.request) {
+			const data = JSON.parse(res.request.response)
+			userStore.login(data.user)
+			localStorage.setItem('user', data.access_token)
+			reset()
+		} else {
+			setError(res)
+			setOnErrorEmail(dataset.email)
+		}
+		// just for development
 		userStore.login(initialUser)
-		reset()
 	}
 
 	return (

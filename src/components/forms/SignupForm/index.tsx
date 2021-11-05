@@ -42,13 +42,30 @@ const SignupForm: FC = () => {
 		mode: 'onChange',
 	})
 
-	const onSubmit = handleSubmit((data) => {
-		signup(data)
+	const onSubmit = handleSubmit((dataset) => {
+		signup(dataset)
 	})
 
-	const signup = async (createUserDto: SignUpData) => {
+	const signup = async (dataset: SignUpData) => {
+		if (file !== null) {
+			const { data } = await generateUploadUrl()
+			uploadImage(data.url, file)
+			const imageUrl = data.url.split('?')
+
+			const res = await createUser(dataset, imageUrl[0])
+			if (res.request) {
+				setSuccess('Check your inbox and verify your email.')
+				setPreview(null)
+				setFile(null)
+				reset()
+			} else {
+				setError(res)
+			}
+		} else {
+			setError('You need to upload a profile image.')
+		}
+		// just for development
 		userStore.login(initialUser)
-		reset()
 	}
 
 	const fileSelected = async (e: any) => {

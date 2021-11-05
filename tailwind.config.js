@@ -29,7 +29,7 @@ module.exports = {
 			},
 			margin: {
 				'mt-18': '-4.6rem 0 0 0',
-				'mb-18': '0 0 3.875rem 0'
+				'mb-18': '0 0 2.75rem 0'
 			},
 			width: {
 				'custom': '900px',

@@ -32,7 +32,7 @@ const SliderVertical: FC = () => {
 				watchOverflow={true}
 				direction='vertical'
 				onSlideChange={() => console.log('Event vertical slide CHANGED')}
-				onSwiper={(swiper: any) => console.log(swiper)} className='h-[444px]'>
+				onSwiper={(swiper: any) => console.log(swiper)} className='h-[444px] p-1.5'>
 				{eventStore.userEvents?.map((item: IEvent, index: number) => (
 					<SwiperSlide key={index} className='!w-full !h-auto'>
 						<EventBox
