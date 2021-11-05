@@ -11,18 +11,20 @@ import { IEvent } from '../../../interfaces/event.interface'
 import eventStore, { initialEvent } from '../../../stores/event.store'
 
 const AddEventForm: FC = () => {
-	const [success, setSuccess] = useState<string | null>(null)
 	const validationSchema = Yup.object().shape({
 		title: Yup.string().required('Title is required'),
 		location: Yup.string().required('Location is required'),
-		date_start: Yup.string().required('Date is required'),
+		date_start: Yup.date().required('Date is required'),
 		time_start: Yup.string().required('Time is required'),
-		max_visitors: Yup.string().required('Number of visitors is required'),
-		description: Yup.string().notRequired(),
-		image: Yup.string().notRequired()
+		max_visitors: Yup.number().required('Number of visitors is required').positive().integer().min(1),
+		description: Yup.string().notRequired()
 	})
+
 	const [error, setError] = useState<any | null>(null)
 	const [onErrorEmail, setOnErrorEmail] = useState<string | null>(null)
+	const [file, setFile] = useState<File | null>(null)
+	const [success, setSuccess] = useState<string | null>(null)
+
 	const {
 		register,
 		handleSubmit,
@@ -38,10 +40,24 @@ const AddEventForm: FC = () => {
 	})
 
 	const signin = async (dataset: IEvent) => {
-		console.log('Event ADDED')
-		console.log(dataset)
-		eventStore.newEvent = initialEvent
-		eventStore.addEvent()
+		if (file !== null) {
+			console.log('Event ADDED')
+			console.log(dataset)
+			eventStore.newEvent = initialEvent
+			eventStore.addEvent()
+			setSuccess('Event successfully added.')
+		} else {
+			setError('You need to upload an event image.')
+		}
+	}
+
+	const fileSelected = async (e: any) => {
+		const file = e.target.files[0]
+		if (file && file.type.substr(0, 5) === 'image') {
+			setFile(file)
+		} else {
+			setFile(null)
+		}
 	}
 
 	return (
@@ -87,7 +103,7 @@ const AddEventForm: FC = () => {
 					<label className='form-label' htmlFor='date_start'>Date</label>
 					<input
 						{...register('date_start')}
-						type='text'
+						type='date'
 						name='date_start'
 						className={errors.date_start ? 'form-control form-control-is-invalid' : 'form-control'}
 					/>
@@ -123,20 +139,16 @@ const AddEventForm: FC = () => {
 				></textarea>
 				{errors.description && <div className='form-error-text min-h-8'>{errors.description.message}</div>}
 			</div>
-			<div className='form-element hidden'>
-				<label className='form-label' htmlFor='image'>Image</label>
-				<input
-					{...register('image')}
-					type='text'
-					name='image'
-					value='undefined'
-					onChange={() => null}
-				/>
-			</div>
 			<div className='form-buttons'>
-				<button className='form-button-revert mb-5' type='button'>
-					Add image
-				</button>
+				<div className='form-element event-image'>
+					<label className='form-button-revert mb-5' htmlFor='image'>Add image</label>
+					<input
+						type='file'
+						name='image'
+						accept='image/*'
+						onChange={fileSelected}
+					/>
+				</div>
 				<button className='form-button' type='submit'>
 					Submit
 				</button>

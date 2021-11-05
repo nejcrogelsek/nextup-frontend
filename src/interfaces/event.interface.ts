@@ -11,7 +11,6 @@ export interface IEvent {
 }
 
 export interface AddEventDto {
-	image: string
 	title: string
 	date_start: Date
 	time_start: string
