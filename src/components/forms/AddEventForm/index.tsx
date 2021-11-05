@@ -3,11 +3,10 @@ import { useForm } from 'react-hook-form'
 import { observer } from 'mobx-react-lite'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
-import { login } from '../../../api/auth.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
 import { AddEventDto, IEventUpdate } from '../../../interfaces/event.interface'
-import eventStore, { initialEvent } from '../../../stores/event.store'
+import eventStore from '../../../stores/event.store'
 import { createEvent, generateUploadUrl, updateEvent, uploadImage } from '../../../api/event.actions'
 import userStore from '../../../stores/user.store'
 
@@ -55,10 +54,10 @@ const AddEventForm: FC = () => {
 					setError(res)
 				}
 			} else {
-				setError('Unauthorized access.')
+				setError({ statusCode: 401, message: 'Unauthorized access.' })
 			}
 		} else {
-			setError('You need to upload an event image.')
+			setError({ statusCode: 400, message: 'You need to upload an event image.' })
 		}
 	}
 
@@ -75,7 +74,7 @@ const AddEventForm: FC = () => {
 			if (res.request) {
 				setFile(null)
 				reset()
-				eventStore.updateEvent(res.request,userStore.user.id)
+				eventStore.updateEvent(res.request, userStore.user.id)
 				setSuccess('Event successfully updated.')
 			}
 		}
@@ -93,7 +92,7 @@ const AddEventForm: FC = () => {
 	return (
 		<form className='form max-w-full' onSubmit={onSubmit}>
 			{error && (
-				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
 					<div className='form-validation-error'>
 						{error.message}
 						<CloseIcon onClick={setError} className='form-validation-close-icon' />
@@ -101,7 +100,7 @@ const AddEventForm: FC = () => {
 				</motion.div>
 			)}
 			{success && (
-				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
 					<div className='form-validation-success'>
 						{success}
 						<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />

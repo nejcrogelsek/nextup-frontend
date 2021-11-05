@@ -62,7 +62,7 @@ const SignupForm: FC = () => {
 				setError(res)
 			}
 		} else {
-			setError('You need to upload a profile image.')
+			setError({ statusCode: 400, message: 'You need to upload a profile image.' })
 		}
 		// just for development
 		userStore.login(initialUser)
@@ -92,7 +92,7 @@ const SignupForm: FC = () => {
 	return (
 		<form className='form' onSubmit={onSubmit}>
 			{error && (
-				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
 					<div className='form-validation-error'>
 						{error.message}
 						<CloseIcon onClick={setError} className='form-validation-close-icon' />
@@ -100,7 +100,7 @@ const SignupForm: FC = () => {
 				</motion.div>
 			)}
 			{success && (
-				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
 					<div className='form-validation-success'>
 						{success}
 						<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />
