@@ -1,6 +1,6 @@
 import axios from './axios'
 import {
-	AuthReturnData,
+	IAuthReturnData,
 	IAccessToken,
 	SignInData,
 	SignUpData,
@@ -34,16 +34,16 @@ export const uploadImage = async (
 }
 
 export const createUser = async (
-	createUserDto: SignUpData,
+	dataset: SignUpData,
 	image_url: string
-): Promise<AxiosResponse<AuthReturnData> | AxiosError> => {
+): Promise<AxiosResponse<IAuthReturnData> | AxiosError> => {
 	const data = {
 		profile_image: image_url,
-		email: createUserDto.email,
-		first_name: createUserDto.first_name,
-		last_name: createUserDto.last_name,
-		password: createUserDto.password,
-		confirm_password: createUserDto.confirm_password,
+		email: dataset.email,
+		first_name: dataset.first_name,
+		last_name: dataset.last_name,
+		password: dataset.password,
+		confirm_password: dataset.confirm_password,
 	}
 	return axios.post('/auth/register', data).catch((err) => {
 		return err.response.data

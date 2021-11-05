@@ -1,14 +1,15 @@
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import Link from 'next/link'
 import { observer } from 'mobx-react-lite'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import { login } from '../../../api/auth.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
-import { IEvent } from '../../../interfaces/event.interface'
+import { AddEventDto, IEventUpdate } from '../../../interfaces/event.interface'
 import eventStore, { initialEvent } from '../../../stores/event.store'
+import { createEvent, generateUploadUrl, updateEvent, uploadImage } from '../../../api/event.actions'
+import userStore from '../../../stores/user.store'
 
 const AddEventForm: FC = () => {
 	const validationSchema = Yup.object().shape({
@@ -21,7 +22,6 @@ const AddEventForm: FC = () => {
 	})
 
 	const [error, setError] = useState<any | null>(null)
-	const [onErrorEmail, setOnErrorEmail] = useState<string | null>(null)
 	const [file, setFile] = useState<File | null>(null)
 	const [success, setSuccess] = useState<string | null>(null)
 
@@ -30,24 +30,54 @@ const AddEventForm: FC = () => {
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm<IEvent>({
+	} = useForm<AddEventDto>({
 		resolver: yupResolver(validationSchema),
 		mode: 'onChange',
 	})
 
 	const onSubmit = handleSubmit((dataset) => {
-		signin(dataset)
+		handleAdd(dataset)
+		handleUpdate(dataset)
 	})
 
-	const signin = async (dataset: IEvent) => {
+	const handleAdd = async (dataset: AddEventDto) => {
 		if (file !== null) {
-			console.log('Event ADDED')
-			console.log(dataset)
-			eventStore.newEvent = initialEvent
-			eventStore.addEvent()
-			setSuccess('Event successfully added.')
+			const { data } = await generateUploadUrl()
+			uploadImage(data.url, file)
+			const imageUrl = data.url.split('?')
+			const token: string | null = localStorage.getItem('user')
+			if (token) {
+				const res = await createEvent(dataset, imageUrl[0], token)
+				if (res.request) {
+					setSuccess('Event successfully added.')
+					reset()
+				} else {
+					setError(res)
+				}
+			} else {
+				setError('Unauthorized access.')
+			}
 		} else {
 			setError('You need to upload an event image.')
+		}
+	}
+
+	const handleUpdate = async (dataset: IEventUpdate) => {
+		if (file !== null) {
+			const { data } = await generateUploadUrl()
+			await uploadImage(data.url, file)
+			const imageUrl: string[] = data.url.split('?')
+			dataset.event_image = imageUrl[0]
+		}
+		const token: string | null = localStorage.getItem('user')
+		if (token) {
+			const res = await updateEvent(dataset, token)
+			if (res.request) {
+				setFile(null)
+				reset()
+				eventStore.updateEvent(res.request,userStore.user.id)
+				setSuccess('Event successfully updated.')
+			}
 		}
 	}
 
@@ -65,7 +95,7 @@ const AddEventForm: FC = () => {
 			{error && (
 				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 					<div className='form-validation-error'>
-						{error.statusCode === 401 ? `User with email: ${onErrorEmail} does not exist.` : error.message}
+						{error.message}
 						<CloseIcon onClick={setError} className='form-validation-close-icon' />
 					</div>
 				</motion.div>

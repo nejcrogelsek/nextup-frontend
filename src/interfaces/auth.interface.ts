@@ -23,7 +23,7 @@ export interface UserProps {
 	user: UserData
 }
 
-export interface AuthReturnData {
+export interface IAuthReturnData {
 	user: {
 		id: number
 		email: string
