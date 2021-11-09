@@ -21,7 +21,7 @@ export const login = async (
 }
 
 export const generateUploadUrl = async (): Promise<AxiosResponse<Response>> => {
-	return axios.get('users/upload')
+	return axios.get('/users/upload')
 }
 
 export const uploadImage = async (

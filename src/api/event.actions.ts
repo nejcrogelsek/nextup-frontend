@@ -4,7 +4,7 @@ import { AddEventDto, IEvent, IEventAdd, IEventUpdate } from '../interfaces/even
 import eventStore from '../stores/event.store'
 
 export const generateUploadUrl = async (): Promise<AxiosResponse<Response>> => {
-	return axios.get('events/upload')
+	return axios.get('/events/upload')
 }
 
 export const uploadImage = async (

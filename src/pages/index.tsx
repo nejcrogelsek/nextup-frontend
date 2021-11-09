@@ -12,6 +12,7 @@ const Home: FC = () => {
 			</Head>
 			<div className='absolute top-0 right-0 bottom-0 bg-background-pattern z-0 w-[26%] h-full'></div>
 			<Header />
+			{process.env.NEXT_PUBLIC_SOMETHING}
 			<Homepage />
 			<div className='bg-white myshadow'>
 				<div className='max-w-screen-xl bg-white mx-auto'>
