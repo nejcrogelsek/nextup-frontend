@@ -4,9 +4,9 @@ import {
 	IAccessToken,
 	SignInData,
 	SignUpData,
-} from '../interfaces/auth.interface'
+} from '../../interfaces/auth.interface'
 import { AxiosError, AxiosResponse } from 'axios'
-import { IUser } from '../interfaces/user.interface'
+import { IUser } from '../../interfaces/user.interface'
 
 export const login = async (
 	dataset: SignInData

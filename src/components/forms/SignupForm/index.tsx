@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { observer } from 'mobx-react'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
-import { generateUploadUrl, uploadImage, createUser } from '../../../api/auth.actions'
+import { generateUploadUrl, uploadImage, createUser } from '../../../pages/api/auth.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
 import { Avatar } from '@material-ui/core'

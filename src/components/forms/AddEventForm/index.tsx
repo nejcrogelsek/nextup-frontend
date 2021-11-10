@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
 import { AddEventDto, IEventUpdate } from '../../../interfaces/event.interface'
 import eventStore from '../../../stores/event.store'
-import { createEvent, generateUploadUrl, updateEvent, uploadImage } from '../../../api/event.actions'
+import { createEvent, generateUploadUrl, updateEvent, uploadImage } from '../../../pages/api/event.actions'
 import userStore from '../../../stores/user.store'
 
 const AddEventForm: FC = () => {

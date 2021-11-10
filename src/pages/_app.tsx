@@ -13,8 +13,8 @@ const progress = new ProgressBar({
 Router.events.on('routeChangeStart', progress.start);
 Router.events.on('routeChangeComplete', progress.finish);
 
-function MyApp({ Component, pageProps }) {
+function NextupApp({ Component, pageProps }) {
 	return <Component {...pageProps} />;
 }
 
-export default MyApp;
+export default NextupApp;

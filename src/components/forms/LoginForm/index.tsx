@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { observer } from 'mobx-react'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
-import { login } from '../../../api/auth.actions'
+import { login } from '../../../pages/api/auth.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
 import userStore, { initialUser } from '../../../stores/user.store'
