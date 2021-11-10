@@ -29,7 +29,7 @@ const SliderCard: FC = () => {
 			<Swiper
 				modules={[Pagination]}
 				spaceBetween={20}
-				slidesPerView={1.2}
+				slidesPerView={3}
 				watchOverflow={true}
 				pagination={{ el: '.swiper-pagination', type: 'bullets', bulletActiveClass: 'bullet-active', clickable: true }}
 				breakpoints={{
@@ -41,6 +41,9 @@ const SliderCard: FC = () => {
 						width: 600,
 						slidesPerView: 1.2,
 					},
+					240: {
+						slidesPerView: 1.2
+					}
 				}}
 				onSlideChange={() => console.log('Card slide CHANGED')}
 				onSwiper={(swiper: any) => console.log(swiper)}

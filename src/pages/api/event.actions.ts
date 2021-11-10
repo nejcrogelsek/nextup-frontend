@@ -1,7 +1,7 @@
 import axios from './axios'
 import { AxiosError, AxiosResponse } from 'axios'
-import { AddEventDto, IEvent, IEventAdd, IEventUpdate } from '../interfaces/event.interface'
-import eventStore from '../stores/event.store'
+import { AddEventDto, IEvent, IEventAdd, IEventUpdate } from '../../interfaces/event.interface'
+import eventStore from '../../stores/event.store'
 
 export const generateUploadUrl = async (): Promise<AxiosResponse<Response>> => {
 	return axios.get('/events/upload')

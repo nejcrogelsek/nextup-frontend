@@ -1,4 +1,4 @@
-import axios from '../api/axios'
+import axios from '../pages/api/axios'
 import { configure, makeAutoObservable } from 'mobx'
 import { AddEventDto, IEvent, IEventAdd, IEventUpdate } from '../interfaces/event.interface'
 
