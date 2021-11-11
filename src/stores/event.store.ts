@@ -18,10 +18,7 @@ configure({
 })
 
 class EventStore {
-	userEvents: IEvent[] | null = [
-		{ id: 1, user_id: 1, description: 'Iaculis volutpat eget massa s ed vestibulum. Urna maecenas hendrerit pharetra, amet ut amet. Facilisi ullamcorper elementum, pellentesque et mi urna sit arcu. In at mauris sodales quis. Sem imperdiet a amet sit. Platea nunc viverra tincidunt dui amet. Lacus, condimentum suspendisse nunc pharetra, ornare maecenas tortor ultricies. Tincidunt amet dictum sagittis.', event_image: '/event5.png', title: 'Party with Eminem', date_start: new Date(Date.now()), time_start: '20:00', location: '6391 Elgin St. Celina, Delaware', max_visitors: 100 },
-		{ id: 2, user_id: 1, description: 'Iaculis volutpat eget massa sed vestibulum. Urna maecenas hendrerit pharetra, amet ut amet. Facilisi ullamcorper elementum, pellentesque et mi urna sit arcu. In at mauris sodales quis. Sem imperdiet a amet sit. Platea nunc viverra tincidunt dui amet. Lacus, condimentum suspendisse nunc pharetra, ornare maecenas tortor ultricies. Tincidunt amet dictum sagittis.', event_image: '/event2.png', title: 'Ultra Split privat party', date_start: new Date(Date.now()), time_start: '22:00', location: '4140 Parker Rd. Allentown, 31134', max_visitors: 300 }
-	]
+	userEvents: IEvent[] = []
 	upcomingEvents: IEvent[] | null = null
 	recentEvents: IEvent[] | null = null
 	newEvent: IEventAdd | null = null
@@ -38,9 +35,9 @@ class EventStore {
 			})
 	}
 
-	async getUserEvents(user_id: number, token: string) {
+	async getUserEvents(token: string) {
 		await axios
-			.get(`/events/${user_id}`, {
+			.get(`/events/added-events`, {
 				headers: { Authorization: `Bearer ${token}` },
 			})
 			.then((res) => {
@@ -76,7 +73,7 @@ class EventStore {
 		filterEvent.push({ id: 1, user_id: 1, ...event })
 		this.userEvents = filterEvent
 	}
-	
+
 }
 const eventStore = new EventStore()
 export default eventStore

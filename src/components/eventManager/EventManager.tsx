@@ -1,4 +1,6 @@
 import { FC, useEffect, useState } from 'react'
+import eventStore from '../../stores/event.store'
+import userStore from '../../stores/user.store'
 import AddEventForm from '../forms/AddEventForm'
 import AddedEvents from './AddedEvents'
 import SliderVertical from './SliderVertical'
@@ -21,6 +23,17 @@ const EventManagerPage: FC = () => {
 			window.removeEventListener('resize', checkIfMobile)
 		}
 	}, [])
+
+	const getAddedEvents = () => {
+		const token: string | null = localStorage.getItem('user')
+		if (token) {
+			eventStore.getUserEvents(token)
+		}
+	}
+
+	// useEffect(() => {
+	// 	getAddedEvents()
+	// }, [userStore.user])
 	return (
 		<div className='bg-alternative'>
 			<div className='event-manager-container pb-20 max-w-screen-xl mx-auto flex flex-col lg:flex-row justify-center items-center lg:justify-between lg:items-start pt-44 bg-alternative app-padding'>

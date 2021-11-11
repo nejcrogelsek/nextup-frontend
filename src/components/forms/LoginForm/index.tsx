@@ -37,7 +37,7 @@ const LoginForm: FC = () => {
 		if (res.request) {
 			const data = JSON.parse(res.request.response)
 			userStore.login(data.user)
-			localStorage.setItem('user', data.access_token)
+			localStorage.setItem('user', data.token)
 			reset()
 		} else {
 			setError(res)
