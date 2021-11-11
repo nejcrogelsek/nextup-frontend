@@ -36,7 +36,6 @@ const AddEventForm: FC = () => {
 
 	const onSubmit = handleSubmit((dataset) => {
 		handleAdd(dataset)
-		handleUpdate(dataset)
 	})
 
 	const handleAdd = async (dataset: AddEventDto) => {
