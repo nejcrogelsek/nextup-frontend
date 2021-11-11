@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { login } from '../../../pages/api/auth.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
-import userStore, { initialUser } from '../../../stores/user.store'
+import userStore from '../../../stores/user.store'
 
 const LoginForm: FC = () => {
 	const [success, setSuccess] = useState<string | null>(null)
@@ -43,14 +43,12 @@ const LoginForm: FC = () => {
 			setError(res)
 			setOnErrorEmail(dataset.email)
 		}
-		// just for development
-		userStore.login(initialUser)
 	}
 
 	return (
 		<form className='form' onSubmit={onSubmit}>
 			{error && (
-				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
+				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 max-w-max w-full z-50'>
 					<div className='form-validation-error'>
 						{error.statusCode === 401 ? `User with email: ${onErrorEmail} does not exist.` : error.message}
 						<CloseIcon onClick={setError} className='form-validation-close-icon' />
@@ -58,7 +56,7 @@ const LoginForm: FC = () => {
 				</motion.div>
 			)}
 			{success && (
-				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
+				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 max-w-max w-full z-50'>
 					<div className='form-validation-success'>
 						{success}
 						<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />

@@ -9,7 +9,6 @@ import { generateUploadUrl, uploadImage, createUser } from '../../../pages/api/a
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
 import { Avatar } from '@material-ui/core'
-import userStore, { initialUser } from '../../../stores/user.store'
 
 const SignupForm: FC = () => {
 	const validationSchema = Yup.object().shape({
@@ -64,8 +63,6 @@ const SignupForm: FC = () => {
 		} else {
 			setError({ statusCode: 400, message: 'You need to upload a profile image.' })
 		}
-		// just for development
-		userStore.login(initialUser)
 	}
 
 	const fileSelected = async (e: any) => {
@@ -92,7 +89,7 @@ const SignupForm: FC = () => {
 	return (
 		<form className='form' onSubmit={onSubmit}>
 			{error && (
-				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
+				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 max-w-max w-full z-50'>
 					<div className='form-validation-error'>
 						{error.message}
 						<CloseIcon onClick={setError} className='form-validation-close-icon' />
@@ -100,7 +97,7 @@ const SignupForm: FC = () => {
 				</motion.div>
 			)}
 			{success && (
-				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
+				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 max-w-max w-full z-50'>
 					<div className='form-validation-success'>
 						{success}
 						<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />

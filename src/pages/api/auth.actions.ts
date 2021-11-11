@@ -11,17 +11,13 @@ import { IUser } from '../../interfaces/user.interface'
 export const login = async (
 	dataset: SignInData
 ): Promise<AxiosResponse<SignInData> | AxiosError> => {
-	const data = {
-		username: dataset.email,
-		password: dataset.password,
-	}
-	return axios.post('/auth/login', data).catch((err) => {
+	return axios.post('/auth/login', dataset).catch((err) => {
 		return err.response.data
 	})
 }
 
 export const generateUploadUrl = async (): Promise<AxiosResponse<Response>> => {
-	return axios.get('/users/upload')
+	return axios.get('/public/upload')
 }
 
 export const uploadImage = async (
