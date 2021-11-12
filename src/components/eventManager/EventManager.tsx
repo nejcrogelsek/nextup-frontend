@@ -24,16 +24,6 @@ const EventManagerPage: FC = () => {
 		}
 	}, [])
 
-	const getAddedEvents = () => {
-		const token: string | null = localStorage.getItem('user')
-		if (token) {
-			eventStore.getUserEvents(token)
-		}
-	}
-
-	// useEffect(() => {
-	// 	getAddedEvents()
-	// }, [userStore.user])
 	return (
 		<div className='bg-alternative'>
 			<div className='event-manager-container pb-20 max-w-screen-xl mx-auto flex flex-col lg:flex-row justify-center items-center lg:justify-between lg:items-start pt-44 bg-alternative app-padding'>

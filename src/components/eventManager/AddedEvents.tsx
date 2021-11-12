@@ -1,9 +1,22 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import EventBox from '../shared/eventBox/EventBox'
 import { IEvent } from '../../interfaces/event.interface'
 import eventStore from '../../stores/event.store'
+import userStore from '../../stores/user.store'
 
 const AddedEvents: FC = () => {
+	const getAddedEvents = () => {
+		const token: string | null = localStorage.getItem('user')
+		if (token) {
+			eventStore.getUserEvents(token)
+		}
+	}
+
+	useEffect(() => {
+		getAddedEvents()
+		console.log(eventStore.userEvents)
+	}, [userStore.user])
+
 	return (
 		<div>
 			{eventStore.userEvents?.map((item: IEvent, index: number) => (

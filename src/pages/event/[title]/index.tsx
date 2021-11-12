@@ -1,5 +1,5 @@
-import { Footer, Header } from '../components/shared'
-import EventPage from '../components/event/Event'
+import { Footer, Header } from '../../../components/shared'
+import EventPage from '../../../components/event/Event'
 import { FC } from 'react'
 
 const Event: FC = () => {
