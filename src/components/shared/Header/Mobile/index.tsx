@@ -15,8 +15,8 @@ interface Props {
 const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 	const signout = () => {
 		toggleNav()
+		localStorage.removeItem('user')
 		userStore.logout()
-		router.push('/')
 	}
 
 	const navigateTo = (pathname: string) => {

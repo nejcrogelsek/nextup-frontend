@@ -7,8 +7,8 @@ import userStore from '../../../../stores/user.store'
 
 const NavDesktop: FC = () => {
 	const signout = () => {
+		localStorage.removeItem('user')
 		userStore.logout()
-		router.push('/')
 	}
 
 	return (

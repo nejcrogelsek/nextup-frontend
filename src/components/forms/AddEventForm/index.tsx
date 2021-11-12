@@ -152,6 +152,7 @@ const AddEventForm: FC = () => {
 					<input
 						{...register('max_visitors')}
 						type='number'
+						min={1}
 						name='max_visitors'
 						className={errors.max_visitors ? 'form-control form-control-is-invalid' : 'form-control'}
 					/>
