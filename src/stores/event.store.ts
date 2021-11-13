@@ -21,7 +21,7 @@ class EventStore {
 	userEvents: IEvent[] = []
 	viewedEvent: IEventPage | null = null
 	upcomingEvents: IEvent[] | null = null
-	recentEvents: IEvent[] | null = null
+	recentEvents: IEvent[] = []
 	newEvent: IEventAdd | null = null
 
 	constructor() {
@@ -30,7 +30,7 @@ class EventStore {
 
 	async getEvents() {
 		await axios
-			.get('/events')
+			.get('/public/events')
 			.then((res) => {
 				this.recentEvents = res.data
 			})
@@ -71,7 +71,7 @@ class EventStore {
 
 	updateEvent(event: IEvent, id: string) {
 		const filterEvent = this.userEvents?.filter(ev => ev.id !== id)
-		filterEvent.push({ id: 1, user_id: 1, ...event })
+		filterEvent.push({ id: '1', user_id: 1, ...event })
 		this.userEvents = filterEvent
 	}
 

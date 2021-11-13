@@ -30,7 +30,7 @@ const Event: FC = () => {
 						<div className='-mt-8 relative z-10 lg:-mt-0 lg:pt-32 lg:z-0 lg:w-3/5'>
 							<div className='px-8 lg:w-[500px] xl:w-[600px]'>
 								<p className='flex justify-between items-center text-white lg:text-black'>
-									<span>{format(eventStore.viewedEvent.date_start, 'dd MMM')}</span>
+									<span>{format(new Date(Date.now()), 'dd MMM')}</span>
 									<span>{eventStore.viewedEvent.time_start}</span>
 								</p>
 								<h1 className='font-medium mb-8 mt-4 text-5xl text-primary leading-12 lg:leading-13 lg:text-6xl'>{eventStore.viewedEvent.title}</h1>

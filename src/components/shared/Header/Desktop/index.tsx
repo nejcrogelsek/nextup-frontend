@@ -1,7 +1,6 @@
 import { Avatar } from '@material-ui/core'
 import Link from 'next/link'
 import { observer } from 'mobx-react'
-import router from 'next/router'
 import { FC } from 'react'
 import userStore from '../../../../stores/user.store'
 

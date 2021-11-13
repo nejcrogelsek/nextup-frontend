@@ -14,7 +14,7 @@ const AddEventForm: FC = () => {
 	const validationSchema = Yup.object().shape({
 		title: Yup.string().required('Title is required'),
 		location: Yup.string().required('Location is required'),
-		date_start: Yup.string().required('Date is required'),
+		date_start: Yup.date().required('Date is required'),
 		time_start: Yup.string().required('Time is required'),
 		max_visitors: Yup.number().required('Number of visitors is required').positive().integer().min(1),
 		description: Yup.string().required('Description is required')
@@ -73,7 +73,7 @@ const AddEventForm: FC = () => {
 			if (res.request) {
 				setFile(null)
 				reset()
-				eventStore.updateEvent(res.request, userStore.user.id)
+				eventStore.updateEvent(res.request, 'userStore.user.id')
 				setSuccess('Event successfully updated.')
 			}
 		}
@@ -131,7 +131,7 @@ const AddEventForm: FC = () => {
 					<label className='form-label' htmlFor='date_start'>Date</label>
 					<input
 						{...register('date_start')}
-						type='text'
+						type='date'
 						name='date_start'
 						className={errors.date_start ? 'form-control form-control-is-invalid' : 'form-control'}
 					/>
