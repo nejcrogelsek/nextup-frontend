@@ -35,6 +35,14 @@ class EventStore {
 				this.recentEvents = res.data
 			})
 	}
+	
+	async getUpcomingEvents() {
+		await axios
+			.get('/public/events/upcoming')
+			.then((res) => {
+				this.upcomingEvents = res.data
+			})
+	}
 
 	async getUserEvents(token: string) {
 		await axios
@@ -54,14 +62,6 @@ class EventStore {
 			})
 			.then((res) => {
 				this.recentEvents = res.data
-			})
-	}
-
-	async getUpcomingEvents() {
-		await axios
-			.get('/events/upcoming')
-			.then((res) => {
-				this.upcomingEvents = res.data
 			})
 	}
 

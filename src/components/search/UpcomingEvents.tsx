@@ -8,7 +8,7 @@ const UpcomingEvents: FC = () => {
 
 	return (
 		<div>
-			{eventStore.recentEvents.map((item: IEvent, index: number) => (
+			{eventStore.upcomingEvents.map((item: IEvent, index: number) => (
 				<EventBox
 					key={index}
 					id={item.id}

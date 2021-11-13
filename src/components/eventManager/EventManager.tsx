@@ -1,6 +1,4 @@
 import { FC, useEffect, useState } from 'react'
-import eventStore from '../../stores/event.store'
-import userStore from '../../stores/user.store'
 import AddEventForm from '../forms/AddEventForm'
 import AddedEvents from './AddedEvents'
 import SliderVertical from './SliderVertical'
