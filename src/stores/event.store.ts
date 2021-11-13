@@ -1,6 +1,6 @@
 import axios from '../pages/api/axios'
 import { configure, makeAutoObservable } from 'mobx'
-import { AddEventDto, IEvent, IEventAdd, IEventUpdate } from '../interfaces/event.interface'
+import { IEvent, IEventAdd, IEventPage } from '../interfaces/event.interface'
 
 // just for development
 export const initialEvent = {
@@ -19,6 +19,7 @@ configure({
 
 class EventStore {
 	userEvents: IEvent[] = []
+	viewedEvent: IEventPage | null = null
 	upcomingEvents: IEvent[] | null = null
 	recentEvents: IEvent[] | null = null
 	newEvent: IEventAdd | null = null
@@ -65,10 +66,10 @@ class EventStore {
 	}
 
 	addEvent() {
-		this.userEvents?.push({ id: 1, user_id: 1, ...this.newEvent })
+		this.userEvents?.push({ id: '1', user_id: 1, ...this.newEvent })
 	}
 
-	updateEvent(event: IEvent, id: number) {
+	updateEvent(event: IEvent, id: string) {
 		const filterEvent = this.userEvents?.filter(ev => ev.id !== id)
 		filterEvent.push({ id: 1, user_id: 1, ...event })
 		this.userEvents = filterEvent

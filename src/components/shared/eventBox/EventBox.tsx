@@ -3,10 +3,13 @@ import SettingsIcon from '../../icons/SettingsIcon'
 import TickIcon from '../../icons/TickIcon'
 import { format } from 'date-fns'
 import router from 'next/router'
+import eventStore from '../../../stores/event.store'
 
 interface Props {
 	className?: string
+	id: string
 	title: string
+	event_image: string
 	date_start: Date
 	time_start: string
 	location: string
@@ -15,12 +18,22 @@ interface Props {
 	type?: string
 }
 
-const EventBox: FC<Props> = ({ className, type, title, location, date_start, time_start, description }: Props) => {
+const EventBox: FC<Props> = ({ className, type, title, event_image, id, max_visitors, location, date_start, time_start, description }: Props) => {
 
 	const updateEvent = () => {
 		console.log('UPDATE EVENT')
 	}
 	const checkEvent = () => {
+		eventStore.viewedEvent = {
+			id,
+			title,
+			date_start,
+			time_start,
+			location,
+			max_visitors,
+			event_image,
+			description
+		}
 		router.push({
 			pathname: `/event/${title.replaceAll(' ', '-')}`
 		})

@@ -1,5 +1,5 @@
 export interface IEvent {
-	id: number
+	id: string
 	event_image: string
 	title: string
 	date_start: Date
@@ -8,6 +8,17 @@ export interface IEvent {
 	max_visitors: number
 	description: string
 	user_id: number
+}
+
+export interface IEventPage {
+	id: string
+	event_image: string
+	title: string
+	date_start: Date
+	time_start: string
+	location: string
+	max_visitors: number
+	description: string
 }
 
 export interface IEventAdd {
