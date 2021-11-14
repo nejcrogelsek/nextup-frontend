@@ -48,6 +48,8 @@ const AddEventForm: FC = () => {
 				setIsLoading(true)
 				const res = await createEvent(dataset, imageUrl[0], token)
 				if (res.request) {
+					const data = JSON.parse(res.request.response)
+					eventStore.addEvent(data._id, data.user_id)
 					setSuccess('Event successfully added.')
 					reset()
 				} else {

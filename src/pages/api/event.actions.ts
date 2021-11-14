@@ -31,7 +31,6 @@ export const createEvent = async (
 		event_image: image_url
 	}
 	eventStore.newEvent = data
-	eventStore.addEvent()
 	return axios.post('/events', data, {
 		headers: { Authorization: `Bearer ${token}` },
 	}).catch((err) => {

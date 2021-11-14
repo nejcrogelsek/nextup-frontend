@@ -24,7 +24,7 @@ class EventStore {
 				this.recentEvents = res.data
 			})
 	}
-	
+
 	async getUpcomingEvents() {
 		await axios
 			.get('/public/events/upcoming')
@@ -54,8 +54,8 @@ class EventStore {
 			})
 	}
 
-	addEvent() {
-		this.userEvents?.push({ id: '1', user_id: 1, ...this.newEvent })
+	addEvent(event_id: string, user_id: string) {
+		this.userEvents?.push({ id: event_id, user_id: user_id, ...this.newEvent })
 	}
 
 	updateEvent(event: IEvent, id: string) {

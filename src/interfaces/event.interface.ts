@@ -7,7 +7,7 @@ export interface IEvent {
 	location: string
 	max_visitors: number
 	description: string
-	user_id: number
+	user_id: string
 }
 
 export interface IEventPage {
