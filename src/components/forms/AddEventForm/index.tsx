@@ -22,6 +22,7 @@ const AddEventForm: FC = () => {
 	const [error, setError] = useState<any | null>(null)
 	const [file, setFile] = useState<File | null>(null)
 	const [success, setSuccess] = useState<string | null>(null)
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	const {
 		register,
@@ -44,6 +45,7 @@ const AddEventForm: FC = () => {
 			const imageUrl = data.url.split('?')
 			const token: string | null = localStorage.getItem('user')
 			if (token) {
+				setIsLoading(true)
 				const res = await createEvent(dataset, imageUrl[0], token)
 				if (res.request) {
 					setSuccess('Event successfully added.')
@@ -51,6 +53,7 @@ const AddEventForm: FC = () => {
 				} else {
 					setError(res)
 				}
+				setIsLoading(false)
 			} else {
 				setError({ statusCode: 401, message: 'Unauthorized access.' })
 			}
@@ -88,100 +91,109 @@ const AddEventForm: FC = () => {
 	}
 
 	return (
-		<form className='form max-w-full' onSubmit={onSubmit}>
-			{error && (
-				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
-					<div className='form-validation-error'>
-						{error.message}
-						<CloseIcon onClick={setError} className='form-validation-close-icon' />
+		<>
+			{isLoading ? <div className='fixed left-0 right-0 top-0 bottom-0 w-full h-screen bg-primary bg-opacity-25 z-50'>
+				<div className='flex w-full h-full justify-center items-center'>
+					<div className="flex justify-center items-center">
+						<div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
 					</div>
-				</motion.div>
-			)}
-			{success && (
-				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
-					<div className='form-validation-success'>
-						{success}
-						<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />
-					</div>
-				</motion.div>
-			)}
-			<div className='form-element'>
-				<label className='form-label' htmlFor='title'>Event name</label>
-				<input
-					{...register('title')}
-					type='text'
-					name='title'
-					className={errors.title ? 'form-control form-control-is-invalid' : 'form-control'}
-				/>
-				{errors.title && <div className='form-error-text'>{errors.title.message}</div>}
-			</div>
-			<div className='form-element'>
-				<label className='form-label' htmlFor='location'>Location</label>
-				<input
-					{...register('location')}
-					type='text'
-					name='location'
-					className={errors.location ? 'form-control form-control-is-invalid' : 'form-control'}
-				/>
-				{errors.location && <div className='form-error-text'>{errors.location.message}</div>}
-			</div>
-			<div className='flex justify-between items-center'>
-				<div className='form-element'>
-					<label className='form-label' htmlFor='date_start'>Date</label>
-					<input
-						{...register('date_start')}
-						type='date'
-						name='date_start'
-						className={errors.date_start ? 'form-control form-control-is-invalid' : 'form-control'}
-					/>
-					{errors.date_start && <div className='form-error-text min-h-8'>{errors.date_start.message}</div>}
 				</div>
-				<div className='form-element mx-4'>
-					<label className='form-label' htmlFor='time_start'>Hour</label>
+			</div> : null}
+			<form className='form max-w-full' onSubmit={onSubmit}>
+				{error && (
+					<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
+						<div className='form-validation-error'>
+							{error.message}
+							<CloseIcon onClick={setError} className='form-validation-close-icon' />
+						</div>
+					</motion.div>
+				)}
+				{success && (
+					<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
+						<div className='form-validation-success'>
+							{success}
+							<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />
+						</div>
+					</motion.div>
+				)}
+				<div className='form-element'>
+					<label className='form-label' htmlFor='title'>Event name</label>
 					<input
-						{...register('time_start')}
+						{...register('title')}
 						type='text'
-						name='time_start'
-						className={errors.time_start ? 'form-control form-control-is-invalid' : 'form-control'}
+						name='title'
+						className={errors.title ? 'form-control form-control-is-invalid' : 'form-control'}
 					/>
-					{errors.time_start && <div className='form-error-text min-h-8'>{errors.time_start.message}</div>}
+					{errors.title && <div className='form-error-text'>{errors.title.message}</div>}
 				</div>
 				<div className='form-element'>
-					<label className='form-label' htmlFor='max_visitors'>Max. users</label>
+					<label className='form-label' htmlFor='location'>Location</label>
 					<input
-						{...register('max_visitors')}
-						type='number'
-						min={1}
-						name='max_visitors'
-						className={errors.max_visitors ? 'form-control form-control-is-invalid' : 'form-control'}
+						{...register('location')}
+						type='text'
+						name='location'
+						className={errors.location ? 'form-control form-control-is-invalid' : 'form-control'}
 					/>
-					{errors.max_visitors && <div className='form-error-text min-h-8'>{errors.max_visitors.message}</div>}
+					{errors.location && <div className='form-error-text'>{errors.location.message}</div>}
 				</div>
-			</div>
-			<div className='form-element'>
-				<label className='form-label' htmlFor='description'>Description</label>
-				<textarea
-					{...register('description')}
-					name='description'
-					className={errors.description ? 'form-control h-28 lg:h-20 form-control-is-invalid resize-none' : 'form-control resize-none h-28 lg:h-20'}
-				></textarea>
-				{errors.description && <div className='form-error-text min-h-8'>{errors.description.message}</div>}
-			</div>
-			<div className='form-buttons'>
-				<div className='form-element event-image'>
-					<label className='form-button-revert mb-5' htmlFor='image'>Add image</label>
-					<input
-						type='file'
-						name='image'
-						accept='image/*'
-						onChange={fileSelected}
-					/>
+				<div className='flex justify-between items-center'>
+					<div className='form-element'>
+						<label className='form-label' htmlFor='date_start'>Date</label>
+						<input
+							{...register('date_start')}
+							type='date'
+							name='date_start'
+							className={errors.date_start ? 'form-control form-control-is-invalid' : 'form-control'}
+						/>
+						{errors.date_start && <div className='form-error-text min-h-8'>{errors.date_start.message}</div>}
+					</div>
+					<div className='form-element mx-4'>
+						<label className='form-label' htmlFor='time_start'>Hour</label>
+						<input
+							{...register('time_start')}
+							type='text'
+							name='time_start'
+							className={errors.time_start ? 'form-control form-control-is-invalid' : 'form-control'}
+						/>
+						{errors.time_start && <div className='form-error-text min-h-8'>{errors.time_start.message}</div>}
+					</div>
+					<div className='form-element'>
+						<label className='form-label' htmlFor='max_visitors'>Max. users</label>
+						<input
+							{...register('max_visitors')}
+							type='number'
+							min={1}
+							name='max_visitors'
+							className={errors.max_visitors ? 'form-control form-control-is-invalid' : 'form-control'}
+						/>
+						{errors.max_visitors && <div className='form-error-text min-h-8'>{errors.max_visitors.message}</div>}
+					</div>
 				</div>
-				<button className='form-button' type='submit'>
-					Submit
-				</button>
-			</div>
-		</form>
+				<div className='form-element'>
+					<label className='form-label' htmlFor='description'>Description</label>
+					<textarea
+						{...register('description')}
+						name='description'
+						className={errors.description ? 'form-control h-28 lg:h-20 form-control-is-invalid resize-none' : 'form-control resize-none h-28 lg:h-20'}
+					></textarea>
+					{errors.description && <div className='form-error-text min-h-8'>{errors.description.message}</div>}
+				</div>
+				<div className='form-buttons'>
+					<div className='form-element event-image'>
+						<label className='form-button-revert mb-5' htmlFor='image'>Add image</label>
+						<input
+							type='file'
+							name='image'
+							accept='image/*'
+							onChange={fileSelected}
+						/>
+					</div>
+					<button className='form-button' type='submit'>
+						Submit
+					</button>
+				</div>
+			</form>
+		</>
 	)
 }
 

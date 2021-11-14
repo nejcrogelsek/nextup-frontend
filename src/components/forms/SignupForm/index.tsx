@@ -31,6 +31,8 @@ const SignupForm: FC = () => {
 	const [success, setSuccess] = useState<string | null>(null)
 	const [file, setFile] = useState<File | null>(null)
 	const [preview, setPreview] = useState<string | null>(null)
+	const [isLoading, setIsLoading] = useState<boolean>(false)
+
 	const {
 		register,
 		handleSubmit,
@@ -50,7 +52,7 @@ const SignupForm: FC = () => {
 			const { data } = await generateUploadUrl()
 			uploadImage(data.url, file)
 			const imageUrl = data.url.split('?')
-
+			setIsLoading(true)
 			const res = await createUser(dataset, imageUrl[0])
 			if (res.request) {
 				setSuccess('Check your inbox and verify your email.')
@@ -60,6 +62,7 @@ const SignupForm: FC = () => {
 			} else {
 				setError(res)
 			}
+			setIsLoading(false)
 		} else {
 			setError({ statusCode: 400, message: 'You need to upload a profile image.' })
 		}
@@ -87,104 +90,113 @@ const SignupForm: FC = () => {
 	}, [file])
 
 	return (
-		<form className='form' onSubmit={onSubmit}>
-			{error && (
-				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 max-w-max w-full z-50'>
-					<div className='form-validation-error'>
-						{error.message}
-						<CloseIcon onClick={setError} className='form-validation-close-icon' />
+		<>
+			{isLoading ? <div className='fixed left-0 right-0 top-0 bottom-0 w-full h-screen bg-primary bg-opacity-25 z-50'>
+				<div className='flex w-full h-full justify-center items-center'>
+					<div className="flex justify-center items-center">
+						<div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
 					</div>
-				</motion.div>
-			)}
-			{success && (
-				<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 max-w-max w-full z-50'>
-					<div className='form-validation-success'>
-						{success}
-						<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />
+				</div>
+			</div> : null}
+			<form className='form' onSubmit={onSubmit}>
+				{error && (
+					<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 max-w-max w-full z-50'>
+						<div className='form-validation-error'>
+							{error.message}
+							<CloseIcon onClick={setError} className='form-validation-close-icon' />
+						</div>
+					</motion.div>
+				)}
+				{success && (
+					<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 max-w-max w-full z-50'>
+						<div className='form-validation-success'>
+							{success}
+							<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />
+						</div>
+					</motion.div>
+				)}
+				<div className='form-element-image'>
+					<label className='form-label-image' htmlFor='email'>
+						<Avatar src={preview as string} />
+					</label>
+					<input
+						type='file'
+						accept='image/*'
+						name='file'
+						onChange={fileSelected}
+						className='form-control-image'
+					/>
+				</div>
+				<div className="flex">
+					<div className='form-element mr-2'>
+						<label className='form-label' htmlFor='first_name'>First Name</label>
+						<input
+							{...register('first_name')}
+							id='first_name'
+							type='text'
+							name='first_name'
+							className={errors.first_name ? 'form-control form-control-is-invalid' : 'form-control'}
+						/>
+						{errors.first_name && <div className='form-error-text'>{errors.first_name.message}</div>}
 					</div>
-				</motion.div>
-			)}
-			<div className='form-element-image'>
-				<label className='form-label-image' htmlFor='email'>
-					<Avatar src={preview as string} />
-				</label>
-				<input
-					type='file'
-					accept='image/*'
-					name='file'
-					onChange={fileSelected}
-					className='form-control-image'
-				/>
-			</div>
-			<div className="flex">
-				<div className='form-element mr-2'>
-					<label className='form-label' htmlFor='first_name'>First Name</label>
-					<input
-						{...register('first_name')}
-						id='first_name'
-						type='text'
-						name='first_name'
-						className={errors.first_name ? 'form-control form-control-is-invalid' : 'form-control'}
-					/>
-					{errors.first_name && <div className='form-error-text'>{errors.first_name.message}</div>}
+					<div className='form-element ml-2'>
+						<label className='form-label' htmlFor='email'>Last Name</label>
+						<input
+							{...register('last_name')}
+							id='last_name'
+							type='text'
+							name='last_name'
+							className={errors.last_name ? 'form-control form-control-is-invalid' : 'form-control'}
+						/>
+						{errors.last_name && <div className='form-error-text'>{errors.last_name.message}</div>}
+					</div>
 				</div>
-				<div className='form-element ml-2'>
-					<label className='form-label' htmlFor='email'>Last Name</label>
+				<div className='form-element'>
+					<label className='form-label' htmlFor='email'>Email</label>
 					<input
-						{...register('last_name')}
-						id='last_name'
+						{...register('email')}
+						id='email'
 						type='text'
-						name='last_name'
-						className={errors.last_name ? 'form-control form-control-is-invalid' : 'form-control'}
+						name='email'
+						className={errors.email ? 'form-control form-control-is-invalid' : 'form-control'}
 					/>
-					{errors.last_name && <div className='form-error-text'>{errors.last_name.message}</div>}
+					{errors.email && <div className='form-error-text'>{errors.email.message}</div>}
 				</div>
-			</div>
-			<div className='form-element'>
-				<label className='form-label' htmlFor='email'>Email</label>
-				<input
-					{...register('email')}
-					id='email'
-					type='text'
-					name='email'
-					className={errors.email ? 'form-control form-control-is-invalid' : 'form-control'}
-				/>
-				{errors.email && <div className='form-error-text'>{errors.email.message}</div>}
-			</div>
-			<div className='form-element'>
-				<label className='form-label' htmlFor='password'>Password</label>
-				<input
-					{...register('password')}
-					type='password'
-					name='password'
-					className={errors.password ? 'form-control form-control-is-invalid' : 'form-control'}
-				/>
-				{errors.password && (
-					<div className='form-error-text'>{errors.password.message}</div>
-				)}
-			</div>
-			<div className='form-element'>
-				<label className='form-label' htmlFor='password'>Confirm Password</label>
-				<input
-					{...register('confirm_password')}
-					type='password'
-					name='confirm_password'
-					className={errors.confirm_password ? 'form-control form-control-is-invalid' : 'form-control'}
-				/>
-				{errors.confirm_password && (
-					<div className='form-error-text'>{errors.confirm_password.message}</div>
-				)}
-			</div>
-			<div className='form-buttons'>
-				<button className='form-button' type='submit'>
-					Sign up
-				</button>
-			</div>
-			<div className='form-goto'>
-				<p className='form-goto-p'>Already have an account?</p>
-				<Link href='/login'><a className='form-goto-a'>Sign in</a></Link>
-			</div>
-		</form>
+				<div className='form-element'>
+					<label className='form-label' htmlFor='password'>Password</label>
+					<input
+						{...register('password')}
+						type='password'
+						name='password'
+						className={errors.password ? 'form-control form-control-is-invalid' : 'form-control'}
+					/>
+					{errors.password && (
+						<div className='form-error-text'>{errors.password.message}</div>
+					)}
+				</div>
+				<div className='form-element'>
+					<label className='form-label' htmlFor='password'>Confirm Password</label>
+					<input
+						{...register('confirm_password')}
+						type='password'
+						name='confirm_password'
+						className={errors.confirm_password ? 'form-control form-control-is-invalid' : 'form-control'}
+					/>
+					{errors.confirm_password && (
+						<div className='form-error-text'>{errors.confirm_password.message}</div>
+					)}
+				</div>
+				<div className='form-buttons'>
+					<button className='form-button' type='submit'>
+						Sign up
+					</button>
+				</div>
+				<div className='form-goto'>
+					<p className='form-goto-p'>Already have an account?</p>
+					<Link href='/login'><a className='form-goto-a'>Sign in</a></Link>
+				</div>
+			</form>
+		</>
 	)
 }
 

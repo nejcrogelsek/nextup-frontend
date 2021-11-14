@@ -2,17 +2,6 @@ import axios from '../pages/api/axios'
 import { configure, makeAutoObservable } from 'mobx'
 import { IEvent, IEventAdd, IEventPage } from '../interfaces/event.interface'
 
-// just for development
-export const initialEvent = {
-	image: 'undefined',
-	title: 'Party weed us',
-	date_start: new Date(Date.now()),
-	time_start: '16:20',
-	location: 'Lublana kapatej',
-	max_visitors: 420,
-	description: 'lorem ipsum hehe',
-}
-
 configure({
 	enforceActions: 'never',
 })
@@ -20,7 +9,7 @@ configure({
 class EventStore {
 	userEvents: IEvent[] = []
 	viewedEvent: IEventPage | null = null
-	upcomingEvents: IEvent[] | null = null
+	upcomingEvents: IEvent[] = []
 	recentEvents: IEvent[] = []
 	newEvent: IEventAdd | null = null
 

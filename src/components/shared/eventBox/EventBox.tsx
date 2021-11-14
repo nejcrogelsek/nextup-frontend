@@ -4,21 +4,9 @@ import TickIcon from '../../icons/TickIcon'
 import router from 'next/router'
 import eventStore from '../../../stores/event.store'
 import { observer } from 'mobx-react'
+import { EventBoxProps } from '../../../interfaces/props.interface'
 
-interface Props {
-	className?: string
-	id: string
-	title: string
-	event_image: string
-	date_start: Date
-	time_start: string
-	location: string
-	max_visitors: number
-	description: string,
-	type?: string
-}
-
-const EventBox: FC<Props> = ({ className, type, title, event_image, id, max_visitors, location, date_start, time_start, description }: Props) => {
+const EventBox: FC<EventBoxProps> = ({ className, type, title, event_image, id, max_visitors, location, date_start, time_start, description }: EventBoxProps) => {
 
 	const updateEvent = () => {
 		console.log('UPDATE EVENT')

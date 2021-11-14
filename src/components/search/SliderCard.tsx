@@ -6,7 +6,6 @@ import { IEvent } from '../../interfaces/event.interface'
 import { Pagination } from 'swiper'
 import eventStore from '../../stores/event.store'
 
-
 const SliderCard: FC = () => {
 	return (
 		<div className='relative lg:-mt-20'>
@@ -32,18 +31,18 @@ const SliderCard: FC = () => {
 				onSlideChange={() => console.log('Card slide CHANGED')}
 				onSwiper={(swiper: any) => console.log(swiper)}
 				className='pt-6 pb-8'>
-				{eventStore.upcomingEvents.map((item: IEvent, index: number) => (
+				{eventStore.upcomingEvents.map((val: IEvent, index: number) => (
 					<SwiperSlide key={index} className='swiper-slide-card'>
 						<SliderItemCard
-							image={item.event_image}
-							title={item.title}
-							date_start={item.date_start}
-							time_start={item.time_start}
-							location={item.location}
-							max_visitors={item.max_visitors}
-							event_image={item.event_image}
-							description={item.description}
-							id={item.id} />
+							image={val.event_image}
+							title={val.title}
+							date_start={val.date_start}
+							time_start={val.time_start}
+							location={val.location}
+							max_visitors={val.max_visitors}
+							event_image={val.event_image}
+							description={val.description}
+							id={val.id} />
 					</SwiperSlide>
 				))}
 			</Swiper>
