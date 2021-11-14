@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import LocationIcon from '../icons/LocationIcon'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,12 +8,46 @@ import userStore from '../../stores/user.store'
 import { format } from 'date-fns'
 import router from 'next/router'
 import { observer } from 'mobx-react'
+import { bookEventReservation } from '../../pages/api/event.actions'
+import { motion } from 'framer-motion'
+import CloseIcon from '../icons/CloseIcon'
 
 const Event: FC = () => {
+	const [error, setError] = useState<any | null>(null)
+	const [success, setSuccess] = useState<string | null>(null)
+
+	const bookEvent = async () => {
+		const token: string | null = localStorage.getItem('user')
+		if (token) {
+			const res = await bookEventReservation('event_id', token)
+			if (res.request) {
+				setSuccess(`${userStore.user.first_name} you successfully book reservation for event: ${eventStore.viewedEvent.title}`)
+			} else {
+				setError(res)
+			}
+		}
+	}
+
 	return (
 		<>
 			{eventStore.viewedEvent ?
 				<div className='max-w-screen-xl mx-auto'>
+					{error && (
+						<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
+							<div className='form-validation-error'>
+								{error.message}
+								<CloseIcon onClick={setError} className='form-validation-close-icon' />
+							</div>
+						</motion.div>
+					)}
+					{success && (
+						<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
+							<div className='form-validation-success'>
+								{success}
+								<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />
+							</div>
+						</motion.div>
+					)}
 					<div className='absolute w-3/6 h-full -z-10 bg-alternative left-0 top-0'></div>
 					<div className='event-container w-full bg-alternative lg:w-9/12'>
 						<div className='swiper-event-image-wrap pt-24 lg:pt-0 lg:absolute lg:bottom-0 lg:right-0 lg:h-[49em] lg:overflow-hidden'>
@@ -50,7 +84,7 @@ const Event: FC = () => {
 								<h2 className='uppercase mb-4 font-medium'>Event description:</h2>
 								<p className='mb-[2.875rem]'>{eventStore.viewedEvent.description}</p>
 								<div className='flex flex-col items-end'>
-									{userStore.user ? <button type='button' className='bg-primary text-white w-max px-8 py-4 rounded-2xl flex justify-center items-center transition hover:bg-black'>Book</button> :
+									{userStore.user ? <button type='button' className='bg-primary text-white w-max px-8 py-4 rounded-2xl flex justify-center items-center transition hover:bg-black' onClick={bookEvent}>Book</button> :
 										<>
 											<Link href='/login'><a className='bg-primary text-white w-max px-8 py-3 mb-4 rounded-3xl flex justify-center items-center transition hover:bg-black'>Login</a></Link>
 											<p className='text-right'>To attend event you need to login.</p>

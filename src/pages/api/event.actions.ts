@@ -48,3 +48,14 @@ export const updateEvent = async (
 		return err.response.data
 	})
 }
+
+export const bookEventReservation = async (
+	event_id: string,
+	token: string
+): Promise<AxiosResponse<IEvent> | AxiosError> => {
+	return axios.post('/events/book', { event_id }, {
+		headers: { Authorization: `Bearer ${token}` },
+	}).catch((err) => {
+		return err.response.data
+	})
+}
