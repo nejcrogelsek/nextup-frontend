@@ -16,17 +16,6 @@ Router.events.on('routeChangeStart', progress.start);
 Router.events.on('routeChangeComplete', progress.finish);
 
 function NextupApp({ Component, pageProps }) {
-	const getRecentEvents = async () => {
-		await eventStore.getEvents()
-	}
-	const getUpcomingEvents = async () => {
-		await eventStore.getUpcomingEvents()
-	}
-
-	useEffect(() => {
-		getRecentEvents()
-		getUpcomingEvents()
-	}, [])
 	return <Component {...pageProps} />;
 }
 

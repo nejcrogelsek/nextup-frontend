@@ -2,6 +2,9 @@ import { FC } from 'react'
 import Image from 'next/image'
 import LocationIcon from '../icons/LocationIcon'
 import PersonFillIcon from '../icons/PersonFillIcon'
+import eventStore from '../../stores/event.store'
+import router from 'next/router'
+import { observer } from 'mobx-react'
 
 interface Props {
 	image: string
@@ -9,12 +12,30 @@ interface Props {
 	date_start: Date
 	time_start: string
 	location: string
+	event_image: string
+	id: string
+	description: string
 	max_visitors: number
 }
 
-const SliderItemCard: FC<Props> = ({ image, title, date_start, time_start, location, max_visitors }: Props) => {
+const SliderItemCard: FC<Props> = ({ id, event_image, description, image, title, date_start, time_start, location, max_visitors }: Props) => {
+	const checkEvent = () => {
+		eventStore.viewedEvent = {
+			id,
+			title,
+			date_start,
+			time_start,
+			location,
+			max_visitors,
+			event_image,
+			description
+		}
+		router.push({
+			pathname: `/event/${title.replaceAll(' ', '-')}`
+		})
+	}
 	return (
-		<div>
+		<div className='max-w-[360px]'>
 			<div className='image-wrap'>
 				<Image
 					src={image}
@@ -25,7 +46,7 @@ const SliderItemCard: FC<Props> = ({ image, title, date_start, time_start, locat
 				/>
 			</div>
 			<div className='px-4 pb-4'>
-				<h3 className='text-2xl text-primary font-medium mt-4 mb-2'>{title}</h3>
+				<h3 className='text-2xl text-primary font-medium mt-4 mb-2' onClick={checkEvent}>{title}</h3>
 				<div className='flex text-sm'>
 					<span>1.1.2020</span>
 					<span>{time_start}</span>
@@ -45,4 +66,4 @@ const SliderItemCard: FC<Props> = ({ image, title, date_start, time_start, locat
 	)
 }
 
-export default SliderItemCard
+export default observer(SliderItemCard)

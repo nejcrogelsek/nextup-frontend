@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
+import { observer } from 'mobx-react'
 import router from 'next/router'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { IEvent } from '../../interfaces/event.interface'
 import eventStore from '../../stores/event.store'
 import DateIcon from '../icons/DateIcon'
@@ -24,6 +25,14 @@ const Home: FC = () => {
 			pathname: `/event/${val.title.replaceAll(' ', '-')}`
 		})
 	}
+	const getUpcomingEvents = async () => {
+		await eventStore.getUpcomingEvents()
+	}
+
+	useEffect(() => {
+		getUpcomingEvents()
+	}, [])
+
 	return (
 		<div className='max-w-screen-xl mx-auto'>
 			<div className='absolute w-3/6 h-full -z-10 bg-alternative left-0 top-0'></div>
@@ -48,16 +57,16 @@ const Home: FC = () => {
 								<input type='date' className='border-0 focus:border-0 focus:ring-0 lg:m-0' />
 							</div>
 							{searchTerm === '' ? null :
-								<motion.ul initial={{ transform: 'translateY(10%)', opacity: 0 }} animate={{ transform: 'translateY(0%)', opacity: 1 }} className='absolute left-0 right-0 top-full bg-white z-20'>
-									{eventStore.recentEvents.filter(val => {
+								<motion.ul initial={{ transform: 'translateY(10%)', opacity: 0 }} animate={{ transform: 'translateY(0%)', opacity: 1 }} className='absolute mt-2 max-h-[112px] overflow-y-auto rounded-3xl left-0 right-0 top-full bg-white z-20'>
+									{eventStore.upcomingEvents.filter(val => {
 										if (searchTerm === '') {
 											return null
 										} else if (val.title.toLowerCase().includes(searchTerm.toLowerCase()) || val.location.toLowerCase().includes(searchTerm.toLowerCase()) || val.description.toLowerCase().includes(searchTerm.toLowerCase())) {
 											return val
 										}
-									}).map((val, key) => (
-										<li key={key}>
-											<button type='button' className='px-2 cursor-pointer transition hover:bg-gray-300 block w-full py-2 text-left' onClick={() => searchForEvent(val)}>
+									}).map((val: IEvent, index: number) => (
+										<li key={index} className='rounded-3xl p-2'>
+											<button type='button' className='px-2 cursor-pointer rounded-3xl transition hover:bg-gray-300 block w-full py-2 text-left' onClick={() => searchForEvent(val)}>
 												{val.title}
 											</button>
 										</li>
@@ -72,4 +81,4 @@ const Home: FC = () => {
 	)
 }
 
-export default Home
+export default observer(Home)

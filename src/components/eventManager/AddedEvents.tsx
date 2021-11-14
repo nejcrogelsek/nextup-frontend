@@ -3,6 +3,7 @@ import EventBox from '../shared/eventBox/EventBox'
 import { IEvent } from '../../interfaces/event.interface'
 import eventStore from '../../stores/event.store'
 import userStore from '../../stores/user.store'
+import { observer } from 'mobx-react'
 
 const AddedEvents: FC = () => {
 	const getAddedEvents = () => {
@@ -19,17 +20,17 @@ const AddedEvents: FC = () => {
 
 	return (
 		<div>
-			{eventStore.userEvents?.map((item: IEvent, index: number) => (
+			{eventStore.userEvents.map((val: IEvent, index: number) => (
 				<EventBox
 					key={index}
-					id={item.id}
-					title={item.title}
-					description={item.description}
-					date_start={item.date_start}
-					time_start={item.time_start}
-					location={item.location}
-					max_visitors={item.max_visitors}
-					event_image={item.event_image}
+					id={val.id}
+					title={val.title}
+					description={val.description}
+					date_start={val.date_start}
+					time_start={val.time_start}
+					location={val.location}
+					max_visitors={val.max_visitors}
+					event_image={val.event_image}
 					type='gear'
 				/>
 			))}
@@ -37,4 +38,4 @@ const AddedEvents: FC = () => {
 	)
 }
 
-export default AddedEvents
+export default observer(AddedEvents)

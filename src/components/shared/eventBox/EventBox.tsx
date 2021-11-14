@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import SettingsIcon from '../../icons/SettingsIcon'
 import TickIcon from '../../icons/TickIcon'
-import { format } from 'date-fns'
 import router from 'next/router'
 import eventStore from '../../../stores/event.store'
+import { observer } from 'mobx-react'
 
 interface Props {
 	className?: string
@@ -62,4 +62,4 @@ const EventBox: FC<Props> = ({ className, type, title, event_image, id, max_visi
 	)
 }
 
-export default EventBox
+export default observer(EventBox)

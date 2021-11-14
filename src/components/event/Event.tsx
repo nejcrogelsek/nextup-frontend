@@ -7,6 +7,7 @@ import eventStore from '../../stores/event.store'
 import userStore from '../../stores/user.store'
 import { format } from 'date-fns'
 import router from 'next/router'
+import { observer } from 'mobx-react'
 
 const Event: FC = () => {
 	return (
@@ -64,4 +65,4 @@ const Event: FC = () => {
 	)
 }
 
-export default Event
+export default observer(Event)
