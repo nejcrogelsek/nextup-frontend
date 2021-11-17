@@ -63,6 +63,9 @@ const Event: FC = () => {
 		if (userStore.user) {
 			checkIfUserAlreadyBookedEvent()
 		}
+		if (localStorage.getItem('event')) {
+			eventStore.viewedEvent = JSON.parse(localStorage.getItem('event'))
+		}
 	}, [])
 
 	return (

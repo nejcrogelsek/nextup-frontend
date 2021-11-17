@@ -12,9 +12,6 @@ const EventBox: FC<EventBoxProps> = ({ className, type, title, event_image, id, 
 		console.log('UPDATE EVENT')
 	}
 	const checkEvent = () => {
-		console.log('DATA:')
-		console.log(id)
-		console.log(title)
 		eventStore.viewedEvent = {
 			id,
 			title,
@@ -25,6 +22,16 @@ const EventBox: FC<EventBoxProps> = ({ className, type, title, event_image, id, 
 			event_image,
 			description
 		}
+		localStorage.setItem('event', JSON.stringify({
+			id,
+			title,
+			date_start,
+			time_start,
+			location,
+			max_visitors,
+			event_image,
+			description
+		}))
 		router.push({
 			pathname: `/event/${title.replaceAll(' ', '-')}`
 		})

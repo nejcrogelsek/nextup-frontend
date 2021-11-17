@@ -30,6 +30,16 @@ const SliderItemCard: FC<Props> = ({ id, event_image, description, image, title,
 			event_image,
 			description
 		}
+		localStorage.setItem('event', JSON.stringify({
+			id,
+			title,
+			date_start,
+			time_start,
+			location,
+			max_visitors,
+			event_image,
+			description
+		}))
 		router.push({
 			pathname: `/event/${title.replaceAll(' ', '-')}`
 		})
