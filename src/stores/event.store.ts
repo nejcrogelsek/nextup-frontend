@@ -55,12 +55,12 @@ class EventStore {
 	}
 
 	addEvent(event_id: string, user_id: string) {
-		this.userEvents?.push({ id: event_id, user_id: user_id, ...this.newEvent })
+		this.userEvents?.push({ _id: event_id, user_id: user_id, ...this.newEvent })
 	}
 
 	updateEvent(event: IEvent, id: string) {
-		const filterEvent = this.userEvents?.filter(ev => ev.id !== id)
-		filterEvent.push({ id: '1', user_id: 1, ...event })
+		const filterEvent = this.userEvents?.filter(ev => ev._id !== id)
+		filterEvent.push({ _id: '1', user_id: 1, ...event })
 		this.userEvents = filterEvent
 	}
 

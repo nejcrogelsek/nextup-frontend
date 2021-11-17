@@ -12,7 +12,7 @@ export type SignInData = {
 }
 
 export type UserData = {
-	id: number
+	_id: string
 	email: string
 	first_name: string
 	last_name: string
@@ -25,7 +25,7 @@ export interface UserProps {
 
 export interface IAuthReturnData {
 	user: {
-		id: number
+		_id: string
 		email: string
 		first_name: string
 		last_name: string

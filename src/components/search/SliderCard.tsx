@@ -42,7 +42,7 @@ const SliderCard: FC = () => {
 							max_visitors={val.max_visitors}
 							event_image={val.event_image}
 							description={val.description}
-							id={val.id} />
+							id={val._id} />
 					</SwiperSlide>
 				))}
 			</Swiper>

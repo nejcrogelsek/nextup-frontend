@@ -23,7 +23,7 @@ const Events: FC<Props> = ({ type }: Props) => {
 			{eventStore.upcomingEvents.map((val: IEvent, index: number) => (
 				<EventBox
 					key={index}
-					id={val.id}
+					id={val._id}
 					event_image={val.event_image}
 					title={val.title}
 					description={val.description}

@@ -14,6 +14,7 @@ const EventBox: FC<EventBoxProps> = ({ className, type, title, event_image, id, 
 	const checkEvent = () => {
 		console.log('DATA:')
 		console.log(id)
+		console.log(title)
 		eventStore.viewedEvent = {
 			id,
 			title,

@@ -13,7 +13,7 @@ const Search: FC = () => {
 	const [searchTerm, setSearchTerm] = useState<string>('')
 	const searchForEvent = (val: IEvent) => {
 		eventStore.viewedEvent = {
-			id: val.id,
+			id: val._id,
 			title: val.title,
 			date_start: val.date_start,
 			time_start: val.time_start,

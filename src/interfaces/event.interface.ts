@@ -1,5 +1,5 @@
 export interface IEvent {
-	id: string
+	_id: string
 	event_image: string
 	title: string
 	date_start: Date

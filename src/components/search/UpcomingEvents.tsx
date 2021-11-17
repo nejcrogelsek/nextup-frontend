@@ -11,7 +11,7 @@ const UpcomingEvents: FC = () => {
 			{eventStore.upcomingEvents.map((val: IEvent, index: number) => (
 				<EventBox
 					key={index}
-					id={val.id}
+					id={val._id}
 					title={val.title}
 					description={val.description}
 					date_start={val.date_start}

@@ -8,6 +8,7 @@ import CloseIcon from '../../icons/CloseIcon'
 import { AddEventDto, IEventUpdate } from '../../../interfaces/event.interface'
 import eventStore from '../../../stores/event.store'
 import { createEvent, generateUploadUrl, updateEvent, uploadImage } from '../../../pages/api/event.actions'
+import userStore from '../../../stores/user.store'
 
 const AddEventForm: FC = () => {
 	const validationSchema = Yup.object().shape({
@@ -77,7 +78,7 @@ const AddEventForm: FC = () => {
 			if (res.request) {
 				setFile(null)
 				reset()
-				eventStore.updateEvent(res.request, 'userStore.user.id')
+				eventStore.updateEvent(res.request, userStore.user._id)
 				setSuccess('Event successfully updated.')
 			}
 		}

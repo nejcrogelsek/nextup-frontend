@@ -30,18 +30,16 @@ function NextupApp({ Component, pageProps }) {
 	}
 
 	const checkForRefreshToken = async () => {
-		if (localStorage.getItem('user')) {
+		const token: string | null = localStorage.getItem('user')
+		if (token) {
 			const payload = JSON.parse(getPayload())
 			const expiration = new Date(payload.exp)
 			const now = new Date()
 			const minutes = 1000 * 60 * 14
 			if (expiration.getTime() - now.getTime() < minutes) {
-				const token: string | null = localStorage.getItem('user')
-				if (token) {
-					const res = await refreshTokenFC(payload.email, payload.id, token)
-					if (res.data) {
-						localStorage.setItem('user', res.data.access_token)
-					}
+				const res = await refreshTokenFC(payload.email, payload.id, token)
+				if (res.data) {
+					localStorage.setItem('user', res.data.access_token)
 				}
 			}
 		}
@@ -60,6 +58,7 @@ function NextupApp({ Component, pageProps }) {
 
 		return () => clearInterval(interval)
 	}, [])
+
 	return (
 		<>
 			<Header />

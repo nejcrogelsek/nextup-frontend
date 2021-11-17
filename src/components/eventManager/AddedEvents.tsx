@@ -15,7 +15,6 @@ const AddedEvents: FC = () => {
 
 	useEffect(() => {
 		getAddedEvents()
-		console.log(eventStore.userEvents)
 	}, [userStore.user])
 
 	return (
@@ -23,7 +22,7 @@ const AddedEvents: FC = () => {
 			{eventStore.userEvents.map((val: IEvent, index: number) => (
 				<EventBox
 					key={index}
-					id={val.id}
+					id={val._id}
 					title={val.title}
 					description={val.description}
 					date_start={val.date_start}

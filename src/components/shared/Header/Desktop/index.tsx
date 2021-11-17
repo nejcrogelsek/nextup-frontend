@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 import userStore from '../../../../stores/user.store'
-import router from 'next/router'
 
 const NavDesktop: FC = () => {
 	const signout = () => {

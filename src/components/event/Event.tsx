@@ -16,38 +16,46 @@ const Event: FC = () => {
 	const [error, setError] = useState<any | null>(null)
 	const [success, setSuccess] = useState<string | null>(null)
 	const [allow, setAllow] = useState<boolean>(false)
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	const bookEvent = async () => {
 		const token: string | null = localStorage.getItem('user')
 		if (token) {
-			const res = await bookEventReservation('61953f37045760829c542fa1', token)
+			setIsLoading(true)
+			const res = await bookEventReservation(eventStore.viewedEvent.id, token)
 			if (res.request) {
 				setSuccess(`${userStore.user.first_name} you successfully book reservation for event: ${eventStore.viewedEvent.title}`)
+				setAllow(false)
 			} else {
 				setError(res)
 			}
+			setIsLoading(false)
 		}
 	}
 
 	const unbookEvent = async () => {
 		const token: string | null = localStorage.getItem('user')
 		if (token) {
-			const res = await deleteReservation('61953f37045760829c542fa1', token)
+			setIsLoading(true)
+			const res = await deleteReservation(eventStore.viewedEvent.id, token)
 			if (res.request) {
 				setSuccess(`${userStore.user.first_name} you successfully delete reservation for event: ${eventStore.viewedEvent.title}`)
 				setAllow(true)
 			} else {
 				setError(res)
 			}
+			setIsLoading(false)
 		}
 	}
 
 	const checkIfUserAlreadyBookedEvent = async () => {
 		const token: string | null = localStorage.getItem('user')
 		if (token) {
-			const res = await bookedEvents('61953f37045760829c542fa1', token)
+			setIsLoading(true)
+			const res = await bookedEvents(eventStore.viewedEvent.id, token)
 			const isAllowed = JSON.parse(res.request.response)
 			setAllow(isAllowed.allowed)
+			setIsLoading(false)
 		}
 	}
 
@@ -57,10 +65,15 @@ const Event: FC = () => {
 		}
 	}, [])
 
-	console.log(allow)
-
 	return (
 		<>
+			{isLoading ? <div className='fixed left-0 right-0 top-0 bottom-0 w-full h-screen bg-primary bg-opacity-25 z-50'>
+				<div className='flex w-full h-full justify-center items-center'>
+					<div className="flex justify-center items-center">
+						<div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
+					</div>
+				</div>
+			</div> : null}
 			{eventStore.viewedEvent ?
 				<div className='max-w-screen-xl mx-auto'>
 					{error && (
@@ -124,7 +137,7 @@ const Event: FC = () => {
 							</div>
 						</div>
 					</div>
-				</div> : router.push('/')
+				</div> : null
 			}
 		</>
 	)

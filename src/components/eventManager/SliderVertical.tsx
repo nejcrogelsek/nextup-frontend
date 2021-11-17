@@ -24,7 +24,7 @@ const SliderVertical: FC = () => {
 							time_start={val.time_start}
 							location={val.location}
 							max_visitors={val.max_visitors}
-							id={val.id}
+							id={val._id}
 							event_image={val.event_image}
 							className='!mb-0 !pl-8'
 							type='gear'
