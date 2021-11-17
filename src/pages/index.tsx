@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Footer, Header } from '../components/shared'
+import { Footer } from '../components/shared'
 import Homepage from '../components/home/Home'
 import { FC } from 'react'
 

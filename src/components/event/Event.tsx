@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import LocationIcon from '../icons/LocationIcon'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,18 +8,19 @@ import userStore from '../../stores/user.store'
 import { format } from 'date-fns'
 import router from 'next/router'
 import { observer } from 'mobx-react'
-import { bookEventReservation } from '../../pages/api/event.actions'
+import { bookedEvents, bookEventReservation, deleteReservation } from '../../pages/api/event.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../icons/CloseIcon'
 
 const Event: FC = () => {
 	const [error, setError] = useState<any | null>(null)
 	const [success, setSuccess] = useState<string | null>(null)
+	const [allow, setAllow] = useState<boolean>(false)
 
 	const bookEvent = async () => {
 		const token: string | null = localStorage.getItem('user')
 		if (token) {
-			const res = await bookEventReservation('61913f8432d3b4b03c4b572a', token)
+			const res = await bookEventReservation('61953f37045760829c542fa1', token)
 			if (res.request) {
 				setSuccess(`${userStore.user.first_name} you successfully book reservation for event: ${eventStore.viewedEvent.title}`)
 			} else {
@@ -27,6 +28,36 @@ const Event: FC = () => {
 			}
 		}
 	}
+
+	const unbookEvent = async () => {
+		const token: string | null = localStorage.getItem('user')
+		if (token) {
+			const res = await deleteReservation('61953f37045760829c542fa1', token)
+			if (res.request) {
+				setSuccess(`${userStore.user.first_name} you successfully delete reservation for event: ${eventStore.viewedEvent.title}`)
+				setAllow(true)
+			} else {
+				setError(res)
+			}
+		}
+	}
+
+	const checkIfUserAlreadyBookedEvent = async () => {
+		const token: string | null = localStorage.getItem('user')
+		if (token) {
+			const res = await bookedEvents('61953f37045760829c542fa1', token)
+			const isAllowed = JSON.parse(res.request.response)
+			setAllow(isAllowed.allowed)
+		}
+	}
+
+	useEffect(() => {
+		if (userStore.user) {
+			checkIfUserAlreadyBookedEvent()
+		}
+	}, [])
+
+	console.log(allow)
 
 	return (
 		<>
@@ -84,7 +115,7 @@ const Event: FC = () => {
 								<h2 className='uppercase mb-4 font-medium'>Event description:</h2>
 								<p className='mb-[2.875rem]'>{eventStore.viewedEvent.description}</p>
 								<div className='flex flex-col items-end'>
-									{userStore.user ? <button type='button' className='bg-primary text-white w-max px-8 py-4 rounded-2xl flex justify-center items-center transition hover:bg-black' onClick={bookEvent}>Book</button> :
+									{userStore.user ? <button type='button' className='bg-primary text-white w-max px-8 py-4 rounded-2xl flex justify-center items-center transition hover:bg-black' onClick={allow ? bookEvent : unbookEvent}>{allow ? 'Book' : 'Unbook'}</button> :
 										<>
 											<Link href='/login'><a className='bg-primary text-white w-max px-8 py-3 mb-4 rounded-3xl flex justify-center items-center transition hover:bg-black'>Login</a></Link>
 											<p className='text-right'>To attend event you need to login.</p>

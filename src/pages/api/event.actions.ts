@@ -50,6 +50,15 @@ export const updateEvent = async (
 	})
 }
 
+export const bookedEvents = async (
+	event_id: string,
+	token: string,
+): Promise<AxiosResponse<boolean>> => {
+	return axios.get(`/events/reservations/${event_id}`, {
+		headers: { Authorization: `Bearer ${token}` },
+	})
+}
+
 export const bookEventReservation = async (
 	event_id: string,
 	token: string
@@ -60,6 +69,17 @@ export const bookEventReservation = async (
 	console.log(eventStore.viewedEvent)
 	console.log(JSON.parse(JSON.stringify(eventStore.viewedEvent)))
 	return axios.post('/events/book', { event_id, user_id: '618d1c266c2cd45459c4ab5a' }, {
+		headers: { Authorization: `Bearer ${token}` },
+	}).catch((err) => {
+		return err.response.data
+	})
+}
+
+export const deleteReservation = async (
+	event_id: string,
+	token: string,
+): Promise<AxiosResponse<boolean>> => {
+	return axios.delete(`/events/reservations/${event_id}`, {
 		headers: { Authorization: `Bearer ${token}` },
 	}).catch((err) => {
 		return err.response.data

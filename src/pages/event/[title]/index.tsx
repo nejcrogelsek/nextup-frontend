@@ -1,4 +1,4 @@
-import { Footer, Header } from '../../../components/shared'
+import { Footer } from '../../../components/shared'
 import EventPage from '../../../components/event/Event'
 import { FC } from 'react'
 

@@ -35,7 +35,6 @@ function NextupApp({ Component, pageProps }) {
 			const expiration = new Date(payload.exp)
 			const now = new Date()
 			const minutes = 1000 * 60 * 14
-			console.log('PAYLOAD: ', payload)
 			if (expiration.getTime() - now.getTime() < minutes) {
 				const token: string | null = localStorage.getItem('user')
 				if (token) {

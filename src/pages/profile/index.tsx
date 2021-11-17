@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import ProfilePage from '../../components/profile/Profile'
-import { Footer, Header } from '../../components/shared'
+import { Footer } from '../../components/shared'
 
 const Profile: FC = () => {
 	return (
