@@ -5,7 +5,6 @@ import { FC } from 'react'
 const Event: FC = () => {
 	return (
 		<div className='relative'>
-			<Header />
 			<EventPage />
 			<div className='bg-white myshadow'>
 				<div className='max-w-screen-xl bg-white mx-auto'>

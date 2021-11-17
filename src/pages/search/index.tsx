@@ -5,7 +5,6 @@ import { Footer, Header } from '../../components/shared'
 const Search: FC = () => {
 	return (
 		<>
-			<Header />
 			<SearchPage />
 			<Footer />
 		</>

@@ -5,7 +5,6 @@ import { Footer, Header } from '../../components/shared'
 const EventManager: FC = () => {
 	return (
 		<>
-			<Header />
 			<EventManagerPage />
 			<Footer />
 		</>

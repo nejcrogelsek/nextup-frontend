@@ -19,7 +19,7 @@ const Event: FC = () => {
 	const bookEvent = async () => {
 		const token: string | null = localStorage.getItem('user')
 		if (token) {
-			const res = await bookEventReservation('event_id', token)
+			const res = await bookEventReservation('61913f8432d3b4b03c4b572a', token)
 			if (res.request) {
 				setSuccess(`${userStore.user.first_name} you successfully book reservation for event: ${eventStore.viewedEvent.title}`)
 			} else {

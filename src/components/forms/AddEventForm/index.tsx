@@ -14,7 +14,7 @@ const AddEventForm: FC = () => {
 		title: Yup.string().required('Title is required'),
 		location: Yup.string().required('Location is required'),
 		date_start: Yup.date().required('Date is required'),
-		time_start: Yup.string().required('Time is required'),
+		time_start: Yup.string().required('Time is required').matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Example: 20:40'),
 		max_visitors: Yup.number().required('Number of visitors is required').positive().integer().min(1),
 		description: Yup.string().required('Description is required')
 	})
@@ -40,12 +40,12 @@ const AddEventForm: FC = () => {
 
 	const handleAdd = async (dataset: AddEventDto) => {
 		if (file !== null) {
+			setIsLoading(true)
 			const { data } = await generateUploadUrl()
 			await uploadImage(data.url, file)
 			const imageUrl = data.url.split('?')
 			const token: string | null = localStorage.getItem('user')
 			if (token) {
-				setIsLoading(true)
 				const res = await createEvent(dataset, imageUrl[0], token)
 				if (res.request) {
 					const data = JSON.parse(res.request.response)
@@ -55,10 +55,10 @@ const AddEventForm: FC = () => {
 				} else {
 					setError(res)
 				}
-				setIsLoading(false)
 			} else {
 				setError({ statusCode: 401, message: 'Unauthorized access.' })
 			}
+			setIsLoading(false)
 		} else {
 			setError({ statusCode: 400, message: 'You need to upload an event image.' })
 		}

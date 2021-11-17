@@ -5,7 +5,6 @@ import { Footer, Header } from '../../components/shared'
 const Profile: FC = () => {
 	return (
 		<>
-			<Header />
 			<ProfilePage />
 			<Footer />
 		</>

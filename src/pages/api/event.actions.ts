@@ -2,6 +2,7 @@ import axios from './axios'
 import { AxiosError, AxiosResponse } from 'axios'
 import { AddEventDto, IEvent, IEventAdd, IEventUpdate } from '../../interfaces/event.interface'
 import eventStore from '../../stores/event.store'
+import userStore from '../../stores/user.store'
 
 export const generateUploadUrl = async (): Promise<AxiosResponse<Response>> => {
 	return axios.get('/public/upload')
@@ -53,7 +54,12 @@ export const bookEventReservation = async (
 	event_id: string,
 	token: string
 ): Promise<AxiosResponse<IEvent> | AxiosError> => {
-	return axios.post('/events/book', { event_id }, {
+	// id from user and viewedEvent is not saved when needed...probi console.log tam kjer ustavlam podatke
+	console.log(userStore.user)
+	console.log(JSON.parse(JSON.stringify(userStore.user)))
+	console.log(eventStore.viewedEvent)
+	console.log(JSON.parse(JSON.stringify(eventStore.viewedEvent)))
+	return axios.post('/events/book', { event_id, user_id: '618d1c266c2cd45459c4ab5a' }, {
 		headers: { Authorization: `Bearer ${token}` },
 	}).catch((err) => {
 		return err.response.data

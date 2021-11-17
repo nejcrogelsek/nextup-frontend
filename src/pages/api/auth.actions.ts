@@ -47,13 +47,13 @@ export const createUser = async (
 }
 
 export const refreshTokenFC = async (
-	name: string,
-	sub: number,
+	email: string,
+	id: string,
 	token: string
 ): Promise<AxiosResponse<IAccessToken>> => {
 	return axios.post(
-		'/auth/refresh-token',
-		{ name: name, sub: sub },
+		'/private/refresh-token',
+		{ email: email, id: id },
 		{
 			headers: { Authorization: `Bearer ${token}` },
 		}
@@ -63,7 +63,7 @@ export const refreshTokenFC = async (
 export const accessTokenFC = async (
 	token: string
 ): Promise<AxiosResponse<IUser>> => {
-	return axios.get('/auth/protected', {
+	return axios.get('/private/protected', {
 		headers: { Authorization: `Bearer ${token}` },
 	})
 }

@@ -11,7 +11,6 @@ const Home: FC = () => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div className='absolute top-0 right-0 bottom-0 bg-background-pattern z-0 w-[26%] h-full'></div>
-			<Header />
 			<Homepage />
 			<div className='bg-white myshadow'>
 				<div className='max-w-screen-xl bg-white mx-auto'>

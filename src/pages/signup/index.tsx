@@ -8,7 +8,6 @@ import { observer } from 'mobx-react'
 const Signup: FC = () => {
 	return (
 		<>
-			<Header />
 			{userStore.user ? <ProfilePage /> : <SignupPage />}
 			<Footer />
 		</>
