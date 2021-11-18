@@ -89,6 +89,18 @@ const SignupForm: FC = () => {
 		}
 	}, [file])
 
+	useEffect(() => {
+		if (success) {
+			setInterval(() => {
+				setSuccess(null)
+			}, 5000)
+		} else if (error) {
+			setInterval(() => {
+				setError(null)
+			}, 5000)
+		}
+	}, [success, error])
+
 	return (
 		<>
 			{isLoading ? <div className='fixed left-0 right-0 top-0 bottom-0 w-full h-screen bg-primary bg-opacity-25 z-50'>

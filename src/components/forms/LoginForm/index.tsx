@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { SignInData } from '../../../interfaces/auth.interface'
 import Link from 'next/link'
@@ -48,6 +48,18 @@ const LoginForm: FC = () => {
 		}
 		setIsLoading(false)
 	}
+
+	useEffect(() => {
+		if (success) {
+			setInterval(() => {
+				setSuccess(null)
+			}, 5000)
+		} else if (error) {
+			setInterval(() => {
+				setError(null)
+			}, 5000)
+		}
+	}, [success, error])
 
 	return (
 		<>

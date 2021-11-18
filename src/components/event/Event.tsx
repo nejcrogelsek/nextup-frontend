@@ -6,7 +6,6 @@ import PersonFillIcon from '../icons/PersonFillIcon'
 import eventStore from '../../stores/event.store'
 import userStore from '../../stores/user.store'
 import { format } from 'date-fns'
-import router from 'next/router'
 import { observer } from 'mobx-react'
 import { bookedEvents, bookEventReservation, deleteReservation } from '../../pages/api/event.actions'
 import { motion } from 'framer-motion'
@@ -68,6 +67,18 @@ const Event: FC = () => {
 		}
 	}, [])
 
+	useEffect(() => {
+		if (success) {
+			setInterval(() => {
+				setSuccess(null)
+			}, 5000)
+		} else if (error) {
+			setInterval(() => {
+				setError(null)
+			}, 5000)
+		}
+	}, [success, error])
+
 	return (
 		<>
 			{isLoading ? <div className='fixed left-0 right-0 top-0 bottom-0 w-full h-screen bg-primary bg-opacity-25 z-50'>
@@ -112,7 +123,7 @@ const Event: FC = () => {
 						<div className='-mt-8 relative z-10 lg:-mt-0 lg:pt-32 lg:z-0 lg:w-3/5'>
 							<div className='px-8 lg:w-[500px] xl:w-[600px]'>
 								<p className='flex justify-between items-center text-white lg:text-black'>
-									<span>{format(new Date(Date.now()), 'dd MMM')}</span>
+									<span>{format(new Date(eventStore.viewedEvent.date_start), 'dd MMM')}</span>
 									<span>{eventStore.viewedEvent.time_start}</span>
 								</p>
 								<h1 className='font-medium mb-8 mt-4 text-5xl text-primary leading-12 lg:leading-13 lg:text-6xl'>{eventStore.viewedEvent.title}</h1>

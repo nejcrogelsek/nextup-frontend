@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { observer } from 'mobx-react-lite'
 import * as Yup from 'yup'
@@ -92,6 +92,18 @@ const AddEventForm: FC = () => {
 			setFile(null)
 		}
 	}
+
+	useEffect(() => {
+		if (success) {
+			setInterval(() => {
+				setSuccess(null)
+			}, 5000)
+		} else if (error) {
+			setInterval(() => {
+				setError(null)
+			}, 5000)
+		}
+	}, [success, error])
 
 	return (
 		<>
