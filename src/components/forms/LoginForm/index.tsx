@@ -9,6 +9,7 @@ import { login } from '../../../pages/api/auth.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
 import userStore from '../../../stores/user.store'
+import router from 'next/router'
 
 const LoginForm: FC = () => {
 	const validationSchema = Yup.object().shape({
@@ -60,6 +61,13 @@ const LoginForm: FC = () => {
 			}, 5000)
 		}
 	}, [success, error])
+
+	useEffect(() => {
+		const name = router.query
+		if (name) {
+			setSuccess('Your email successfully validated. Now you can login.')
+		}
+	}, [])
 
 	return (
 		<>
