@@ -26,6 +26,7 @@ module.exports = {
 				custom: '43.75rem',
 				500: '500px',
 				650: '650px',
+				calc: 'calc(100% - 8rem)',
 			},
 			margin: {
 				'mt-18': '-4.6rem 0 0 0',

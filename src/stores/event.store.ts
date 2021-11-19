@@ -12,6 +12,8 @@ class EventStore {
 	upcomingEvents: IEvent[] = []
 	recentEvents: IEvent[] = []
 	newEvent: IEventAdd | null = null
+	isUpdating: boolean = false
+	updatedEvent: IEventPage | null = null
 
 	constructor() {
 		makeAutoObservable(this)

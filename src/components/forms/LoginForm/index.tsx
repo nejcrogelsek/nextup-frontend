@@ -63,7 +63,7 @@ const LoginForm: FC = () => {
 	}, [success, error])
 
 	useEffect(() => {
-		const name = router.query
+		const name = router.query.message
 		if (name) {
 			setSuccess('Your email successfully validated. Now you can login.')
 		}
