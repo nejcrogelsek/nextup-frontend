@@ -6,18 +6,21 @@ import eventStore from '../../../stores/event.store'
 import { observer } from 'mobx-react'
 import { EventBoxProps } from '../../../interfaces/props.interface'
 
-const EventBox: FC<EventBoxProps> = ({ className, type, title, event_image, id, max_visitors, location, date_start, time_start, description }: EventBoxProps) => {
+const EventBox: FC<EventBoxProps> = ({ className, type, title, event_image, id, max_visitors, location, date_start, time_start, description, user_id }: EventBoxProps) => {
 
 	const updateEvent = () => {
+		console.log('USER ID')
+		console.log(user_id)
 		eventStore.updatedEvent = {
 			id,
 			title,
-			date_start,
+			date_start: date_start.toString(),
 			time_start,
 			location,
 			max_visitors,
 			event_image,
-			description
+			description,
+			user_id
 		}
 		eventStore.isUpdating = true
 	}

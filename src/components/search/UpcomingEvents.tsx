@@ -14,6 +14,7 @@ const UpcomingEvents: FC = () => {
 					id={val._id}
 					title={val.title}
 					description={val.description}
+					user_id={val.user_id}
 					date_start={val.date_start}
 					time_start={val.time_start}
 					location={val.location}

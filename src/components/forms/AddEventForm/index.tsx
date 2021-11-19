@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
-import { AddEventDto, IEventUpdate } from '../../../interfaces/event.interface'
+import { AddEventDto } from '../../../interfaces/event.interface'
 import eventStore from '../../../stores/event.store'
 import { createEvent, generateUploadUrl, updateEvent, uploadImage } from '../../../pages/api/event.actions'
 import userStore from '../../../stores/user.store'
@@ -14,11 +14,18 @@ const AddEventForm: FC = () => {
 	const validationSchema = Yup.object().shape({
 		title: Yup.string().required('Title is required'),
 		location: Yup.string().required('Location is required'),
-		date_start: Yup.date().required('Date is required'),
+		date_start: Yup.string().required('Date is required').matches(/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/, 'Example: 2021-12-5'),
 		time_start: Yup.string().required('Time is required').matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Example: 20:40'),
 		max_visitors: Yup.number().required('Number of visitors is required').positive().integer().min(1),
 		description: Yup.string().required('Description is required')
 	})
+
+	const [stateTitle, setTitle] = useState<string>('')
+	const [stateLocation, setLocation] = useState<string>('')
+	const [stateDate, setDate] = useState<string>('')
+	const [stateTime, setTime] = useState<string>('')
+	const [stateMaxVisitors, setMaxVisitors] = useState<number>(1)
+	const [stateDescription, setDescription] = useState<string>('')
 
 	const [error, setError] = useState<any | null>(null)
 	const [file, setFile] = useState<File | null>(null)
@@ -33,10 +40,22 @@ const AddEventForm: FC = () => {
 	} = useForm<AddEventDto>({
 		resolver: yupResolver(validationSchema),
 		mode: 'onChange',
+		defaultValues: {
+			title: stateTitle,
+			location: stateLocation,
+			date_start: stateDate,
+			time_start: stateTime,
+			max_visitors: stateMaxVisitors,
+			description: stateDescription,
+		}
 	})
 
 	const onSubmit = handleSubmit((dataset) => {
-		handleAdd(dataset)
+		if (eventStore.isUpdating) {
+			handleUpdate(dataset)
+		} else {
+			handleAdd(dataset)
+		}
 	})
 
 	const handleAdd = async (dataset: AddEventDto) => {
@@ -53,6 +72,13 @@ const AddEventForm: FC = () => {
 					eventStore.addEvent(data._id, data.user_id)
 					setSuccess('Event successfully added.')
 					reset()
+					setTitle('')
+					setLocation('')
+					setDate('')
+					setTime('')
+					setMaxVisitors(1)
+					setDescription('')
+					setFile(null)
 				} else {
 					setError(res)
 				}
@@ -65,20 +91,21 @@ const AddEventForm: FC = () => {
 		}
 	}
 
-	const handleUpdate = async (dataset: IEventUpdate) => {
+	const handleUpdate = async (dataset: AddEventDto) => {
+		let image: string
 		if (file !== null) {
 			const { data } = await generateUploadUrl()
 			await uploadImage(data.url, file)
 			const imageUrl: string[] = data.url.split('?')
-			dataset.event_image = imageUrl[0]
+			image = imageUrl[0]
 		}
 		const token: string | null = localStorage.getItem('user')
 		if (token) {
-			const res = await updateEvent(dataset, token)
+			const res = await updateEvent(dataset, image, token)
 			if (res.request) {
 				setFile(null)
 				reset()
-				eventStore.updateEvent(res.request, userStore.user._id)
+				eventStore.updateEvent(res.request, eventStore.updatedEvent.id, userStore.user._id)
 				setSuccess('Event successfully updated.')
 			}
 		}
@@ -104,6 +131,30 @@ const AddEventForm: FC = () => {
 			}, 5000)
 		}
 	}, [success, error])
+
+	useEffect(() => {
+		if (eventStore.updatedEvent) {
+			setTitle(eventStore.updatedEvent.title)
+			setLocation(eventStore.updatedEvent.location)
+			setDate(eventStore.updatedEvent.date_start)
+			setTime(eventStore.updatedEvent.time_start)
+			setMaxVisitors(eventStore.updatedEvent.max_visitors)
+			setDescription(eventStore.updatedEvent.description)
+		}
+	}, [eventStore.updatedEvent])
+
+	const closeUpdate = () => {
+		reset()
+		setTitle('')
+		setLocation('')
+		setDate('')
+		setTime('')
+		setMaxVisitors(1)
+		setDescription('')
+		setFile(null)
+		eventStore.isUpdating = false
+		eventStore.updatedEvent = null
+	}
 
 	return (
 		<>
@@ -138,6 +189,8 @@ const AddEventForm: FC = () => {
 						type='text'
 						name='title'
 						className={errors.title ? 'form-control form-control-is-invalid' : 'form-control'}
+						value={stateTitle}
+						onChange={(e) => setTitle(e.target.value)}
 					/>
 					{errors.title && <div className='form-error-text'>{errors.title.message}</div>}
 				</div>
@@ -148,6 +201,8 @@ const AddEventForm: FC = () => {
 						type='text'
 						name='location'
 						className={errors.location ? 'form-control form-control-is-invalid' : 'form-control'}
+						value={stateLocation}
+						onChange={(e) => setLocation(e.target.value)}
 					/>
 					{errors.location && <div className='form-error-text'>{errors.location.message}</div>}
 				</div>
@@ -156,9 +211,12 @@ const AddEventForm: FC = () => {
 						<label className='form-label' htmlFor='date_start'>Date</label>
 						<input
 							{...register('date_start')}
-							type='date'
+							type='text'
 							name='date_start'
 							className={errors.date_start ? 'form-control form-control-is-invalid' : 'form-control'}
+							placeholder='2021-12-5'
+							value={stateDate}
+							onChange={(e) => setDate(e.target.value)}
 						/>
 						{errors.date_start && <div className='form-error-text min-h-8'>{errors.date_start.message}</div>}
 					</div>
@@ -169,6 +227,9 @@ const AddEventForm: FC = () => {
 							type='text'
 							name='time_start'
 							className={errors.time_start ? 'form-control form-control-is-invalid' : 'form-control'}
+							placeholder='20:15'
+							value={stateTime}
+							onChange={(e) => setTime(e.target.value)}
 						/>
 						{errors.time_start && <div className='form-error-text min-h-8'>{errors.time_start.message}</div>}
 					</div>
@@ -180,6 +241,8 @@ const AddEventForm: FC = () => {
 							min={1}
 							name='max_visitors'
 							className={errors.max_visitors ? 'form-control form-control-is-invalid' : 'form-control'}
+							value={stateMaxVisitors}
+							onChange={(e) => setMaxVisitors(parseInt(e.target.value))}
 						/>
 						{errors.max_visitors && <div className='form-error-text min-h-8'>{errors.max_visitors.message}</div>}
 					</div>
@@ -190,6 +253,8 @@ const AddEventForm: FC = () => {
 						{...register('description')}
 						name='description'
 						className={errors.description ? 'form-control h-28 lg:h-20 form-control-is-invalid resize-none' : 'form-control resize-none h-28 lg:h-20'}
+						value={stateDescription}
+						onChange={(e) => setDescription(e.target.value)}
 					></textarea>
 					{errors.description && <div className='form-error-text min-h-8'>{errors.description.message}</div>}
 				</div>
@@ -204,8 +269,9 @@ const AddEventForm: FC = () => {
 						/>
 					</div>
 					<button className='form-button' type='submit'>
-						Submit
+						{eventStore.isUpdating ? 'Update' : 'Submit'}
 					</button>
+					{eventStore.isUpdating ? <button type='button' className='form-button mt-4' onClick={closeUpdate}>Close update</button> : null}
 				</div>
 			</form>
 		</>

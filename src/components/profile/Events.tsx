@@ -24,6 +24,7 @@ const Events: FC<Props> = ({ type }: Props) => {
 				<EventBox
 					key={index}
 					id={val._id}
+					user_id={val.user_id}
 					event_image={val.event_image}
 					title={val.title}
 					description={val.description}

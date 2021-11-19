@@ -37,6 +37,7 @@ const SliderVertical: FC<Props> = ({ type }: Props) => {
 							time_start={val.time_start}
 							location={val.location}
 							max_visitors={val.max_visitors}
+							user_id={val.user_id}
 							className='!mb-0 !pl-8'
 							type={type && type}
 						/>

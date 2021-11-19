@@ -9,4 +9,5 @@ export interface EventBoxProps {
 	max_visitors: number
 	description: string,
 	type?: string
+	user_id: string
 }

@@ -1,6 +1,6 @@
 import axios from './axios'
 import { AxiosError, AxiosResponse } from 'axios'
-import { AddEventDto, IEvent, IEventAdd, IEventUpdate } from '../../interfaces/event.interface'
+import { AddEventDto, IEvent, IEventAdd, UpdateEventDto } from '../../interfaces/event.interface'
 import eventStore from '../../stores/event.store'
 import userStore from '../../stores/user.store'
 
@@ -25,7 +25,7 @@ export const createEvent = async (
 	const data: IEventAdd = {
 		title: dataset.title,
 		location: dataset.location,
-		date_start: dataset.date_start,
+		date_start: new Date(dataset.date_start),
 		time_start: dataset.time_start,
 		max_visitors: dataset.max_visitors,
 		description: dataset.description,
@@ -40,10 +40,22 @@ export const createEvent = async (
 }
 
 export const updateEvent = async (
-	dataset: IEventUpdate,
+	dataset: AddEventDto,
+	image: string,
 	token: string
 ): Promise<AxiosResponse<IEvent> | AxiosError> => {
-	return axios.patch('/events', { ...dataset }, {
+	const data: UpdateEventDto = {
+		_id: eventStore.updatedEvent.id,
+		user_id: eventStore.updatedEvent.user_id,
+		title: dataset.title,
+		location: dataset.location,
+		date_start: new Date(dataset.date_start),
+		time_start: dataset.time_start,
+		max_visitors: dataset.max_visitors,
+		description: dataset.description,
+		event_image: image
+	}
+	return axios.patch('/events', data, {
 		headers: { Authorization: `Bearer ${token}` },
 	}).catch((err) => {
 		return err.response.data

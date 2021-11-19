@@ -23,6 +23,7 @@ const AddedEvents: FC = () => {
 				<EventBox
 					key={index}
 					id={val._id}
+					user_id={val.user_id}
 					title={val.title}
 					description={val.description}
 					date_start={val.date_start}

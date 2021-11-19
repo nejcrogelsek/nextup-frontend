@@ -32,20 +32,34 @@ export interface IEventAdd {
 }
 
 export interface IEventUpdate {
+	id: string
 	title: string
-	date_start: Date
+	date_start: string
 	time_start: string
 	location: string
 	max_visitors: number
 	description: string
 	event_image?: string
+	user_id: string
 }
 
 export interface AddEventDto {
+	title: string
+	date_start: string
+	time_start: string
+	location: string
+	max_visitors: number
+	description: string
+}
+
+export interface UpdateEventDto {
+	_id: string
 	title: string
 	date_start: Date
 	time_start: string
 	location: string
 	max_visitors: number
 	description: string
+	event_image: string
+	user_id: string
 }
