@@ -97,3 +97,12 @@ export const deleteReservation = async (
 		return err.response.data
 	})
 }
+
+export const numOfVisitors = async (
+	event_id: string,
+	token: string,
+): Promise<AxiosResponse<boolean>> => {
+	return axios.get(`/events/${event_id}/visitors`, {
+		headers: { Authorization: `Bearer ${token}` },
+	})
+}

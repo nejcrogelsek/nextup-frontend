@@ -7,7 +7,7 @@ import eventStore from '../../stores/event.store'
 import userStore from '../../stores/user.store'
 import { format } from 'date-fns'
 import { observer } from 'mobx-react'
-import { bookedEvents, bookEventReservation, deleteReservation } from '../../pages/api/event.actions'
+import { bookedEvents, bookEventReservation, deleteReservation, numOfVisitors } from '../../pages/api/event.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../icons/CloseIcon'
 
@@ -15,6 +15,7 @@ const Event: FC = () => {
 	const [error, setError] = useState<any | null>(null)
 	const [success, setSuccess] = useState<string | null>(null)
 	const [allow, setAllow] = useState<boolean>(false)
+	const [canBook, setCanBook] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	const bookEvent = async () => {
@@ -58,12 +59,24 @@ const Event: FC = () => {
 		}
 	}
 
+	const checkMaxNumberOfUsers = async () => {
+		const token: string | null = localStorage.getItem('user')
+		if (token) {
+			setIsLoading(true)
+			const res = await numOfVisitors(eventStore.viewedEvent.id, token)
+			const isAllowed = JSON.parse(res.request.response)
+			setCanBook(isAllowed.allowed)
+			setIsLoading(false)
+		}
+	}
+
 	useEffect(() => {
 		if (userStore.user) {
 			checkIfUserAlreadyBookedEvent()
 		}
 		if (localStorage.getItem('event')) {
 			eventStore.viewedEvent = JSON.parse(localStorage.getItem('event'))
+			checkMaxNumberOfUsers()
 		}
 	}, [])
 
@@ -142,7 +155,11 @@ const Event: FC = () => {
 								<h2 className='uppercase mb-4 font-medium'>Event description:</h2>
 								<p className='mb-[2.875rem]'>{eventStore.viewedEvent.description}</p>
 								<div className='flex flex-col items-end'>
-									{userStore.user ? <button type='button' className='bg-primary text-white w-max px-8 py-4 rounded-2xl flex justify-center items-center transition hover:bg-black' onClick={allow ? bookEvent : unbookEvent}>{allow ? 'Book' : 'Unbook'}</button> :
+									{userStore.user ?
+										<>
+											{canBook ? <button type='button' className='bg-primary text-white w-max px-8 py-4 rounded-2xl flex justify-center items-center transition hover:bg-black' onClick={allow ? bookEvent : unbookEvent}>{allow ? 'Book' : 'Unbook'}</button> :
+												<button type='button' disabled={true} className='bg-primary text-white w-max px-8 py-4 rounded-2xl flex justify-center items-center transition cursor-not-allowed'>Full</button>}
+										</> :
 										<>
 											<Link href='/login'><a className='bg-primary text-white w-max px-8 py-3 mb-4 rounded-3xl flex justify-center items-center transition hover:bg-black'>Login</a></Link>
 											<p className='text-right'>To attend event you need to login.</p>
