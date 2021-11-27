@@ -31,21 +31,38 @@ const SliderCard: FC = () => {
 				onSlideChange={() => console.log('Card slide CHANGED')}
 				onSwiper={(swiper: any) => console.log(swiper)}
 				className='pt-6 pb-8'>
-				{eventStore.upcomingEvents.map((val: IEvent, index: number) => (
-					<SwiperSlide key={index} className='swiper-slide-card'>
-						<SliderItemCard
-							image={val.event_image}
-							title={val.title}
-							date_start={val.date_start}
-							time_start={val.time_start}
-							location={val.location}
-							url={val.url}
-							max_visitors={val.max_visitors}
-							event_image={val.event_image}
-							description={val.description}
-							id={val._id} />
-					</SwiperSlide>
-				))}
+				{eventStore.searchResults ?
+					eventStore.searchResults.map((val: IEvent, index: number) => (
+						<SwiperSlide key={index} className='swiper-slide-card'>
+							<SliderItemCard
+								image={val.event_image}
+								title={val.title}
+								date_start={val.date_start}
+								time_start={val.time_start}
+								location={val.location}
+								url={val.url}
+								max_visitors={val.max_visitors}
+								event_image={val.event_image}
+								description={val.description}
+								id={val._id} />
+						</SwiperSlide>
+					))
+					:
+					eventStore.upcomingEvents.map((val: IEvent, index: number) => (
+						<SwiperSlide key={index} className='swiper-slide-card'>
+							<SliderItemCard
+								image={val.event_image}
+								title={val.title}
+								date_start={val.date_start}
+								time_start={val.time_start}
+								location={val.location}
+								url={val.url}
+								max_visitors={val.max_visitors}
+								event_image={val.event_image}
+								description={val.description}
+								id={val._id} />
+						</SwiperSlide>
+					))}
 			</Swiper>
 			<div className="swiper-pagination !-bottom-4"></div>
 		</div>

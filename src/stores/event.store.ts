@@ -10,6 +10,7 @@ class EventStore {
 	userEvents: IEvent[] = []
 	viewedEvent: IEventPage | null = null
 	upcomingEvents: IEvent[] = []
+	searchResults: IEvent[] | null = null
 	recentEvents: IEvent[] = []
 	newEvent: IEventAdd | null = null
 	isUpdating: boolean = false
@@ -57,10 +58,10 @@ class EventStore {
 	}
 
 	addEvent(event_id: string, user_id: string) {
-		this.userEvents?.push({ _id: event_id, user_id: user_id, ...this.newEvent })
+		this.userEvents?.push({ _id: event_id, user_id: user_id, date_start: this.newEvent.date_start, description: this.newEvent.description, event_image: this.newEvent.description, location: this.newEvent.location, max_visitors: this.newEvent.max_visitors, time_start: this.newEvent.time_start, title: this.newEvent.title, url: this.newEvent.url })
 	}
 
-	updateEvent(event: IEvent, event_id:string, user_id: string) {
+	updateEvent(event: IEvent, event_id: string, user_id: string) {
 		const filterEvent = this.userEvents?.filter(ev => ev._id !== event_id)
 		filterEvent.push({ _id: event_id, user_id: user_id, ...event })
 		this.userEvents = filterEvent

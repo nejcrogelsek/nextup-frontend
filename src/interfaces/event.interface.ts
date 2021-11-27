@@ -31,6 +31,7 @@ export interface IEventAdd {
 	max_visitors: number
 	description: string
 	event_image: string
+	url?: string
 }
 
 export interface IEventUpdate {
