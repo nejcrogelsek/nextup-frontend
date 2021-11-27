@@ -5,8 +5,9 @@ import router from 'next/router'
 import eventStore from '../../../stores/event.store'
 import { observer } from 'mobx-react'
 import { EventBoxProps } from '../../../interfaces/props.interface'
+import { format } from 'date-fns'
 
-const EventBox: FC<EventBoxProps> = ({ className, type, title, event_image, id, max_visitors, location, date_start, time_start, description, user_id }: EventBoxProps) => {
+const EventBox: FC<EventBoxProps> = ({ className, type, url, title, event_image, id, max_visitors, location, date_start, time_start, description, user_id }: EventBoxProps) => {
 
 	const updateEvent = () => {
 		console.log('USER ID')
@@ -25,28 +26,8 @@ const EventBox: FC<EventBoxProps> = ({ className, type, title, event_image, id, 
 		eventStore.isUpdating = true
 	}
 	const checkEvent = () => {
-		eventStore.viewedEvent = {
-			id,
-			title,
-			date_start,
-			time_start,
-			location,
-			max_visitors,
-			event_image,
-			description
-		}
-		localStorage.setItem('event', JSON.stringify({
-			id,
-			title,
-			date_start,
-			time_start,
-			location,
-			max_visitors,
-			event_image,
-			description
-		}))
 		router.push({
-			pathname: `/event/${title.replaceAll(' ', '-')}`
+			pathname: `/event/${url}`
 		})
 	}
 
@@ -54,8 +35,8 @@ const EventBox: FC<EventBoxProps> = ({ className, type, title, event_image, id, 
 		<div className={`flex justify-between items-center p-2 min:p-4 myshadow rounded-2xl mb-4 bg-white ${className}`}>
 			<div className='flex justify-start items-center'>
 				<div className='eventbox-column'>
-					<span className='block w-12 min:w-16'>1 Apr</span>
-					<span className='block'>Fri{' '}{time_start}</span>
+					<span className='block w-[3.2rem] min:w-[5rem]'>{format(new Date(date_start.split('.').reverse().join('-')), 'd. MMM')}</span>
+					<span className='block'>{format(new Date(date_start.split('.').reverse().join('-')), 'E..EEE').slice(0, 3)}{' '}{time_start}</span>
 				</div>
 				<div className='eventbox-column'>
 					<span>{title}</span>

@@ -22,6 +22,7 @@ const AddedEvents: FC = () => {
 			{eventStore.userEvents.map((val: IEvent, index: number) => (
 				<EventBox
 					key={index}
+					url={val.url}
 					id={val._id}
 					user_id={val.user_id}
 					title={val.title}

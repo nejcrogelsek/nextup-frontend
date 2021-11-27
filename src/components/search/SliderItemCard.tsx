@@ -9,16 +9,17 @@ import { observer } from 'mobx-react'
 interface Props {
 	image: string
 	title: string
-	date_start: Date
+	date_start: string
 	time_start: string
 	location: string
 	event_image: string
 	id: string
 	description: string
+	url: string
 	max_visitors: number
 }
 
-const SliderItemCard: FC<Props> = ({ id, event_image, description, image, title, date_start, time_start, location, max_visitors }: Props) => {
+const SliderItemCard: FC<Props> = ({ id, event_image, description, image, title, date_start, time_start, location, max_visitors, url }: Props) => {
 	const checkEvent = () => {
 		eventStore.viewedEvent = {
 			id,
@@ -27,21 +28,12 @@ const SliderItemCard: FC<Props> = ({ id, event_image, description, image, title,
 			time_start,
 			location,
 			max_visitors,
+			url,
 			event_image,
 			description
 		}
-		localStorage.setItem('event', JSON.stringify({
-			id,
-			title,
-			date_start,
-			time_start,
-			location,
-			max_visitors,
-			event_image,
-			description
-		}))
 		router.push({
-			pathname: `/event/${title.replaceAll(' ', '-')}`
+			pathname: `/event/${url}`
 		})
 	}
 	return (
@@ -58,7 +50,7 @@ const SliderItemCard: FC<Props> = ({ id, event_image, description, image, title,
 			<div className='px-4 pb-4'>
 				<h3 className='text-2xl text-primary font-medium mt-4 mb-2' onClick={checkEvent}>{title}</h3>
 				<div className='flex text-sm'>
-					<span>1.1.2020</span>
+					<span className='mr-[3px]'>{date_start},</span>
 					<span>{time_start}</span>
 				</div>
 				<p className='flex justify-between items-center mt-8'>

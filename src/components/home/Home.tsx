@@ -13,6 +13,7 @@ const Home: FC = () => {
 	const searchForEvent = (val: IEvent) => {
 		eventStore.viewedEvent = {
 			id: val._id,
+			url: val.url,
 			title: val.title,
 			date_start: val.date_start,
 			time_start: val.time_start,
@@ -21,18 +22,8 @@ const Home: FC = () => {
 			event_image: val.event_image,
 			description: val.description
 		}
-		localStorage.setItem('event', JSON.stringify({
-			id: val._id,
-			title: val.title,
-			date_start: val.date_start,
-			time_start: val.time_start,
-			location: val.location,
-			max_visitors: val.max_visitors,
-			event_image: val.event_image,
-			description: val.description
-		}))
 		router.push({
-			pathname: `/event/${val.title.replaceAll(' ', '-')}`
+			pathname: `/event/${val.url}`
 		})
 	}
 	const getUpcomingEvents = async () => {

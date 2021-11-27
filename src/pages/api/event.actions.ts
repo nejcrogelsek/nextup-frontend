@@ -25,7 +25,7 @@ export const createEvent = async (
 	const data: IEventAdd = {
 		title: dataset.title,
 		location: dataset.location,
-		date_start: new Date(dataset.date_start),
+		date_start: dataset.date_start,
 		time_start: dataset.time_start,
 		max_visitors: dataset.max_visitors,
 		description: dataset.description,
@@ -49,7 +49,7 @@ export const updateEvent = async (
 		user_id: eventStore.updatedEvent.user_id,
 		title: dataset.title,
 		location: dataset.location,
-		date_start: new Date(dataset.date_start),
+		date_start: dataset.date_start,
 		time_start: dataset.time_start,
 		max_visitors: dataset.max_visitors,
 		description: dataset.description,
@@ -69,6 +69,11 @@ export const bookedEvents = async (
 	return axios.get(`/events/reservations/${event_id}`, {
 		headers: { Authorization: `Bearer ${token}` },
 	})
+}
+export const getEventByUrl = async (
+	url: string,
+): Promise<AxiosResponse<IEvent>> => {
+	return axios.get(`/public/events/url/${url}`)
 }
 
 export const bookEventReservation = async (

@@ -19,6 +19,7 @@ const SliderVertical: FC = () => {
 					<SwiperSlide key={index} className='!w-full !h-auto'>
 						<EventBox
 							title={val.title}
+							url={val.url}
 							description={val.description}
 							date_start={val.date_start}
 							time_start={val.time_start}

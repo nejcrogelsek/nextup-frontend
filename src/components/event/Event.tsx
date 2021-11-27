@@ -7,9 +7,10 @@ import eventStore from '../../stores/event.store'
 import userStore from '../../stores/user.store'
 import { format } from 'date-fns'
 import { observer } from 'mobx-react'
-import { bookedEvents, bookEventReservation, deleteReservation, numOfVisitors } from '../../pages/api/event.actions'
+import { bookedEvents, bookEventReservation, deleteReservation, getEventByUrl, numOfVisitors } from '../../pages/api/event.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../icons/CloseIcon'
+import router from 'next/router'
 
 const Event: FC = () => {
 	const [error, setError] = useState<any | null>(null)
@@ -50,7 +51,7 @@ const Event: FC = () => {
 
 	const checkIfUserAlreadyBookedEvent = async () => {
 		const token: string | null = localStorage.getItem('user')
-		if (token) {
+		if (token && eventStore.viewedEvent) {
 			setIsLoading(true)
 			const res = await bookedEvents(eventStore.viewedEvent.id, token)
 			const isAllowed = JSON.parse(res.request.response)
@@ -61,7 +62,7 @@ const Event: FC = () => {
 
 	const checkMaxNumberOfUsers = async () => {
 		const token: string | null = localStorage.getItem('user')
-		if (token) {
+		if (token && eventStore.viewedEvent) {
 			setIsLoading(true)
 			const res = await numOfVisitors(eventStore.viewedEvent.id, token)
 			const isAllowed = JSON.parse(res.request.response)
@@ -70,15 +71,37 @@ const Event: FC = () => {
 		}
 	}
 
+	const getEventData = async () => {
+		console.log(router.query.title)
+		// error get router.query.url popravi
+		const res = await getEventByUrl('dds?q=c4039160-b670-4de2-9497-c69ac1e7dab8')
+		if (res.request) {
+			const data = JSON.parse(JSON.parse(JSON.stringify(res.request.response)))
+			eventStore.viewedEvent = {
+				id: data._id,
+				title: data.title,
+				date_start: data.date_start,
+				time_start: data.time_start,
+				location: data.location,
+				max_visitors: data.max_visitors,
+				event_image: data.event_image,
+				description: data.description,
+				url: data.url
+			}
+		} else {
+			setError('No events found.')
+		}
+	}
+
 	useEffect(() => {
+		getEventData()
 		if (userStore.user) {
 			checkIfUserAlreadyBookedEvent()
 		}
-		if (localStorage.getItem('event')) {
-			eventStore.viewedEvent = JSON.parse(localStorage.getItem('event'))
-			checkMaxNumberOfUsers()
-		}
+		checkMaxNumberOfUsers()
 	}, [])
+
+
 
 	useEffect(() => {
 		if (success) {
@@ -136,7 +159,7 @@ const Event: FC = () => {
 						<div className='-mt-8 relative z-10 lg:-mt-0 lg:pt-32 lg:z-0 lg:w-3/5'>
 							<div className='px-8 lg:w-[500px] xl:w-[600px]'>
 								<p className='flex justify-between items-center text-white lg:text-black'>
-									<span>{format(new Date(eventStore.viewedEvent.date_start), 'dd MMM')}</span>
+									<span>{eventStore.viewedEvent.date_start}</span>
 									<span>{eventStore.viewedEvent.time_start}</span>
 								</p>
 								<h1 className='font-medium mb-8 mt-4 text-5xl text-primary leading-12 lg:leading-13 lg:text-6xl'>{eventStore.viewedEvent.title}</h1>

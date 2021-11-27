@@ -14,9 +14,9 @@ const AddEventForm: FC = () => {
 	const validationSchema = Yup.object().shape({
 		title: Yup.string().required('Title is required'),
 		location: Yup.string().required('Location is required'),
-		date_start: Yup.string().required('Date is required').matches(/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/, 'Example: 2021-12-5'),
-		time_start: Yup.string().required('Time is required').matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Example: 20:40'),
-		max_visitors: Yup.number().required('Number of visitors is required').positive().integer().min(1),
+		date_start: Yup.string().required('Date is required').matches(/^(0?[1-9]|[12][0-9]|3[01])\.(0?[1-9]|1[012])\.\d{4}$/, 'Example: 3.12.2021'),
+		time_start: Yup.string().required('Time is required').matches(/^([0-1]?[0-9]|2[0-3]).[0-5][0-9]$/, 'Example: 20.40'),
+		max_visitors: Yup.string().required('Number of visitors is required').matches(/^[1-9]\d*$/, 'Positive number.'),
 		description: Yup.string().required('Description is required')
 	})
 
@@ -24,7 +24,7 @@ const AddEventForm: FC = () => {
 	const [stateLocation, setLocation] = useState<string>('')
 	const [stateDate, setDate] = useState<string>('')
 	const [stateTime, setTime] = useState<string>('')
-	const [stateMaxVisitors, setMaxVisitors] = useState<number>(1)
+	const [stateMaxVisitors, setMaxVisitors] = useState<string>('1')
 	const [stateDescription, setDescription] = useState<string>('')
 
 	const [error, setError] = useState<any | null>(null)
@@ -45,7 +45,7 @@ const AddEventForm: FC = () => {
 			location: stateLocation,
 			date_start: stateDate,
 			time_start: stateTime,
-			max_visitors: stateMaxVisitors,
+			max_visitors: parseInt(stateMaxVisitors),
 			description: stateDescription,
 		}
 	})
@@ -76,7 +76,7 @@ const AddEventForm: FC = () => {
 					setLocation('')
 					setDate('')
 					setTime('')
-					setMaxVisitors(1)
+					setMaxVisitors('1')
 					setDescription('')
 					setFile(null)
 				} else {
@@ -138,7 +138,7 @@ const AddEventForm: FC = () => {
 			setLocation(eventStore.updatedEvent.location)
 			setDate(eventStore.updatedEvent.date_start)
 			setTime(eventStore.updatedEvent.time_start)
-			setMaxVisitors(eventStore.updatedEvent.max_visitors)
+			setMaxVisitors(eventStore.updatedEvent.max_visitors.toString())
 			setDescription(eventStore.updatedEvent.description)
 		}
 	}, [eventStore.updatedEvent])
@@ -149,7 +149,7 @@ const AddEventForm: FC = () => {
 		setLocation('')
 		setDate('')
 		setTime('')
-		setMaxVisitors(1)
+		setMaxVisitors('1')
 		setDescription('')
 		setFile(null)
 		eventStore.isUpdating = false
@@ -214,7 +214,7 @@ const AddEventForm: FC = () => {
 							type='text'
 							name='date_start'
 							className={errors.date_start ? 'form-control form-control-is-invalid' : 'form-control'}
-							placeholder='2021-12-5'
+							placeholder='5.12.2022'
 							value={stateDate}
 							onChange={(e) => setDate(e.target.value)}
 						/>
@@ -227,7 +227,7 @@ const AddEventForm: FC = () => {
 							type='text'
 							name='time_start'
 							className={errors.time_start ? 'form-control form-control-is-invalid' : 'form-control'}
-							placeholder='20:15'
+							placeholder='20.15'
 							value={stateTime}
 							onChange={(e) => setTime(e.target.value)}
 						/>
@@ -237,12 +237,11 @@ const AddEventForm: FC = () => {
 						<label className='form-label' htmlFor='max_visitors'>Max. users</label>
 						<input
 							{...register('max_visitors')}
-							type='number'
-							min={1}
+							type='text'
 							name='max_visitors'
 							className={errors.max_visitors ? 'form-control form-control-is-invalid' : 'form-control'}
 							value={stateMaxVisitors}
-							onChange={(e) => setMaxVisitors(parseInt(e.target.value))}
+							onChange={(e) => setMaxVisitors(e.target.value)}
 						/>
 						{errors.max_visitors && <div className='form-error-text min-h-8'>{errors.max_visitors.message}</div>}
 					</div>

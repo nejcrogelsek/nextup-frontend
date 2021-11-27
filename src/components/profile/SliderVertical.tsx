@@ -32,6 +32,7 @@ const SliderVertical: FC<Props> = ({ type }: Props) => {
 							title={val.title}
 							event_image={val.event_image}
 							id={val._id}
+							url={val.url}
 							description={val.description}
 							date_start={val.date_start}
 							time_start={val.time_start}

@@ -13,6 +13,7 @@ const UpcomingEvents: FC = () => {
 					key={index}
 					id={val._id}
 					title={val.title}
+					url={val.url}
 					description={val.description}
 					user_id={val.user_id}
 					date_start={val.date_start}

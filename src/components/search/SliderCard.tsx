@@ -39,6 +39,7 @@ const SliderCard: FC = () => {
 							date_start={val.date_start}
 							time_start={val.time_start}
 							location={val.location}
+							url={val.url}
 							max_visitors={val.max_visitors}
 							event_image={val.event_image}
 							description={val.description}
