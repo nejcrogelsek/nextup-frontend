@@ -77,8 +77,9 @@ export const getEventByUrl = async (
 }
 export const searchEvent = async (
 	searchTerm: string,
+	dateTerm: string,
 ): Promise<AxiosResponse<IEvent[] | AxiosError>> => {
-	return axios.post('/public/events/search', { searchTerm })
+	return axios.post('/public/events/search', { search_term: searchTerm, date_term: dateTerm })
 		.catch((err) => {
 			return err.response.data
 		})

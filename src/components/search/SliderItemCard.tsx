@@ -37,18 +37,18 @@ const SliderItemCard: FC<Props> = ({ id, event_image, description, image, title,
 		})
 	}
 	return (
-		<div className='max-w-[360px]'>
-			<div className='image-wrap'>
+		<div className='max-w-[360px] cursor-pointer' onClick={checkEvent}>
+			<div className='image-wrap overflow-hidden'>
 				<Image
 					src={image}
 					alt="Picture of the event"
 					width={378}
 					height={247}
-					className='!w-auto !h-full object-cover'
+					className='!w-auto !h-full object-cover transition duration-500 hover:scale-105'
 				/>
 			</div>
 			<div className='px-4 pb-4'>
-				<h3 className='text-2xl text-primary font-medium mt-4 mb-2' onClick={checkEvent}>{title}</h3>
+				<h3 className='text-2xl text-primary font-medium mt-4 mb-2'>{title}</h3>
 				<div className='flex text-sm'>
 					<span className='mr-[3px]'>{date_start},</span>
 					<span>{time_start}</span>

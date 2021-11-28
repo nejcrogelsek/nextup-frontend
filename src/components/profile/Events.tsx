@@ -10,32 +10,59 @@ interface Props {
 
 const Events: FC<Props> = ({ type }: Props) => {
 
-	const getUpcomingEvents = async () => {
-		await eventStore.getUpcomingEvents()
+	const getEvents = async () => {
+		if (type) {
+			await eventStore.getUpcomingEvents()
+		} else {
+			await eventStore.getRecent()
+		}
 	}
 
 	useEffect(() => {
-		getUpcomingEvents()
+		getEvents()
 	}, [])
 
 	return (
 		<div>
-			{eventStore.upcomingEvents.map((val: IEvent, index: number) => (
-				<EventBox
-					key={index}
-					id={val._id}
-					url={val.url}
-					user_id={val.user_id}
-					event_image={val.event_image}
-					title={val.title}
-					description={val.description}
-					date_start={val.date_start}
-					time_start={val.time_start}
-					location={val.location}
-					max_visitors={val.max_visitors}
-					type={type && type}
-				/>
-			))}
+			{type ?
+				<>
+					{eventStore.upcomingEvents.map((val: IEvent, index: number) => (
+						<EventBox
+							key={index}
+							id={val._id}
+							url={val.url}
+							user_id={val.user_id}
+							event_image={val.event_image}
+							title={val.title}
+							description={val.description}
+							date_start={val.date_start}
+							time_start={val.time_start}
+							location={val.location}
+							max_visitors={val.max_visitors}
+							type={type && type}
+						/>
+					))}
+				</>
+				:
+				<>
+					{eventStore.recentEvents.map((val: IEvent, index: number) => (
+						<EventBox
+							key={index}
+							id={val._id}
+							url={val.url}
+							user_id={val.user_id}
+							event_image={val.event_image}
+							title={val.title}
+							description={val.description}
+							date_start={val.date_start}
+							time_start={val.time_start}
+							location={val.location}
+							max_visitors={val.max_visitors}
+							type={type && type}
+						/>
+					))}
+				</>
+			}
 		</div>
 	)
 }

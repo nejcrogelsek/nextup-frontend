@@ -39,12 +39,13 @@
 	#__next-build-watcher{right: -9999% !important;}
   .container {@apply max-w-screen-xl mx-auto px-4;}
   .app-padding{ @apply px-4 min:px-8;}
-  .myshadow{box-shadow: 0px 0px 8px rgba(0,0,0,0.15);}
+  .myshadow{box-shadow: 0px 0px 8px rgba(0,0,0,0.15); transition-duration: 500ms;}
+  .myshadow:hover{box-shadow: 0px 0px 10px rgba(0,0,0,0.2);}
   .login-container {@apply h-screen;}
   .swiper-item-wrap > span{	@apply !h-full;}
   .event-image-wrap > span{ @apply !w-full !h-full;}
   .image-wrap > span{ @apply !w-full !h-full rounded-2xl;}
-  .swiper-slide-card{@apply shadow-md rounded-2xl;}
+  .swiper-slide-card{@apply shadow-md rounded-2xl transition duration-500 hover:shadow-xl;}
   .swiper-pagination-bullets > .bullet-active{ @apply bg-primary opacity-100;}
   .myheight{ height: calc(100vh - 8rem);}
   .eventbox-column{@apply flex flex-col justify-center mx-2;}

@@ -46,11 +46,10 @@ class EventStore {
 			})
 	}
 
-	async getRecent(token: string) {
+	async getRecent() {
 		await axios
-			.get('/events/recent', {
-				params: { _limit: 9 },
-				headers: { Authorization: `Bearer ${token}` },
+			.get('/public/events/recent', {
+				params: { _limit: 9 }
 			})
 			.then((res) => {
 				this.recentEvents = res.data
