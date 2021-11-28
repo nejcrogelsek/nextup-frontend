@@ -64,6 +64,11 @@ const Search: FC = () => {
 	}
 
 	useEffect(() => {
+		if (eventStore.isSearching) {
+			eventStore.isSearching = false
+		} else {
+			eventStore.searchResults = null
+		}
 		getUpcomingEvents()
 
 		document.addEventListener('mousedown', () => {

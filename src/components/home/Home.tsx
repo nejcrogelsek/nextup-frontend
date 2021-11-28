@@ -45,6 +45,7 @@ const Home: FC = () => {
 				eventStore.searchResults = data
 				setSearchTerm('')
 				setDateTerm('')
+				eventStore.isSearching = true
 				router.push('/search')
 			} else {
 				setError(res)
@@ -61,12 +62,6 @@ const Home: FC = () => {
 		} else {
 			setDateError(true)
 		}
-	}
-
-	const addEventToWindow = () => {
-		document.addEventListener('mousedown', () => {
-			setShowSearchDropDown(false)
-		})
 	}
 
 	useEffect(() => {

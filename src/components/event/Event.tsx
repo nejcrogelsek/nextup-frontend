@@ -70,9 +70,7 @@ const Event: FC = () => {
 	}
 
 	const getEventData = async () => {
-		console.log(router.query.title)
-		// error get router.query.url popravi
-		const res = await getEventByUrl('Catch-Santa-Party?q=e5621c25-66a4-4b3f-acca-e31d6a872a6d')
+		const res = await getEventByUrl(router.query.url.toString())
 		if (res.request) {
 			const data = JSON.parse(JSON.parse(JSON.stringify(res.request.response)))
 			eventStore.viewedEvent = {

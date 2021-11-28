@@ -14,6 +14,7 @@ class EventStore {
 	recentEvents: IEvent[] = []
 	newEvent: IEventAdd | null = null
 	isUpdating: boolean = false
+	isSearching: boolean = false
 	updatedEvent: IEventUpdate | null = null
 
 	constructor() {
