@@ -92,7 +92,7 @@ const Home: FC = () => {
 				<div className='absolute w-3/6 h-full -z-10 bg-alternative left-0 top-0'></div>
 				<div className='home-container max-w-screen-xl w-full bg-alternative lg:w-9/12'>
 					<div className='swiper-event-image-wrap pt-24 lg:pt-0 lg:absolute lg:bottom-0 lg:right-0 z-0'>
-						<Slider />
+						<Slider setShowSearchDropDown={setShowSearchDropDown} />
 					</div>
 					<div className='m-mt-18 relative z-10 lg:-mt-0 lg:pt-32 lg:z-0 lg:w-custom2'>
 						<div className='px-8'>
@@ -127,7 +127,7 @@ const Home: FC = () => {
 											}
 										}).map((val: IEvent, index: number) => (
 											<li key={index} className='rounded-3xl p-2'>
-												<button type='button' className='px-2 cursor-pointer rounded-3xl transition hover:bg-gray-300 block w-full py-2 text-left' onClick={() => searchForEvent(val)}>
+												<button type='button' className='search-button px-2 cursor-pointer rounded-3xl transition hover:bg-gray-300 block w-full py-2 text-left' onClick={() => searchForEvent(val)}>
 													{val.location}
 												</button>
 											</li>

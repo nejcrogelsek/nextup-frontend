@@ -55,6 +55,9 @@ const Event: FC = () => {
 			const isAllowed = JSON.parse(res.request.response)
 			setAllow(isAllowed.allowed)
 			setIsLoading(false)
+			if (isAllowed.allowed === false) {
+				setCanBook(true)
+			}
 		}
 	}
 
@@ -96,6 +99,12 @@ const Event: FC = () => {
 		}
 		checkMaxNumberOfUsers()
 	}, [])
+
+	useEffect(() => {
+		if (userStore.user) {
+			checkIfUserAlreadyBookedEvent()
+		}
+	}, [canBook])
 
 	return (
 		<>
