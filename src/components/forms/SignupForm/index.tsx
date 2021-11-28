@@ -9,6 +9,7 @@ import { generateUploadUrl, uploadImage, createUser } from '../../../pages/api/a
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
 import { Avatar } from '@material-ui/core'
+import { ValidationToast } from '../../shared'
 
 const SignupForm: FC = () => {
 	const validationSchema = Yup.object().shape({
@@ -89,18 +90,6 @@ const SignupForm: FC = () => {
 		}
 	}, [file])
 
-	useEffect(() => {
-		if (success) {
-			setInterval(() => {
-				setSuccess(null)
-			}, 5000)
-		} else if (error) {
-			setInterval(() => {
-				setError(null)
-			}, 5000)
-		}
-	}, [success, error])
-
 	return (
 		<>
 			{isLoading ? <div className='fixed left-0 right-0 top-0 bottom-0 w-full h-screen bg-primary bg-opacity-25 z-50'>
@@ -111,22 +100,7 @@ const SignupForm: FC = () => {
 				</div>
 			</div> : null}
 			<form className='form' onSubmit={onSubmit}>
-				{error && (
-					<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 max-w-max w-full z-50'>
-						<div className='form-validation-error'>
-							{error.message}
-							<CloseIcon onClick={setError} className='form-validation-close-icon' />
-						</div>
-					</motion.div>
-				)}
-				{success && (
-					<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 max-w-max w-full z-50'>
-						<div className='form-validation-success'>
-							{success}
-							<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />
-						</div>
-					</motion.div>
-				)}
+				<ValidationToast error={error} setError={setError} success={success} setSuccess={setSuccess} />
 				<div className='form-element-image'>
 					<label className='form-label-image' htmlFor='email'>
 						<Avatar src={preview as string} />

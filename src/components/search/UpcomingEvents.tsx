@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import { FC } from 'react'
 import { IEvent } from '../../interfaces/event.interface'
 import eventStore from '../../stores/event.store'
-import EventBox from '../shared/eventBox/EventBox'
+import { EventBox } from '../shared'
 
 const UpcomingEvents: FC = () => {
 

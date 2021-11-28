@@ -3,12 +3,11 @@ import { useForm } from 'react-hook-form'
 import { observer } from 'mobx-react-lite'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
-import { motion } from 'framer-motion'
-import CloseIcon from '../../icons/CloseIcon'
 import { AddEventDto } from '../../../interfaces/event.interface'
 import eventStore from '../../../stores/event.store'
 import { createEvent, generateUploadUrl, updateEvent, uploadImage } from '../../../pages/api/event.actions'
 import userStore from '../../../stores/user.store'
+import { ValidationToast } from '../../shared'
 
 const AddEventForm: FC = () => {
 	const validationSchema = Yup.object().shape({
@@ -121,18 +120,6 @@ const AddEventForm: FC = () => {
 	}
 
 	useEffect(() => {
-		if (success) {
-			setInterval(() => {
-				setSuccess(null)
-			}, 5000)
-		} else if (error) {
-			setInterval(() => {
-				setError(null)
-			}, 5000)
-		}
-	}, [success, error])
-
-	useEffect(() => {
 		if (eventStore.updatedEvent) {
 			setTitle(eventStore.updatedEvent.title)
 			setLocation(eventStore.updatedEvent.location)
@@ -166,22 +153,7 @@ const AddEventForm: FC = () => {
 				</div>
 			</div> : null}
 			<form className='form max-w-full' onSubmit={onSubmit}>
-				{error && (
-					<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
-						<div className='form-validation-error'>
-							{error.message}
-							<CloseIcon onClick={setError} className='form-validation-close-icon' />
-						</div>
-					</motion.div>
-				)}
-				{success && (
-					<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
-						<div className='form-validation-success'>
-							{success}
-							<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />
-						</div>
-					</motion.div>
-				)}
+				<ValidationToast error={error} setError={setError} success={success} setSuccess={setSuccess} />
 				<div className='form-element'>
 					<label className='form-label' htmlFor='title'>Event name</label>
 					<input

@@ -1,3 +1,5 @@
 export { default as Header } from './Header'
 export { default as Footer } from './Footer'
 export { default as Logo } from './Logo'
+export { default as ValidationToast } from './ValidationToast'
+export { default as EventBox } from './eventBox/EventBox'

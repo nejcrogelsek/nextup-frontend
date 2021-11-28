@@ -5,12 +5,10 @@ import Link from 'next/link'
 import PersonFillIcon from '../icons/PersonFillIcon'
 import eventStore from '../../stores/event.store'
 import userStore from '../../stores/user.store'
-import { format } from 'date-fns'
 import { observer } from 'mobx-react'
 import { bookedEvents, bookEventReservation, deleteReservation, getEventByUrl, numOfVisitors } from '../../pages/api/event.actions'
-import { motion } from 'framer-motion'
-import CloseIcon from '../icons/CloseIcon'
 import router from 'next/router'
+import { ValidationToast } from '../shared'
 
 const Event: FC = () => {
 	const [error, setError] = useState<any | null>(null)
@@ -101,20 +99,6 @@ const Event: FC = () => {
 		checkMaxNumberOfUsers()
 	}, [])
 
-
-
-	useEffect(() => {
-		if (success) {
-			setInterval(() => {
-				setSuccess(null)
-			}, 5000)
-		} else if (error) {
-			setInterval(() => {
-				setError(null)
-			}, 5000)
-		}
-	}, [success, error])
-
 	return (
 		<>
 			{isLoading ? <div className='fixed left-0 right-0 top-0 bottom-0 w-full h-screen bg-primary bg-opacity-25 z-50'>
@@ -126,22 +110,7 @@ const Event: FC = () => {
 			</div> : null}
 			{eventStore.viewedEvent ?
 				<div className='max-w-screen-xl mx-auto'>
-					{error && (
-						<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
-							<div className='form-validation-error'>
-								{error.message}
-								<CloseIcon onClick={setError} className='form-validation-close-icon' />
-							</div>
-						</motion.div>
-					)}
-					{success && (
-						<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 w-96 z-50'>
-							<div className='form-validation-success'>
-								{success}
-								<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />
-							</div>
-						</motion.div>
-					)}
+					<ValidationToast error={error} setError={setError} success={success} setSuccess={setSuccess} />
 					<div className='absolute w-3/6 h-full -z-10 bg-alternative left-0 top-0'></div>
 					<div className='event-container w-full bg-alternative lg:w-9/12'>
 						<div className='swiper-event-image-wrap pt-24 lg:pt-0 lg:absolute lg:bottom-0 lg:right-0 lg:h-calc lg:overflow-hidden'>

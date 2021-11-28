@@ -75,6 +75,14 @@ export const getEventByUrl = async (
 ): Promise<AxiosResponse<IEvent>> => {
 	return axios.get(`/public/events/url/${url}`)
 }
+export const searchEvent = async (
+	searchTerm: string,
+): Promise<AxiosResponse<IEvent[] | AxiosError>> => {
+	return axios.post('/public/events/search', { searchTerm })
+		.catch((err) => {
+			return err.response.data
+		})
+}
 
 export const bookEventReservation = async (
 	event_id: string,

@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react'
-import EventBox from '../shared/eventBox/EventBox'
+import { EventBox } from '../shared'
 import { IEvent } from '../../interfaces/event.interface'
 import eventStore from '../../stores/event.store'
 import userStore from '../../stores/user.store'

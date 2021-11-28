@@ -6,10 +6,9 @@ import { observer } from 'mobx-react'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { login } from '../../../pages/api/auth.actions'
-import { motion } from 'framer-motion'
-import CloseIcon from '../../icons/CloseIcon'
 import userStore from '../../../stores/user.store'
 import router from 'next/router'
+import { ValidationToast } from '../../shared'
 
 const LoginForm: FC = () => {
 	const validationSchema = Yup.object().shape({
@@ -17,7 +16,6 @@ const LoginForm: FC = () => {
 		password: Yup.string().required('Password is required'),
 	})
 	const [error, setError] = useState<any | null>(null)
-	const [onErrorEmail, setOnErrorEmail] = useState<string | null>(null)
 	const [success, setSuccess] = useState<string | null>(null)
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -45,22 +43,9 @@ const LoginForm: FC = () => {
 			reset()
 		} else {
 			setError(res)
-			setOnErrorEmail(dataset.email)
 		}
 		setIsLoading(false)
 	}
-
-	useEffect(() => {
-		if (success) {
-			setInterval(() => {
-				setSuccess(null)
-			}, 5000)
-		} else if (error) {
-			setInterval(() => {
-				setError(null)
-			}, 5000)
-		}
-	}, [success, error])
 
 	useEffect(() => {
 		const name = router.query.message
@@ -79,22 +64,7 @@ const LoginForm: FC = () => {
 				</div>
 			</div> : null}
 			<form className='form' onSubmit={onSubmit}>
-				{error && (
-					<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 max-w-max w-full z-50'>
-						<div className='form-validation-error'>
-							{error.statusCode === 401 ? `User with email: ${onErrorEmail} does not exist.` : error.message}
-							<CloseIcon onClick={setError} className='form-validation-close-icon' />
-						</div>
-					</motion.div>
-				)}
-				{success && (
-					<motion.div initial={{ opacity: 0, transform: 'translateX(20%)' }} animate={{ opacity: 1, transform: 'translateX(0%)' }} className='fixed right-4 bottom-12 max-w-max w-full z-50'>
-						<div className='form-validation-success'>
-							{success}
-							<CloseIcon onClick={setSuccess} className='form-validation-close-icon' />
-						</div>
-					</motion.div>
-				)}
+				<ValidationToast error={error} setError={setError} success={success} setSuccess={setSuccess} />
 				<div className='form-element'>
 					<label className='form-label' htmlFor='email'>Email</label>
 					<input
