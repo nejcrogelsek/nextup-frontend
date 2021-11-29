@@ -16,6 +16,13 @@ const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 	const signout = () => {
 		toggleNav()
 		localStorage.removeItem('user')
+		fetch('/api/remove-cookie', {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({})
+		})
 		userStore.logout()
 	}
 

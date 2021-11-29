@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react'
+import userStore from '../../stores/user.store'
 import Events from './Events'
 import SliderVertical from './SliderVertical'
 
@@ -24,7 +25,7 @@ const Search: FC = () => {
 		<div className='profile-container'>
 			<div className='bg-alternative lg:h-[500px] bg-no-repeat bg-cover flex justify-center items-center lg:items-start'>
 				<div className='w-full app-padding mx-auto pt-32 lg:pt-36 text-center'>
-					<h1 className='font-semibold text-5xl text-primary leading-12 lg:leading-13 lg:text-65xl'>Floyd Miles</h1>
+					<h1 className='font-semibold text-5xl text-primary leading-12 lg:leading-13 lg:text-65xl'>{userStore.user && `${userStore.user.first_name} ${userStore.user.last_name}`}</h1>
 				</div>
 			</div>
 			<div className='bg-alternative lg:bg-transparent lg:flex justify-between max-w-screen-xl app-padding mx-auto pt-6 pb-12 lg:-mt-60'>
