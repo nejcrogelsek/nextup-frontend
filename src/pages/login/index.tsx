@@ -1,14 +1,18 @@
 import { FC } from 'react'
 import LoginPage from '../../components/login/Login'
 import { Footer } from '../../components/shared'
-import userStore from '../../stores/user.store'
-import ProfilePage from '../../components/profile/Profile'
 import { observer } from 'mobx-react'
+import userStore from '../../stores/user.store'
+import router from 'next/router'
 
 const Login: FC = () => {
+
+	if (userStore.user) {
+		router.push('/profile')
+	}
 	return (
 		<>
-			{userStore.user ? <ProfilePage /> : <LoginPage />}
+			<LoginPage />
 			<Footer />
 		</>
 	)

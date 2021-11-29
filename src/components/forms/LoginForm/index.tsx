@@ -40,6 +40,13 @@ const LoginForm: FC = () => {
 			const data = JSON.parse(res.request.response)
 			userStore.login(data.user)
 			localStorage.setItem('user', data.token)
+			fetch('/api/set-cookie', {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ token: data.token })
+			})
 			reset()
 		} else {
 			setError(res)

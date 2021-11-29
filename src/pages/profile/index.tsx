@@ -1,6 +1,5 @@
 import { GetServerSideProps } from 'next'
 import { FC } from 'react'
-import LoginPage from '../../components/login/Login'
 import ProfilePage from '../../components/profile/Profile'
 import { Footer } from '../../components/shared'
 import { requireAuthentication } from '../../HOC/requireAuthentication/requireAuthentication'
@@ -8,7 +7,7 @@ import { requireAuthentication } from '../../HOC/requireAuthentication/requireAu
 const Profile: FC = () => {
 	return (
 		<>
-			<ProfilePage /> : <LoginPage />
+			<ProfilePage />
 			<Footer />
 		</>
 	)

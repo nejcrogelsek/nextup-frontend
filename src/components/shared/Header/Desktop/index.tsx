@@ -7,6 +7,13 @@ import userStore from '../../../../stores/user.store'
 const NavDesktop: FC = () => {
 	const signout = () => {
 		localStorage.removeItem('user')
+		fetch('/api/remove-cookie', {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({})
+		})
 		userStore.logout()
 	}
 
