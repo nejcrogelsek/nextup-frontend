@@ -1,14 +1,14 @@
 import { FC } from 'react'
 import SettingsIcon from '../../icons/SettingsIcon'
 import TickIcon from '../../icons/TickIcon'
-import router from 'next/router'
+import { useRouter } from 'next/router'
 import eventStore from '../../../stores/event.store'
 import { observer } from 'mobx-react'
 import { EventBoxProps } from '../../../interfaces/props.interface'
 import { format } from 'date-fns'
 
 const EventBox: FC<EventBoxProps> = ({ className, type, url, title, event_image, id, max_visitors, location, date_start, time_start, description, user_id }: EventBoxProps) => {
-
+	const router = useRouter()
 	const updateEvent = () => {
 		console.log('USER ID')
 		console.log(user_id)

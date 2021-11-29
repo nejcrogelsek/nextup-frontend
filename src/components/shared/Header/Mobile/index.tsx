@@ -4,7 +4,7 @@ import { FC } from 'react'
 import ArrowRightIcon from '../../../icons/ArrowRight'
 import CloseIcon from '../../../icons/CloseIcon'
 import Link from 'next/link'
-import router from 'next/router'
+import { useRouter } from 'next/router'
 import userStore from '../../../../stores/user.store'
 
 interface Props {
@@ -13,6 +13,7 @@ interface Props {
 }
 
 const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
+	const router = useRouter()
 	const signout = () => {
 		toggleNav()
 		localStorage.removeItem('user')

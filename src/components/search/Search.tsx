@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { observer } from 'mobx-react'
-import router from 'next/router'
+import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 import { IEvent } from '../../interfaces/event.interface'
 import { searchEvent } from '../../pages/api/event.actions'
@@ -12,6 +12,7 @@ import SliderCard from './SliderCard'
 import UpcomingEvents from './UpcomingEvents'
 
 const Search: FC = () => {
+	const router = useRouter()
 	const [searchTerm, setSearchTerm] = useState<string>('')
 	const [dateTerm, setDateTerm] = useState<string>('')
 	const [error, setError] = useState<any | null>(null)

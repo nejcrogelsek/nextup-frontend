@@ -7,10 +7,12 @@ import eventStore from '../../stores/event.store'
 import userStore from '../../stores/user.store'
 import { observer } from 'mobx-react'
 import { bookedEvents, bookEventReservation, deleteReservation, getEventByUrl, numOfVisitors } from '../../pages/api/event.actions'
-import router from 'next/router'
+import { useRouter } from 'next/router'
 import { ValidationToast } from '../shared'
 
 const Event: FC = () => {
+	const router = useRouter()
+	const { url } = router.query
 	const [error, setError] = useState<any | null>(null)
 	const [success, setSuccess] = useState<string | null>(null)
 	const [allow, setAllow] = useState<boolean>(false)
@@ -73,7 +75,7 @@ const Event: FC = () => {
 	}
 
 	const getEventData = async () => {
-		const res = await getEventByUrl(router.query.url.toString())
+		const res = await getEventByUrl(url.toString())
 		if (res.request) {
 			const data = JSON.parse(JSON.parse(JSON.stringify(res.request.response)))
 			eventStore.viewedEvent = {
@@ -93,7 +95,6 @@ const Event: FC = () => {
 	}
 
 	useEffect(() => {
-		getEventData()
 		if (userStore.user) {
 			checkIfUserAlreadyBookedEvent()
 		}
@@ -105,6 +106,13 @@ const Event: FC = () => {
 			checkIfUserAlreadyBookedEvent()
 		}
 	}, [canBook])
+
+	useEffect(() => {
+		if (!url) {
+			return;
+		}
+		getEventData()
+	}, [url])
 
 	return (
 		<>

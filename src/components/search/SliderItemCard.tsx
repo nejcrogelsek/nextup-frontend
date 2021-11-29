@@ -3,7 +3,7 @@ import Image from 'next/image'
 import LocationIcon from '../icons/LocationIcon'
 import PersonFillIcon from '../icons/PersonFillIcon'
 import eventStore from '../../stores/event.store'
-import router from 'next/router'
+import { useRouter } from 'next/router'
 import { observer } from 'mobx-react'
 
 interface Props {
@@ -20,6 +20,7 @@ interface Props {
 }
 
 const SliderItemCard: FC<Props> = ({ id, event_image, description, image, title, date_start, time_start, location, max_visitors, url }: Props) => {
+	const router = useRouter()
 	const checkEvent = () => {
 		eventStore.viewedEvent = {
 			id,

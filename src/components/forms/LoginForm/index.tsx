@@ -7,10 +7,11 @@ import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { login } from '../../../pages/api/auth.actions'
 import userStore from '../../../stores/user.store'
-import router from 'next/router'
+import { useRouter } from 'next/router'
 import { ValidationToast } from '../../shared'
 
 const LoginForm: FC = () => {
+	const router = useRouter()
 	const validationSchema = Yup.object().shape({
 		email: Yup.string().required('Email is required').email('Email is invalid'),
 		password: Yup.string().required('Password is required'),
