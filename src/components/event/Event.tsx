@@ -146,7 +146,7 @@ const Event: FC = () => {
 									<span>{eventStore.viewedEvent.date_start}</span>
 									<span>{eventStore.viewedEvent.time_start}</span>
 								</p>
-								<h1 className='font-medium mb-8 mt-4 text-5xl text-primary leading-12 lg:leading-13 lg:text-6xl'>{eventStore.viewedEvent.title}</h1>
+								<h1 className='font-medium mb-8 mt-4 text-5xl text-primary leading-12 lg:leading-13 lg:text-6xl break-words'>{eventStore.viewedEvent.title}</h1>
 								<p className='pb-10 flex justify-between it ems-center'>
 									<span className='flex items-center font-medium pr-4'>
 										<LocationIcon className='mr-2' fill='#2f3c7e' width='22' height='20' />
