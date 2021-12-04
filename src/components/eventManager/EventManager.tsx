@@ -5,14 +5,17 @@ import SliderVertical from './SliderVertical'
 
 const EventManagerPage: FC = () => {
 	const [isMobile, setIsMobile] = useState(true)
+	const [limit, setLimit] = useState(4);
 
 	const checkIfMobile = () => {
-		if (window.innerWidth < 1024) {
-			setIsMobile(true)
+		if (window.innerWidth < 992) {
+			setIsMobile(true);
+			setLimit(4);
 		} else {
-			setIsMobile(false)
+			setIsMobile(false);
+			setLimit(7);
 		}
-	}
+	};
 
 	useEffect(() => {
 		checkIfMobile()
@@ -21,6 +24,22 @@ const EventManagerPage: FC = () => {
 			window.removeEventListener('resize', checkIfMobile)
 		}
 	}, [])
+
+	const showMoreEvents = () => {
+		if (isMobile) {
+			setLimit(limit + 4);
+		} else {
+			setLimit(limit + 7);
+		}
+	}
+
+	useEffect(() => {
+		checkIfMobile();
+		window.addEventListener('resize', checkIfMobile);
+		return () => {
+			window.removeEventListener('resize', checkIfMobile);
+		};
+	}, []);
 
 	return (
 		<div className='bg-alternative'>
@@ -31,8 +50,8 @@ const EventManagerPage: FC = () => {
 				</div>
 				<div className='w-full lg:w-2/4/2'>
 					<h2 className='capitalize font-medium text-2xl m-mb-18'>Added events</h2>
-					{isMobile ? <AddedEvents /> : <SliderVertical />}
-					<button type='button' className='bg-primary mx-auto text-white w-max px-8 py-2 my-5 rounded-3xl flex justify-center items-center transition hover:bg-black lg:hidden'>Load more</button>
+					{isMobile ? <AddedEvents limit={limit} /> : <SliderVertical />}
+					<button type='button' className='bg-primary mx-auto text-white w-max px-8 py-2 my-5 rounded-3xl flex justify-center items-center transition hover:bg-black lg:hidden' onClick={showMoreEvents}>Load more</button>
 				</div>
 			</div>
 		</div>

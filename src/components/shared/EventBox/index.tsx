@@ -39,7 +39,7 @@ const EventBox: FC<EventBoxProps> = ({ className, type, url, title, event_image,
 					<span className='block'>{format(new Date(date_start.split('.').reverse().join('-')), 'E..EEE').slice(0, 3)}{' '}{time_start}</span>
 				</div>
 				<div className='eventbox-column'>
-					<span>{title}</span>
+					<span className='break-all'>{title}</span>
 					<span>{location}</span>
 				</div>
 			</div>

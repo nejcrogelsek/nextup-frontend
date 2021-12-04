@@ -13,6 +13,8 @@ import UpcomingEvents from './UpcomingEvents'
 
 const Search: FC = () => {
 	const router = useRouter()
+	const [isMobile, setIsMobile] = useState(true);
+	const [limit, setLimit] = useState(4);
 	const [searchTerm, setSearchTerm] = useState<string>('')
 	const [dateTerm, setDateTerm] = useState<string>('')
 	const [error, setError] = useState<any | null>(null)
@@ -88,6 +90,34 @@ const Search: FC = () => {
 			setDateError(false)
 		}
 	}, [dateTerm])
+
+
+	const showMoreEvents = () => {
+		if (isMobile) {
+			setLimit(limit + 4);
+		} else {
+			setLimit(limit + 7);
+		}
+	}
+
+	const checkIfMobile = () => {
+		if (window.innerWidth < 992) {
+			setIsMobile(true);
+			setLimit(4);
+		} else {
+			setIsMobile(false);
+			setLimit(7);
+		}
+	};
+
+	useEffect(() => {
+		checkIfMobile();
+		window.addEventListener('resize', checkIfMobile);
+		return () => {
+			window.removeEventListener('resize', checkIfMobile);
+		};
+	}, []);
+
 	return (
 		<>
 			<ValidationToast error={error} setError={setError} />
@@ -135,8 +165,8 @@ const Search: FC = () => {
 					<SliderCard />
 					<h2 className='font-normal mt-12 mb-4 text-2xl'>Events</h2>
 					<p className='capitalize mb-8'>All upcoming events</p>
-					<UpcomingEvents />
-					<button type='button' className='bg-primary mx-auto text-white w-max px-8 py-2 my-8 rounded-3xl flex justify-center items-center transition hover:bg-black'>Load more</button>
+					<UpcomingEvents limit={limit} />
+					<button type='button' className='bg-primary mx-auto text-white w-max px-8 py-2 my-8 rounded-3xl flex justify-center items-center transition hover:bg-black' onClick={showMoreEvents}>Load more</button>
 				</div>
 			</div>
 		</>
