@@ -51,7 +51,7 @@ const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 							</li>
 							<li className='mb-4'>
 								<Link href='/'>
-									<a className='flex justify-between items-center'>
+									<a className='flex justify-between items-center' onClick={toggleNav}>
 										<span className='text-2xl text-primary'>Home</span>
 										<ArrowRightIcon fill='#2f3c7e' />
 									</a>
@@ -59,7 +59,7 @@ const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 							</li>
 							<li className='mb-4'>
 								<Link href='/search'>
-									<a className='flex justify-between items-center'>
+									<a className='flex justify-between items-center' onClick={toggleNav}>
 										<span className='text-2xl text-primary'>Search</span>
 										<ArrowRightIcon fill='#2f3c7e' />
 									</a>
@@ -67,7 +67,7 @@ const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 							</li>
 							<li className='mb-4'>
 								<Link href='/event-manager'>
-									<a className='flex justify-between items-center'>
+									<a className='flex justify-between items-center' onClick={toggleNav}>
 										<span className='text-2xl text-primary'>Event manager</span>
 										<ArrowRightIcon fill='#2f3c7e' />
 									</a>
@@ -84,7 +84,7 @@ const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 						<>
 							<li className='mb-4'>
 								<Link href='/'>
-									<a className='flex justify-between items-center'>
+									<a className='flex justify-between items-center' onClick={toggleNav}>
 										<span className='text-2xl text-primary'>Home</span>
 										<ArrowRightIcon fill='#2f3c7e' />
 									</a>
@@ -92,7 +92,7 @@ const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 							</li>
 							<li className='mb-4'>
 								<Link href='/search'>
-									<a className='flex justify-between items-center'>
+									<a className='flex justify-between items-center' onClick={toggleNav}>
 										<span className='text-2xl text-primary'>Search</span>
 										<ArrowRightIcon fill='#2f3c7e' />
 									</a>
@@ -100,7 +100,7 @@ const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 							</li>
 							<li>
 								<Link href='/login'>
-									<a className='bg-primary w-full text-white px-4 py-2 rounded-3xl flex justify-center items-center'>Login</a>
+									<a className='bg-primary w-full text-white px-4 py-2 rounded-3xl flex justify-center items-center'  onClick={toggleNav}>Login</a>
 								</Link>
 							</li>
 						</>

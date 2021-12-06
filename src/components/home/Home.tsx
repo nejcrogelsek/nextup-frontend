@@ -134,7 +134,7 @@ const Home: FC = () => {
 											</li>
 										))}
 									</motion.ul>}
-								<button className='bg-primary w-full text-white px-4 py-2 rounded-2xl flex justify-center items-center transition hover:bg-black lg:flex-1 lg:max-w-xs' disabled={searchTerm === '' && dateTerm === '' ? true : false} onClick={searchFunctionality}>Search</button>
+								<button className='bg-primary w-full text-white px-4 py-2 rounded-2xl flex justify-center items-center border-[1px] border-primary hover:border-bg-black transition disabled:cursor-not-allowed disabled:hover:bg-primary hover:bg-black hover:border-black lg:flex-1 lg:max-w-xs' disabled={searchTerm === '' && dateTerm === '' ? true : false} onClick={searchFunctionality}>Search</button>
 							</div>
 						</div>
 					</div>

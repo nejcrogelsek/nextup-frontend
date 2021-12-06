@@ -156,7 +156,7 @@ const Search: FC = () => {
 										</li>
 									))}
 								</motion.ul>}
-							<button className='bg-primary w-full text-white px-4 py-2 rounded-3xl flex justify-center items-center transition hover:bg-black lg:flex-1 lg:max-w-xs disabled:cursor-not-allowed disabled:hover:bg-primary' disabled={searchTerm === '' && dateTerm === '' ? true : false} onClick={searchFunctionality}>Search</button>
+							<button className='bg-primary w-full text-white px-4 py-2 rounded-3xl flex justify-center items-center transition hover:bg-black lg:flex-1 lg:max-w-xs disabled:cursor-not-allowed disabled:hover:bg-primary border-[1px] border-primary hover:border-bg-black' disabled={searchTerm === '' && dateTerm === '' ? true : false} onClick={searchFunctionality}>Search</button>
 						</div>
 					</div>
 				</div>
