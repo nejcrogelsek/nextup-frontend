@@ -19,23 +19,6 @@ const Search: FC = () => {
 	const [dateTerm, setDateTerm] = useState<string>('')
 	const [error, setError] = useState<any | null>(null)
 	const [dateError, setDateError] = useState<boolean>(false)
-	const [showSearchDropDown, setShowSearchDropDown] = useState<boolean>(false)
-	const searchForEvent = (val: IEvent) => {
-		eventStore.viewedEvent = {
-			id: val._id,
-			title: val.title,
-			url: val.url,
-			date_start: val.date_start,
-			time_start: val.time_start,
-			location: val.location,
-			max_visitors: val.max_visitors,
-			event_image: val.event_image,
-			description: val.description
-		}
-		router.push({
-			pathname: `/event/${val.url}`
-		})
-	}
 
 	const getUpcomingEvents = async () => {
 		await eventStore.getUpcomingEvents()
@@ -73,16 +56,6 @@ const Search: FC = () => {
 			eventStore.searchResults = null
 		}
 		getUpcomingEvents()
-
-		document.addEventListener('mousedown', () => {
-			setShowSearchDropDown(false)
-		})
-
-		return () => {
-			document.removeEventListener('mousedown', () => {
-				setShowSearchDropDown(false)
-			})
-		}
 	}, [])
 
 	useEffect(() => {
@@ -129,7 +102,7 @@ const Search: FC = () => {
 						<div className='bg-white myshadow rounded-3xl lg:flex lg:items-center lg:justify-between lg:shadow-none lg:w-full relative'>
 							<div className='flex px-4 pt-4 lg:p-0'>
 								<LocationIcon width='40' height='40' fill='#2f3c7e' className='ml-2' />
-								<input type='text' placeholder='Search by location' className='border-0 focus:border-0 focus:ring-0 lg:m-0 shadow-none' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onPointerUp={() => setShowSearchDropDown(true)} />
+								<input type='text' placeholder='Search by location' className='border-0 focus:border-0 focus:ring-0 lg:m-0 shadow-none' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
 								<DateIcon width='40' height='40' fill='#2f3c7e' />
 								<input
 									type='text'
@@ -140,22 +113,6 @@ const Search: FC = () => {
 									onChange={(e) => onChangeDate(e)}
 								/>
 							</div>
-							{!showSearchDropDown || searchTerm === '' ? null :
-								<motion.ul initial={{ transform: 'translateY(10%)', opacity: 0 }} animate={{ transform: 'translateY(0%)', opacity: 1 }} className='absolute mt-2 max-h-[224px] overflow-y-auto left-0 right-0 top-full rounded-3xl bg-white z-20'>
-									{eventStore.upcomingEvents.filter((val: IEvent) => {
-										if (searchTerm === '') {
-											return null
-										} else if (val.title.toLowerCase().includes(searchTerm.toLowerCase()) || val.location.toLowerCase().includes(searchTerm.toLowerCase()) || val.description.toLowerCase().includes(searchTerm.toLowerCase())) {
-											return val
-										}
-									}).map((val: IEvent, index: number) => (
-										<li key={index} className='rounded-3xl p-2'>
-											<button type='button' className='px-2 cursor-pointer transition hover:bg-gray-300 block w-full py-2 text-left rounded-3xl' onClick={() => searchForEvent(val)}>
-												{val.location}
-											</button>
-										</li>
-									))}
-								</motion.ul>}
 							<button className='bg-primary w-full text-white px-4 py-2 rounded-3xl flex justify-center items-center transition hover:bg-black lg:flex-1 lg:max-w-xs disabled:cursor-not-allowed disabled:hover:bg-primary border-[1px] border-primary hover:border-bg-black' disabled={searchTerm === '' && dateTerm === '' ? true : false} onClick={searchFunctionality}>Search</button>
 						</div>
 					</div>
