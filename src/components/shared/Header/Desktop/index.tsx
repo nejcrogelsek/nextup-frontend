@@ -3,8 +3,10 @@ import Link from 'next/link'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 import userStore from '../../../../stores/user.store'
+import { useRouter } from 'next/router'
 
 const NavDesktop: FC = () => {
+	const router = useRouter()
 	const signout = () => {
 		localStorage.removeItem('user')
 		fetch('/api/remove-cookie', {
@@ -15,6 +17,7 @@ const NavDesktop: FC = () => {
 			body: JSON.stringify({})
 		})
 		userStore.logout()
+		router.push('/signup')
 	}
 
 	return (

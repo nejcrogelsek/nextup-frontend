@@ -10,7 +10,7 @@ export const requireAuthentication = (gssp: GetServerSideProps) => {
 
 		if (req.headers.cookie) {
 			const token: string | null = req.headers.cookie.slice(6, req.headers.cookie.length)
-			console.log(token)
+			console.log('COOKIE: ', token)
 			if (!token) {
 				return <Redirect to='/signup' />
 			}

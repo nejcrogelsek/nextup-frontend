@@ -25,6 +25,7 @@ const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 			body: JSON.stringify({})
 		})
 		userStore.logout()
+		router.push('/signup')
 	}
 
 	const navigateTo = (pathname: string) => {
@@ -100,7 +101,7 @@ const NavMobile: FC<Props> = ({ toggleNav, toggle }: Props) => {
 							</li>
 							<li>
 								<Link href='/login'>
-									<a className='bg-primary w-full text-white px-4 py-2 rounded-3xl flex justify-center items-center'  onClick={toggleNav}>Login</a>
+									<a className='bg-primary w-full text-white px-4 py-2 rounded-3xl flex justify-center items-center' onClick={toggleNav}>Login</a>
 								</Link>
 							</li>
 						</>
