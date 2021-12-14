@@ -106,7 +106,15 @@ const AddEventForm: FC = () => {
 				reset()
 				eventStore.updateEvent(res.request, eventStore.updatedEvent.id, userStore.user._id)
 				setSuccess('Event successfully updated.')
+				getAddedEvents()
 			}
+		}
+	}
+
+	const getAddedEvents = () => {
+		const token: string | null = localStorage.getItem('user')
+		if (token) {
+			eventStore.getUserEvents(token)
 		}
 	}
 

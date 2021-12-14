@@ -62,9 +62,35 @@ class EventStore {
 	}
 
 	updateEvent(event: IEvent, event_id: string, user_id: string) {
-		const filterEvent = this.userEvents?.filter(ev => ev._id !== event_id)
-		filterEvent.push({ _id: event_id, user_id: user_id, ...event })
-		this.userEvents = filterEvent
+		console.log(event)
+		console.log(event_id)
+		console.log(user_id)
+		// const filterEvent = this.userEvents?.filter(ev => ev._id !== event_id)
+		// const newEvent = this.userEvents?.filter(ev => ev._id === event_id)
+		// filterEvent.push({
+		// 	_id: event_id,
+		// 	user_id: user_id,
+		// 	title: event.title,
+		// 	description: event.description,
+		// 	location: event.location,
+		// 	max_visitors: event.max_visitors,
+		// 	date_start: event.date_start,
+		// 	time_start: event.time_start,
+		// 	event_image: newEvent[0].event_image,
+		// 	url: newEvent[0].url,
+		// })
+		// this.userEvents = filterEvent
+
+
+		// event.title = event.title
+		// event.description = event.description
+		// event.location = event.location
+		// event.max_visitors = event.max_visitors
+		// event.date_start = event.date_start
+		// event.time_start = event.time_start
+		// if (event.event_image) {
+		// 	event.event_image = event.event_image
+		// }
 	}
 
 }

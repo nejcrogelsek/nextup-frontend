@@ -1,4 +1,5 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next"
+import { Redirect } from "../../components/shared"
 
 
 export const requireAuthentication = (gssp: GetServerSideProps) => {
@@ -11,13 +12,7 @@ export const requireAuthentication = (gssp: GetServerSideProps) => {
 			const token: string | null = req.headers.cookie.slice(6, req.headers.cookie.length)
 			console.log(token)
 			if (!token) {
-				console.log('returning')
-				return {
-					redirect: {
-						permanent: false,
-						destination: '/signup'
-					}
-				}
+				return <Redirect to='/signup' />
 			}
 		}
 
