@@ -7,14 +7,7 @@ import {
 } from '../../interfaces/auth.interface'
 import { AxiosError, AxiosResponse } from 'axios'
 import { IUser } from '../../interfaces/user.interface'
-
-export const login = async (
-	dataset: SignInData
-): Promise<AxiosResponse<SignInData> | AxiosError> => {
-	return axios.post('/auth/login', dataset).catch((err) => {
-		return err.response.data
-	})
-}
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 export const generateUploadUrl = async (): Promise<AxiosResponse<Response>> => {
 	return axios.get('/public/upload')
@@ -29,7 +22,39 @@ export const uploadImage = async (
 	})
 }
 
+export const login = async (
+	dataset: SignInData
+): Promise<AxiosResponse<SignInData> | AxiosError> => {
+	return axios.post('/auth/login', dataset).catch((err) => {
+		return err.response.data
+	})
+}
+
 export const createUser = async (
+	dataset: SignUpData,
+	image_url: string
+): Promise<AxiosResponse<IAuthReturnData> | AxiosError> => {
+	const data = {
+		profile_image: image_url,
+		email: dataset.email,
+		first_name: dataset.first_name,
+		last_name: dataset.last_name,
+		password: dataset.password,
+		confirm_password: dataset.confirm_password,
+	}
+	return axios.post('/auth/register', data).catch((err) => {
+		return err.response.data
+	})
+}
+
+export const loginWithFirebase = async (
+	dataset: SignInData
+): Promise<AxiosResponse<SignInData> | AxiosError> => {
+	const email: string = dataset.email
+	const password: string = dataset.password
+}
+
+export const createUserWithFirebase = async (
 	dataset: SignUpData,
 	image_url: string
 ): Promise<AxiosResponse<IAuthReturnData> | AxiosError> => {
