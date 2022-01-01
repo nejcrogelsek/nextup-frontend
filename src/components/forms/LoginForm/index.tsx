@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { observer } from 'mobx-react'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
-import { login } from '../../../pages/api/auth.actions'
+import { login, loginWithFirebase } from '../../../pages/api/auth.actions'
 import userStore from '../../../stores/user.store'
 import { useRouter } from 'next/router'
 import { ValidationToast } from '../../shared'
@@ -38,17 +38,22 @@ const LoginForm: FC = () => {
 		setIsLoading(true)
 		const res = await login(dataset)
 		if (res.request) {
-			const data = JSON.parse(res.request.response)
-			userStore.login(data.user)
-			localStorage.setItem('user', data.token)
-			fetch('/api/set-cookie', {
-				method: 'post',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ token: data.token })
-			})
-			reset()
+			const result = await loginWithFirebase(dataset)
+			if (result.success) {
+				const data = JSON.parse(res.request.response)
+				userStore.login(data.user)
+				localStorage.setItem('user', data.token)
+				fetch('/api/set-cookie', {
+					method: 'post',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ token: data.token })
+				})
+				reset()
+			} else {
+				setError('Firebase LOGIN FAILED!')
+			}
 		} else {
 			setError(res)
 		}

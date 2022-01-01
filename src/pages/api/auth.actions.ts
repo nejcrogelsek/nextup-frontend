@@ -7,7 +7,8 @@ import {
 } from '../../interfaces/auth.interface'
 import { AxiosError, AxiosResponse } from 'axios'
 import { IUser } from '../../interfaces/user.interface'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../config/firebase'
 
 export const generateUploadUrl = async (): Promise<AxiosResponse<Response>> => {
 	return axios.get('/public/upload')
@@ -49,26 +50,29 @@ export const createUser = async (
 
 export const loginWithFirebase = async (
 	dataset: SignInData
-): Promise<AxiosResponse<SignInData> | AxiosError> => {
+): Promise<{ success: boolean }> => {
 	const email: string = dataset.email
 	const password: string = dataset.password
+	const result = await signInWithEmailAndPassword(auth, email, password)
+	if (result.user) {
+		return { success: true }
+	} else {
+		return { success: false }
+	}
 }
 
 export const createUserWithFirebase = async (
 	dataset: SignUpData,
 	image_url: string
-): Promise<AxiosResponse<IAuthReturnData> | AxiosError> => {
-	const data = {
-		profile_image: image_url,
-		email: dataset.email,
-		first_name: dataset.first_name,
-		last_name: dataset.last_name,
-		password: dataset.password,
-		confirm_password: dataset.confirm_password,
+): Promise<{ success: boolean }> => {
+	const email: string = dataset.email
+	const password: string = dataset.password
+	const result = await createUserWithEmailAndPassword(auth, email, password)
+	if (result.user) {
+		return { success: true }
+	} else {
+		return { success: false }
 	}
-	return axios.post('/auth/register', data).catch((err) => {
-		return err.response.data
-	})
 }
 
 export const refreshTokenFC = async (

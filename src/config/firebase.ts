@@ -1,5 +1,4 @@
 import { initializeApp } from 'firebase/app'
-import { getAnalytics } from 'firebase/analytics'
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
@@ -18,6 +17,4 @@ const firebaseApp = initializeApp(firebaseConfig)
 const auth = getAuth(firebaseApp)
 auth.useDeviceLanguage()
 
-const firebaseAnalytics = getAnalytics()
-
-export { auth, firebaseAnalytics }
+export { auth }

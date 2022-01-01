@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { observer } from 'mobx-react'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
-import { generateUploadUrl, uploadImage, createUser } from '../../../pages/api/auth.actions'
+import { generateUploadUrl, uploadImage, createUser, createUserWithFirebase } from '../../../pages/api/auth.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
 import { Avatar } from '@material-ui/core'
@@ -56,10 +56,15 @@ const SignupForm: FC = () => {
 			setIsLoading(true)
 			const res = await createUser(dataset, imageUrl[0])
 			if (res.request) {
-				setSuccess('Check your inbox and verify your email.')
-				setPreview(null)
-				setFile(null)
-				reset()
+				const result = await createUserWithFirebase(dataset, imageUrl[0])
+				if (result.success) {
+					setSuccess('Check your inbox and verify your email.')
+					setPreview(null)
+					setFile(null)
+					reset()
+				} else {
+					setError('Firebase REGISTER FAILED!')
+				}
 			} else {
 				setError(res)
 			}

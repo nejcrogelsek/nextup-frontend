@@ -1,21 +1,23 @@
-import 'tailwindcss/tailwind.css';
-import '../styles/global.css';
-import ProgressBar from '@badrap/bar-of-progress';
-import Router from 'next/router';
-import { Header } from '../components/shared';
-import { useEffect } from 'react';
-import userStore from '../stores/user.store';
-import { accessTokenFC, refreshTokenFC } from './api/auth.actions';
+import 'tailwindcss/tailwind.css'
+import '../styles/global.css'
+import ProgressBar from '@badrap/bar-of-progress'
+import Router from 'next/router'
+import { Header } from '../components/shared'
+import { useEffect } from 'react'
+import userStore from '../stores/user.store'
+import { accessTokenFC, refreshTokenFC } from './api/auth.actions'
+import { auth } from '../config/firebase'
+import { onAuthStateChanged, User } from 'firebase/auth'
 
 const progress = new ProgressBar({
 	size: 4,
 	color: '#2f3c7e',
 	className: 'z-50',
 	delay: 100,
-});
+})
 
-Router.events.on('routeChangeStart', progress.start);
-Router.events.on('routeChangeComplete', progress.finish);
+Router.events.on('routeChangeStart', progress.start)
+Router.events.on('routeChangeComplete', progress.finish)
 
 function NextupApp({ Component, pageProps }) {
 	const checkIfAccessTokenExists = async () => {
@@ -59,6 +61,26 @@ function NextupApp({ Component, pageProps }) {
 		return () => clearInterval(interval)
 	}, [])
 
+	useEffect(() => {
+		onAuthStateChanged(auth, (authUser: User | null) => {
+			if (authUser) {
+				userStore.login(
+					{
+						_id: authUser.uid,
+						email: authUser.email,
+						first_name: authUser.displayName,
+						last_name: authUser.displayName,
+						profile_image: authUser.photoURL,
+						confirmed: authUser.emailVerified
+					}
+				)
+				console.log(authUser)
+			} else {
+				userStore.logout()
+			}
+		})
+	}, [])
+
 	return (
 		<>
 			<Header />
@@ -67,4 +89,4 @@ function NextupApp({ Component, pageProps }) {
 	)
 }
 
-export default NextupApp;
+export default NextupApp
