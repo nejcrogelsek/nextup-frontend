@@ -6,8 +6,6 @@ import { Header } from '../components/shared'
 import { useEffect } from 'react'
 import userStore from '../stores/user.store'
 import { accessTokenFC, refreshTokenFC } from './api/auth.actions'
-import { auth } from '../config/firebase'
-import { onAuthStateChanged, User } from 'firebase/auth'
 
 const progress = new ProgressBar({
 	size: 4,
@@ -59,26 +57,6 @@ function NextupApp({ Component, pageProps }) {
 		}, 1000 * 60 * 14)
 
 		return () => clearInterval(interval)
-	}, [])
-
-	useEffect(() => {
-		onAuthStateChanged(auth, (authUser: User | null) => {
-			if (authUser) {
-				userStore.login(
-					{
-						_id: authUser.uid,
-						email: authUser.email,
-						first_name: authUser.displayName,
-						last_name: authUser.displayName,
-						profile_image: authUser.photoURL,
-						confirmed: authUser.emailVerified
-					}
-				)
-				console.log(authUser)
-			} else {
-				userStore.logout()
-			}
-		})
 	}, [])
 
 	return (
